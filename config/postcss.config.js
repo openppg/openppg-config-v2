@@ -8,7 +8,8 @@ module.exports = {
     purgecss({
       content: [
         './layouts/**/*.html',
-        './content/**/*.md',      
+        './content/**/*.md',
+        './content/**/*.html',
       ],
       safelist: [
         'lazyloaded',
