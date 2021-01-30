@@ -2,14 +2,14 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
     <url>
-      <loc>https://openppg.github.io/openppg-config-test/docs/controllers/sp140/</loc>
+      <loc>/docs/controllers/sp140/</loc>
       <lastmod>2021-01-28T12:22:06-06:00</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.5</priority>
     </url>
     
     <url>
-      <loc>https://openppg.github.io/openppg-config-test/docs/controllers/x4/</loc>
+      <loc>/docs/controllers/x4/</loc>
       <lastmod>2021-01-28T12:22:06-06:00</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.5</priority>

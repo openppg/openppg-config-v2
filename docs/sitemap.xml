@@ -3,105 +3,105 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://openppg.github.io/openppg-config-test/blog/say-hello-to-doks/</loc>
+    <loc>/blog/say-hello-to-doks/</loc>
     <lastmod>2020-11-04T09:19:42+01:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://openppg.github.io/openppg-config-test/docs/help/how-to-update/</loc>
+    <loc>/docs/help/how-to-update/</loc>
     <lastmod>2020-11-12T13:26:54+01:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://openppg.github.io/openppg-config-test/docs/help/troubleshooting/</loc>
+    <loc>/docs/help/troubleshooting/</loc>
     <lastmod>2020-11-12T15:22:20+01:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://openppg.github.io/openppg-config-test/docs/help/faq/</loc>
+    <loc>/docs/help/faq/</loc>
     <lastmod>2020-10-06T08:49:31+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://openppg.github.io/openppg-config-test/docs/controllers/sp140/</loc>
+    <loc>/docs/controllers/sp140/</loc>
     <lastmod>2021-01-28T12:22:06-06:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://openppg.github.io/openppg-config-test/docs/controllers/x4/</loc>
+    <loc>/docs/controllers/x4/</loc>
     <lastmod>2021-01-28T12:22:06-06:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://openppg.github.io/openppg-config-test/configurators/</loc>
+    <loc>/configurators/</loc>
     <lastmod>2021-01-28T15:34:28-06:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://openppg.github.io/openppg-config-test/configurators/x4/</loc>
+    <loc>/configurators/x4/</loc>
     <lastmod>2021-01-28T15:34:28-06:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://openppg.github.io/openppg-config-test/contributors/henk-verlinde/</loc>
+    <loc>/contributors/henk-verlinde/</loc>
     <lastmod>2020-10-06T08:50:45+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://openppg.github.io/openppg-config-test/contributors/</loc>
+    <loc>/contributors/</loc>
     <lastmod>2020-10-06T08:50:29+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://openppg.github.io/openppg-config-test/blog/</loc>
+    <loc>/blog/</loc>
     <lastmod>2020-10-06T08:49:55+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://openppg.github.io/openppg-config-test/docs/controllers/</loc>
+    <loc>/docs/controllers/</loc>
     <lastmod>2020-10-06T08:49:15+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://openppg.github.io/openppg-config-test/docs/help/</loc>
+    <loc>/docs/help/</loc>
     <lastmod>2020-10-06T08:49:15+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://openppg.github.io/openppg-config-test/docs/</loc>
+    <loc>/docs/</loc>
     <lastmod>2020-10-06T08:48:23+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://openppg.github.io/openppg-config-test/</loc>
+    <loc>/</loc>
     <lastmod>2020-10-06T08:47:36+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

@@ -2,27 +2,27 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Controllers on </title>
-    <link>https://openppg.github.io/openppg-config-test/docs/controllers/</link>
+    <link>/docs/controllers/</link>
     <description>Recent content in Controllers on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Tue, 06 Oct 2020 08:49:15 +0000</lastBuildDate><atom:link href="https://openppg.github.io/openppg-config-test/docs/controllers/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 06 Oct 2020 08:49:15 +0000</lastBuildDate><atom:link href="/docs/controllers/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>SP140</title>
-      <link>https://openppg.github.io/openppg-config-test/docs/controllers/sp140/</link>
+      <link>/docs/controllers/sp140/</link>
       <pubDate>Thu, 28 Jan 2021 12:22:06 -0600</pubDate>
       
-      <guid>https://openppg.github.io/openppg-config-test/docs/controllers/sp140/</guid>
+      <guid>/docs/controllers/sp140/</guid>
       <description>Get started SP140 support coming soon.
 Contributions welcome</description>
     </item>
     
     <item>
       <title>X4</title>
-      <link>https://openppg.github.io/openppg-config-test/docs/controllers/x4/</link>
+      <link>/docs/controllers/x4/</link>
       <pubDate>Thu, 28 Jan 2021 12:22:06 -0600</pubDate>
       
-      <guid>https://openppg.github.io/openppg-config-test/docs/controllers/x4/</guid>
+      <guid>/docs/controllers/x4/</guid>
       <description>Intro OpenPPG X4 Controller uses WebUSB to communicate from your browser to your device.
 Make sure you are using one of the supported browsers We recomend Chrome.
 Get started  Plug the microUSB cable into your controller and connect to your PC or phone. You may see a notification pop up from your browser. Now navigate to the config tool.  Using the X4 Config Tool </description>

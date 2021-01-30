@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Blog on </title>
-    <link>https://openppg.github.io/openppg-config-test/blog/</link>
+    <link>/blog/</link>
     <description>Recent content in Blog on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Tue, 06 Oct 2020 08:49:55 +0000</lastBuildDate><atom:link href="https://openppg.github.io/openppg-config-test/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 06 Oct 2020 08:49:55 +0000</lastBuildDate><atom:link href="/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Say hello to Doks 👋</title>
-      <link>https://openppg.github.io/openppg-config-test/blog/say-hello-to-doks/</link>
+      <link>/blog/say-hello-to-doks/</link>
       <pubDate>Wed, 04 Nov 2020 09:19:42 +0100</pubDate>
       
-      <guid>https://openppg.github.io/openppg-config-test/blog/say-hello-to-doks/</guid>
+      <guid>/blog/say-hello-to-doks/</guid>
       <description></description>
     </item>
     

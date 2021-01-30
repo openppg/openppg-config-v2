@@ -2,7 +2,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
     <url>
-      <loc>https://openppg.github.io/openppg-config-test/blog/say-hello-to-doks/</loc>
+      <loc>/blog/say-hello-to-doks/</loc>
       <lastmod>2020-11-04T09:19:42+01:00</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.5</priority>

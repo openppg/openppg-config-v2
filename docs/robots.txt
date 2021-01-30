@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://openppg.github.io/openppg-config-test/sitemap.xml
+Sitemap: /sitemap.xml
