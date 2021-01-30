@@ -1,0 +1,103 @@
+---
+title: "OpenPPG X4 Configurator"
+description: "OpenPPG configurator"
+date: 2021-01-28T15:34:28-06:00
+configurator: true
+draft: false
+---
+
+<h6>Change settings on your OpenPPG device via USB</h6>
+<div class="connect-container">
+  <button id="connect" class="btn btn-primary">Connect</button>
+  <span id="status"></span>
+</div>
+<h3>Controller config <span id="saved-status" class="blinkable"> <i class="fas fa-save" aria-hidden="true"></i></span></h3>
+<form id="form1">
+  <h5>Orientation</h5>
+  <div class="form-row mb-3">
+    <div class="form-group ">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" name="orientation" type="radio" id="orientation-lh" value="2">
+        <label class="form-check-label" for="orientation-lh">Left Hand</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" name="orientation" type="radio" id="orientation-rh" value="0">
+        <label class="form-check-label" for="orientation-rh">Right Hand</label>
+      </div>
+    </div>
+  </div>
+
+  <h5>Units</h5>
+  <div class="form-row">
+    <div class="form-group ">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" name="orientation" type="checkbox" id="units-temp">
+        <label class="form-check-label" for="units-temp">Metric Temperature (c)</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" name="orientation" type="checkbox" id="units-alt">
+        <label class="form-check-label" for="units-alt">Metric Altitude (m)</label>
+      </div>
+    </div>
+  </div>
+  <div class="form-row mb-3">
+    <div class="form-group ">
+      <label for="seaPressureInput">Baro Pressure Calibration</label>
+      <div class="input-group">
+        <input type="number" step="0.01" class="form-control" id="seaPressureInput" placeholder="pressure">
+        <div class="input-group-append">
+          <span class="input-group-text" id="inputGroup-sizing-default">mbar</span>
+        </div>
+      </div>
+      <small id="seaPressure" class="form-text text-muted">Get baro pressure for your area
+        <a href="https://darksky.net/" target="_blank">here</a></small>
+    </div>
+  </div>
+
+  <h5>Battery</h5>
+  <div class="form-row mb-3">
+    <div class="form-group col-md-6">
+      <label for="minBattInput">Battery Min Voltage (0%)</label>
+      <div class="input-group">
+        <input type="number" step="0.1" class="form-control" id="minBattInput" placeholder="low battery voltage">
+        <div class="input-group-append">
+          <span class="input-group-text" id="inputGroup-sizing-default">volts</span>
+        </div>
+      </div>
+      <small class="form-text text-muted">for 6S Lipo use 42 and for 7S Lipo use 49</small>
+    </div>
+
+    <div class="form-group col-md-6">
+      <label for="maxBattInput">Battery Max Voltage (100%)</label>
+      <div class="input-group">
+        <input type="number" step="0.1" class="form-control" id="maxBattInput" placeholder="full battery voltage">
+        <div class="input-group-append">
+          <span class="input-group-text" id="inputGroup-sizing-default">volts</span>
+        </div>
+      </div>
+      <small class="form-text text-muted">for 6S Lipo use 50 and for 7S Lipo use 58.8</small>
+    </div>
+  </div>
+  <p class="mb-1">
+    <strong>Armed Time:</strong>
+    <code><span id="armedTime"></span></code>
+  </p>
+  <p class="mb-1">
+    <strong>Device ID: </strong>
+    <code><span id="deviceId"></span></code>
+  </p>
+  <p class="mb-1">
+    <strong>Firmware Version: </strong>
+    <code><span id="versionMajor"></span>.<span id="versionMinor"></span></code>
+  </p>
+</form>
+<div class="col-md-8 my-4">
+  <div class="card card-body bg-light">
+    <h4 class="card-title mt-0">Beta Area</h4>
+  <p>
+    <a href="https://discourse-openppg-prod.s3.amazonaws.com/configurator/openppg-update-latest.uf2.zip" target="_blank">Latest X4 firmware
+      <i class="fas fa-download"></i>
+    </a>
+  </p>
+  <button id="bl" class="btn btn-warning">Reboot in update mode</button>
+</div>
