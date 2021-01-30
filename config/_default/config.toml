@@ -9,6 +9,7 @@ paginate = 7
 rssLimit = 10
 
 publishDir = "docs"
+baseURL = "https://openppg.github.io/openppg-config-test/"
 
 # add redirects/headers
 [outputs]

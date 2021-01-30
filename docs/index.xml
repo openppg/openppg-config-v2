@@ -2,39 +2,39 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Configure your OpenPPG paramotor on </title>
-    <link>/</link>
+    <link>https://openppg.github.io/openppg-config-test/</link>
     <description>Recent content in Configure your OpenPPG paramotor on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     <lastBuildDate>Tue, 06 Oct 2020 08:47:36 +0000</lastBuildDate>
     
-        <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://openppg.github.io/openppg-config-test/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Configurators</title>
-      <link>/configurators/</link>
+      <link>https://openppg.github.io/openppg-config-test/configurators/</link>
       <pubDate>Thu, 28 Jan 2021 15:34:28 -0600</pubDate>
       
-      <guid>/configurators/</guid>
+      <guid>https://openppg.github.io/openppg-config-test/configurators/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Blog</title>
-      <link>/blog/</link>
+      <link>https://openppg.github.io/openppg-config-test/blog/</link>
       <pubDate>Tue, 06 Oct 2020 08:49:55 +0000</pubDate>
       
-      <guid>/blog/</guid>
+      <guid>https://openppg.github.io/openppg-config-test/blog/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Docs</title>
-      <link>/docs/</link>
+      <link>https://openppg.github.io/openppg-config-test/docs/</link>
       <pubDate>Tue, 06 Oct 2020 08:48:23 +0000</pubDate>
       
-      <guid>/docs/</guid>
+      <guid>https://openppg.github.io/openppg-config-test/docs/</guid>
       <description></description>
     </item>
     

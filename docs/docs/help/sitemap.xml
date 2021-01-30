@@ -2,21 +2,21 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
     <url>
-      <loc>/docs/help/how-to-update/</loc>
+      <loc>https://openppg.github.io/openppg-config-test/docs/help/how-to-update/</loc>
       <lastmod>2020-11-12T13:26:54+01:00</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.5</priority>
     </url>
     
     <url>
-      <loc>/docs/help/troubleshooting/</loc>
+      <loc>https://openppg.github.io/openppg-config-test/docs/help/troubleshooting/</loc>
       <lastmod>2020-11-12T15:22:20+01:00</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.5</priority>
     </url>
     
     <url>
-      <loc>/docs/help/faq/</loc>
+      <loc>https://openppg.github.io/openppg-config-test/docs/help/faq/</loc>
       <lastmod>2020-10-06T08:49:31+00:00</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.5</priority>

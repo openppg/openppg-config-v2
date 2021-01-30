@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Configurators on </title>
-    <link>/configurators/</link>
+    <link>https://openppg.github.io/openppg-config-test/configurators/</link>
     <description>Recent content in Configurators on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Thu, 28 Jan 2021 15:34:28 -0600</lastBuildDate><atom:link href="/configurators/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 28 Jan 2021 15:34:28 -0600</lastBuildDate><atom:link href="https://openppg.github.io/openppg-config-test/configurators/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>OpenPPG X4 Configurator</title>
-      <link>/configurators/x4/</link>
+      <link>https://openppg.github.io/openppg-config-test/configurators/x4/</link>
       <pubDate>Thu, 28 Jan 2021 15:34:28 -0600</pubDate>
       
-      <guid>/configurators/x4/</guid>
+      <guid>https://openppg.github.io/openppg-config-test/configurators/x4/</guid>
       <description>Change settings on your OpenPPG device via USB Connect   Controller config  Orientation Left Hand  Right Hand    Units Metric Temperature (c)  Metric Altitude (m)    Baro Pressure Calibration mbar   Get baro pressure for your area here   Battery Battery Min Voltage (0%) volts   for 6S Lipo use 42 and for 7S Lipo use 49  Battery Max Voltage (100%) volts   for 6S Lipo use 50 and for 7S Lipo use 58.</description>
     </item>
     
