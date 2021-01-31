@@ -1,26 +1,32 @@
 /* eslint-disable no-undef */
 
-(function() {
+(function () {
   'use strict';
 
   document.addEventListener('DOMContentLoaded', e => {
     let connectButton = document.querySelector('#connect');
     let statusDisplay = document.querySelector('#status');
     let port;
+
     $('#frm-config :input').prop('disabled', true);
 
     // check if WebUSB is supported
-    if ('usb' in navigator)
-      { console.log('has WebUSB support'); }
-    else {
+    if ('usb' in navigator) {
+      console.log('has WebUSB support');
+    } else {
       alert('WebUSB not supported: Please use Google Chrome');
       $('#connect').prop('disabled', true);
       $('#connect').html('Not Supported');
       return;
     }
 
+    document.getElementById('btn-pressure').addEventListener('click', function () {
+      updateLocalPressure();
+    });
+
+    console.log(geoSupported());
     // listen for form input changes and save them to the device
-    $('#frm-config input').on('change', function() {
+    $('#frm-config input').on('change', function () {
       var orientation = $('input[name=orientation]:checked', '#frm-config').val();
       var baro_calibration = $('input#seaPressureInput').val();
       var min_batt_v = $('input#minBattInput').val();
@@ -29,15 +35,15 @@
       var metric_alt = $('#units-alt').prop('checked');
 
       var usb_json = {
-          'major_v' : 4,
-          'minor_v' : 1,
-          'screen_rot': orientation,
-          'sea_pressure': parseFloat(baro_calibration),
-          'metric_temp': metric_temp,
-          'metric_alt': metric_alt,
-          'min_batt_v': min_batt_v,
-          'max_batt_v': max_batt_v,
-        }
+        'major_v': 4,
+        'minor_v': 1,
+        'screen_rot': orientation,
+        'sea_pressure': parseFloat(baro_calibration),
+        'metric_temp': metric_temp,
+        'metric_alt': metric_alt,
+        'min_batt_v': min_batt_v,
+        'max_batt_v': max_batt_v,
+      }
       console.log('sending', usb_json);
       sendJSON(usb_json);
       $('#saved-status').removeClass('blink');
@@ -84,19 +90,19 @@
       });
     }
 
-    function displayError(error){
+    function displayError(error) {
       console.log(error);
       statusDisplay.textContent = error.message;
     }
 
-    function display (minutes) {
+    function display(minutes) {
       const format = val => `0${Math.floor(val)}`.slice(-2)
       const hours = minutes / 60
 
       return [hours, minutes % 60].map(format).join(':')
     }
 
-    connectButton.addEventListener('click', function() {
+    connectButton.addEventListener('click', function () {
       if (port) {
         disconnect();
       } else {
@@ -119,7 +125,7 @@
       }
     });
 
-    function disconnect(){
+    function disconnect() {
       port.disconnect();
       $('#frm-config :input').prop('disabled', true);
       connectButton.textContent = 'Connect';
@@ -127,7 +133,7 @@
       port = null;
     }
 
-    function sendJSON(usb_json){
+    function sendJSON(usb_json) {
       port.send(new TextEncoder('utf-8').encode(JSON.stringify(usb_json)));
     }
 
