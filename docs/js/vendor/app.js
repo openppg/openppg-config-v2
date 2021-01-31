@@ -13,7 +13,7 @@
     if ('usb' in navigator)
       { console.log('has WebUSB support'); }
     else {
-      alert('WebUSB not supported in this browser. Please use Google Chrome');
+      alert('WebUSB not supported: Please use Google Chrome');
       $('#connect').prop('disabled', true);
       $('#connect').html('Not Supported');
       return;
@@ -61,7 +61,7 @@
         port.onReceive = data => {
           let textDecoder = new TextDecoder();
           var usb_input = textDecoder.decode(data);
-          if (usb_input.length < 5) { return }
+          if (usb_input.length < 5) { return };
           var usb_parsed = JSON.parse(usb_input); // TODO figure out why empty data is sent
           $('#armedTime').text(display(usb_parsed['armed_time']));
           $('#deviceId').text(usb_parsed['device_id']);

@@ -12,15 +12,6 @@
     
     
     <item>
-      <title>Configurators</title>
-      <link>/configurators/</link>
-      <pubDate>Thu, 28 Jan 2021 15:34:28 -0600</pubDate>
-      
-      <guid>/configurators/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Blog</title>
       <link>/blog/</link>
       <pubDate>Tue, 06 Oct 2020 08:49:55 +0000</pubDate>
@@ -35,6 +26,15 @@
       <pubDate>Tue, 06 Oct 2020 08:48:23 +0000</pubDate>
       
       <guid>/docs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Configurators</title>
+      <link>/configurators/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/configurators/</guid>
       <description></description>
     </item>
     

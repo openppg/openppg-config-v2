@@ -45,20 +45,6 @@
   </url>
   
   <url>
-    <loc>/configurators/</loc>
-    <lastmod>2021-01-28T15:34:28-06:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>/configurators/x4/</loc>
-    <lastmod>2021-01-28T15:34:28-06:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>/contributors/henk-verlinde/</loc>
     <lastmod>2020-10-06T08:50:45+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -103,6 +89,18 @@
   <url>
     <loc>/</loc>
     <lastmod>2020-10-06T08:47:36+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>/configurators/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>/configurators/x4/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

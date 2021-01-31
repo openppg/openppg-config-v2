@@ -4,33 +4,33 @@
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
 
-
-  <link rel="stylesheet" href="/main.a39a20a06cebb08ae46fe81b13db54bd80ed7b3b1622fce1e4819c5ff4a7fcfd99ab87a1bfe10a47d075f5822b4b29a4979941755f8d5b62e861951f9759e71c.css" integrity="sha512-o5ogoGzrsIrkb&#43;gbE9tUvYDtezsWIvzh5IGcX/Sn/P2Zq4ehv&#43;EKR9B19YIrSymkl5lBdV&#43;NW2LoYZUfl1nnHA==" crossorigin="anonymous">
+  <link rel="stylesheet" href="/main.5b896263180c757845a39755be581fc13ef1546f4294d9e0cb8e27f1f8676943333f49ddf3b0e92a0d158f71a009369ccc72bb40206d2c1ba118f9efe655e179.css" integrity="sha512-W4liYxgMdXhFo5dVvlgfwT7xVG9ClNngy44n8fhnaUMzP0nd87DpKg0Vj3GgCTaczHK7QCBtLBuhGPnv5lXheQ==" crossorigin="anonymous">
 <noscript><style>img.lazyload { display: none; }</style></noscript>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+
   <meta name="robots" content="index, follow">
   <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
   <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
   <title>OpenPPG X4 Configurator - OpenPPG Config</title>
-<meta name="description" content="OpenPPG configurator">
+<meta name="description" content="Change settings on your OpenPPG device via USB">
 <link rel="canonical" href="/configurators/x4/">
 <meta name="twitter:card" content="summary_large_image">
       <meta name="twitter:image" content="/doks.png">
     <meta name="twitter:title" content="OpenPPG X4 Configurator">
-<meta name="twitter:description" content="OpenPPG configurator">
+<meta name="twitter:description" content="Change settings on your OpenPPG device via USB">
 
 <meta name="twitter:site" content="@openppg">
 <meta name="twitter:creator" content="@openppg">
 
 <meta property="og:title" content="OpenPPG X4 Configurator">
-<meta property="og:description" content="OpenPPG configurator">
+<meta property="og:description" content="Change settings on your OpenPPG device via USB">
 <meta property="og:type" content="article">
 <meta property="og:url" content="/configurators/x4/">
 
   <meta property="og:image" content="/doks.png"/>
-    <meta property="article:published_time" content="2021-01-28T15:34:28-06:00">
-  <meta property="article:modified_time" content="2021-01-28T15:34:28-06:00">
-  <meta property="og:site_name" content="OpenPPG Config">
+    <meta property="og:site_name" content="OpenPPG Config">
 
 <meta property="article:publisher" content="https://www.facebook.com/">
 <meta property="article:author" content="https://www.facebook.com/">
@@ -101,116 +101,134 @@
 
     <div class="wrap container" role="document">
       <div class="content">
-
-<div class="row flex-xl-nowrap justify-content-center">
-  <div class="col-md-12 col-lg-10">
-    <article>
+        
+  <div class="row">
+    <div class="col-md-12 col-lg-10">
       <h1>OpenPPG X4 Configurator</h1>
+      <p class="lead">
+        Change settings on your OpenPPG device via USB
+        <a href="/docs/controllers/x4/" title="need help?" target="_blank">
+          <i class="far fa-question-circle"></i>
+        </a>
+      </p>
+    </div>
+  </div>
 
-<h6>Change settings on your OpenPPG device via USB</h6>
+  
 <div class="connect-container">
-  <button id="connect" class="btn btn-primary">Connect</button>
+  <button id="connect" class="btn btn-primary btn-lg">Connect</button>
   <span id="status"></span>
 </div>
-<h3>Controller config <span id="saved-status" class="blinkable"> <i class="fas fa-save" aria-hidden="true"></i></span></h3>
-<form id="frm-config">
-  <h5>Orientation</h5>
-  <div class="form-row mb-3">
-    <div class="form-group col-md-8">
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" name="orientation" type="radio" id="orientation-lh" value="2">
-        <label class="form-check-label" for="orientation-lh">Left Hand</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" name="orientation" type="radio" id="orientation-rh" value="0">
-        <label class="form-check-label" for="orientation-rh">Right Hand</label>
-      </div>
-    </div>
-  </div>
 
-  <h5>Units</h5>
-  <div class="form-row">
-    <div class="form-group col-md-8">
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" name="orientation" type="checkbox" id="units-temp">
-        <label class="form-check-label" for="units-temp">Metric Temperature (c)</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" name="orientation" type="checkbox" id="units-alt">
-        <label class="form-check-label" for="units-alt">Metric Altitude (m)</label>
-      </div>
-    </div>
-  </div>
-  <div class="form-row mb-3">
-    <div class="form-group col-md-6">
-      <label for="seaPressureInput">Baro Pressure Calibration</label>
-      <div class="input-group">
-        <input type="number" step="0.01" class="form-control" id="seaPressureInput" placeholder="pressure">
-        <div class="input-group-append">
-          <span class="input-group-text" id="inputGroup-sizing-default">mbar</span>
+<hr width="75%">
+<h3>
+  Controller config <span id="saved-status" class="blinkable"> <i class="fas fa-save" aria-hidden="true"></i></span>
+</h3>
+
+<div class="row">
+  <div class="col-md-12">
+    <form id="frm-config">
+      <h5 class="mt-1">Orientation</h5>
+      <div class="form-row mb-3">
+        <div class="form-group col-md-8">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" name="orientation" type="radio" id="orientation-lh" value="2">
+            <label class="form-check-label" for="orientation-lh">Left Hand</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" name="orientation" type="radio" id="orientation-rh" value="0">
+            <label class="form-check-label" for="orientation-rh">Right Hand</label>
+          </div>
         </div>
       </div>
-      <small id="seaPressure" class="form-text text-muted">Get baro pressure for your area
-        <a href="https://darksky.net/" target="_blank">here</a></small>
-    </div>
-  </div>
 
-  <h5>Battery</h5>
-  <div class="form-row mb-3">
-    <div class="form-group col-md-6">
-      <label for="minBattInput">Battery Min Voltage (0%)</label>
-      <div class="input-group">
-        <input type="number" step="0.1" class="form-control" id="minBattInput" placeholder="low battery voltage">
-        <div class="input-group-append">
-          <span class="input-group-text" id="inputGroup-sizing-default">volts</span>
+      <h5>Units</h5>
+      <div class="form-row">
+        <div class="form-group col-md-8">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" name="orientation" type="checkbox" id="units-temp">
+            <label class="form-check-label" for="units-temp">Metric Temperature (c)</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" name="orientation" type="checkbox" id="units-alt">
+            <label class="form-check-label" for="units-alt">Metric Altitude (m)</label>
+          </div>
         </div>
       </div>
-      <small class="form-text text-muted">for 6S Lipo use 42 and for 7S Lipo use 49</small>
-    </div>
-
-    <div class="form-group col-md-6">
-      <label for="maxBattInput">Battery Max Voltage (100%)</label>
-      <div class="input-group">
-        <input type="number" step="0.1" class="form-control" id="maxBattInput" placeholder="full battery voltage">
-        <div class="input-group-append">
-          <span class="input-group-text" id="inputGroup-sizing-default">volts</span>
+      <div class="form-row mb-3">
+        <div class="form-group col-md-6">
+          <label for="seaPressureInput">Baro Pressure Calibration</label>
+          <div class="input-group">
+            <input type="number" step="0.01" class="form-control" id="seaPressureInput" placeholder="pressure">
+            <div class="input-group-append">
+              <span class="input-group-text" id="inputGroup-sizing-default">mbar</span>
+            </div>
+          </div>
+          <small id="seaPressure" class="form-text text-muted">Get baro pressure for your area
+            <a href="https://darksky.net/" target="_blank">here</a></small>
         </div>
       </div>
-      <small class="form-text text-muted">for 6S Lipo use 50 and for 7S Lipo use 58.8</small>
-    </div>
-  </div>
-  <p class="mb-1">
-    <strong>Armed Time:</strong>
-    <code><span id="armedTime"></span></code>
-  </p>
-  <p class="mb-1">
-    <strong>Device ID: </strong>
-    <code><span id="deviceId"></span></code>
-  </p>
-  <p class="mb-1">
-    <strong>Firmware Version: </strong>
-    <code><span id="versionMajor"></span>.<span id="versionMinor"></span></code>
-  </p>
-</form>
-<div class="col-md-8 my-4">
-  <div class="card card-body bg-light">
-    <h4 class="card-title mt-0">Beta Area</h4>
-  <p>
-    <a href="https://discourse-openppg-prod.s3.amazonaws.com/configurator/openppg-update-latest.uf2.zip" target="_blank">Latest X4 firmware
-      <i class="fas fa-download"></i>
-    </a>
-  </p>
-  <button id="bl" class="btn btn-warning">Reboot in update mode</button>
-</div>
 
-    </article>
+      <h5>Battery</h5>
+      <div class="form-row mb-3">
+        <div class="form-group col-md-6">
+          <label for="minBattInput">Battery Min Voltage (0%)</label>
+          <div class="input-group">
+            <input type="number" step="0.1" class="form-control" id="minBattInput" placeholder="low battery voltage">
+            <div class="input-group-append">
+              <span class="input-group-text" id="inputGroup-sizing-default">volts</span>
+            </div>
+          </div>
+          <small class="form-text text-muted">for 6S Lipo use 42 and for 7S Lipo use 49</small>
+        </div>
+
+        <div class="form-group col-md-6">
+          <label for="maxBattInput">Battery Max Voltage (100%)</label>
+          <div class="input-group">
+            <input type="number" step="0.1" class="form-control" id="maxBattInput" placeholder="full battery voltage">
+            <div class="input-group-append">
+              <span class="input-group-text" id="inputGroup-sizing-default">volts</span>
+            </div>
+          </div>
+          <small class="form-text text-muted">for 6S Lipo use 50 and for 7S Lipo use 58.8</small>
+        </div>
+      </div>
+      <p class="mb-1">
+        <strong>Armed Time:</strong>
+        <code><span id="armedTime"></span></code>
+      </p>
+      <p class="mb-1">
+        <strong>Device ID: </strong>
+        <code><span id="deviceId"></span></code>
+      </p>
+      <p class="mb-1">
+        <strong>Firmware Version: </strong>
+        <code><span id="versionMajor"></span>.<span id="versionMinor"></span></code>
+      </p>
+    </form>
   </div>
 </div>
+<div class="row">
+
+  <div class="col-md-8 my-4">
+    <div class="card card-body bg-light">
+      <h4 class="card-title mt-0">Beta Area</h4>
+      <p>
+        <a href="https://discourse-openppg-prod.s3.amazonaws.com/configurator/openppg-update-latest.uf2.zip"
+          target="_blank">Latest X4 firmware
+          <i class="fas fa-download"></i>
+        </a>
+      </p>
+      <button id="bl" class="btn btn-warning">Reboot in update mode</button>
+    </div>
+  </div>
+
+
 
       </div>
     </div>
-
-
+    
+    
     <footer class="footer text-muted">
   <div class="container">
     <div class="row">
@@ -227,7 +245,7 @@
     </div>
   </div>
 </footer>
-
+    
     <script src="/main.d074c975ff3663cef3e3947d35627afdcd1ef16aa49c6097ca2b024a23102580331bdbbd1d47b009a4441b217378df89ca09fb9e4aa6e0f8cf31fd25d2f3d057.js" integrity="sha512-0HTJdf82Y87z45R9NWJ6/c0e8WqknGCXyisCSiMQJYAzG9u9HUewCaREGyFzeN&#43;Jygn7nkqm4PjPMf0l0vPQVw==" crossorigin="anonymous" defer></script>
   <script src="/index.min.cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e.js" integrity="sha512-z4PhNX7vuL3xVChQ1m2AB9Yg5AULVxXcg/SpIdNs6c5H0NE8XYXysP&#43;DGNKHfuwvY7kxvUdBeoGlODJ6&#43;SfaPg==" crossorigin="anonymous" defer></script>
 
