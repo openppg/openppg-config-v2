@@ -3,9 +3,8 @@ title: "OpenPPG X4 Configurator"
 description: "Change settings on your OpenPPG device via USB"
 helplink: "/docs/controllers/x4/"
 date: 2021-01-28T15:34:28-06:00\
-configurator: true
+configurator: "x4"
 draft: false
-
 ---
 
 <div class="connect-container">
@@ -14,6 +13,7 @@ draft: false
 </div>
 
 <hr width="75%">
+
 <h3>
   Controller config <span id="saved-status" class="blinkable"> <i class="fas fa-save" aria-hidden="true"></i></span>
 </h3>
@@ -60,6 +60,22 @@ draft: false
           <small id="seaPressure" class="form-text text-muted">Get baro pressure for your area
             <a href="https://darksky.net/" target="_blank">here</a></small>
         </div>
+
+        <div class="form-group col-md-6" id="auto-baro-group">
+          <label for="autoSeaPressureInput"><i>Beta:</i> Auto Baro Pressure Calibration</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <button class="btn btn-outline-secondary" type="button" id="btn-pressure">
+                <i class="fas fa-sync"></i></button>
+            </div>
+            <input type="number" step="0.01" class="form-control" id="autoSeaPressureInput" placeholder="pressure">
+            <div class="input-group-append">
+              <span class="input-group-text" id="inputGroup-sizing-default">mbar</span>
+            </div>
+          </div>
+          <small>
+            Press refresh button to get baro pressure for your current location. Then copy it to the baro input</small>
+        </div>
       </div>
 
       <h5>Battery</h5>
@@ -101,8 +117,8 @@ draft: false
     </form>
   </div>
 </div>
-<div class="row">
 
+<div class="row">
   <div class="col-md-8 my-4">
     <div class="card card-body bg-light">
       <h4 class="card-title mt-0">Beta Area</h4>
