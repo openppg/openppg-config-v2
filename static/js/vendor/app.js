@@ -7,7 +7,7 @@
     let connectButton = document.querySelector('#connect');
     let statusDisplay = document.querySelector('#status');
     let port;
-    $('#form1 :input').prop('disabled', true);
+    $('#frm-config :input').prop('disabled', true);
 
     // check if WebUSB is supported
     if ('usb' in navigator)
@@ -20,8 +20,8 @@
     }
 
     // listen for form input changes and save them to the device
-    $('#form1 input').on('change', function() {
-      var orientation = $('input[name=orientation]:checked', '#form1').val();
+    $('#frm-config input').on('change', function() {
+      var orientation = $('input[name=orientation]:checked', '#frm-config').val();
       var baro_calibration = $('input#seaPressureInput').val();
       var min_batt_v = $('input#minBattInput').val();
       var max_batt_v = $('input#maxBattInput').val();
@@ -56,7 +56,7 @@
       port.connect().then(() => {
         statusDisplay.textContent = '';
         connectButton.textContent = 'Disconnect';
-        $('#form1 :input').prop('disabled', false);
+        $('#frm-config :input').prop('disabled', false);
 
         port.onReceive = data => {
           let textDecoder = new TextDecoder();
@@ -121,7 +121,7 @@
 
     function disconnect(){
       port.disconnect();
-      $('#form1 :input').prop('disabled', true);
+      $('#frm-config :input').prop('disabled', true);
       connectButton.textContent = 'Connect';
       statusDisplay.textContent = '';
       port = null;

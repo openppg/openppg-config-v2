@@ -7,21 +7,21 @@
     let connectButton = document.querySelector('#connect');
     let statusDisplay = document.querySelector('#status');
     let port;
-    $('#form1 :input').prop('disabled', true);
+    $('#frm-config :input').prop('disabled', true);
 
     // check if WebUSB is supported
     if ('usb' in navigator)
       { console.log('has WebUSB support'); }
     else {
-      alert('WebUSB not supported: Please use Google Chrome');
+      alert('WebUSB not supported in this browser. Please use Google Chrome');
       $('#connect').prop('disabled', true);
       $('#connect').html('Not Supported');
       return;
     }
 
     // listen for form input changes and save them to the device
-    $('#form1 input').on('change', function() {
-      var orientation = $('input[name=orientation]:checked', '#form1').val();
+    $('#frm-config input').on('change', function() {
+      var orientation = $('input[name=orientation]:checked', '#frm-config').val();
       var baro_calibration = $('input#seaPressureInput').val();
       var min_batt_v = $('input#minBattInput').val();
       var max_batt_v = $('input#maxBattInput').val();
@@ -56,12 +56,12 @@
       port.connect().then(() => {
         statusDisplay.textContent = '';
         connectButton.textContent = 'Disconnect';
-        $('#form1 :input').prop('disabled', false);
+        $('#frm-config :input').prop('disabled', false);
 
         port.onReceive = data => {
           let textDecoder = new TextDecoder();
           var usb_input = textDecoder.decode(data);
-          if (usb_input.length < 5) { return };
+          if (usb_input.length < 5) { return }
           var usb_parsed = JSON.parse(usb_input); // TODO figure out why empty data is sent
           $('#armedTime').text(display(usb_parsed['armed_time']));
           $('#deviceId').text(usb_parsed['device_id']);
@@ -121,7 +121,7 @@
 
     function disconnect(){
       port.disconnect();
-      $('#form1 :input').prop('disabled', true);
+      $('#frm-config :input').prop('disabled', true);
       connectButton.textContent = 'Connect';
       statusDisplay.textContent = '';
       port = null;
