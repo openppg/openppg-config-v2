@@ -74,8 +74,8 @@
           $('#deviceId').text(usb_parsed['device_id']);
           $('#versionMajor').text(usb_parsed['major_v']);
           $('#versionMinor').text(usb_parsed['minor_v']);
-          $('#orientation-lh').prop('checked', usb_parsed['screen_rot'] == 1);
-          $('#orientation-rh').prop('checked', usb_parsed['screen_rot'] == 3);
+          $('#orientation-lh').prop('checked', usb_parsed['screen_rot'] == 3);
+          $('#orientation-rh').prop('checked', usb_parsed['screen_rot'] == 1);
           $('#units-temp').prop('checked', usb_parsed['metric_temp']);
           $('#units-alt').prop('checked', usb_parsed['metric_alt']);
           $('#seaPressureInput').val(usb_parsed['sea_pressure']);
