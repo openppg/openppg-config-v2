@@ -7,12 +7,17 @@
 [[main]]
   name = "Docs"
   url = "/docs/controllers/"
-  weight = 10
+  weight = 5
 
 [[main]]
   name = "X4 Configurator"
   url = "/configurators/x4/"
   weight = 10
+
+  [[main]]
+  name = "SP140 Configurator"
+  url = "/configurators/sp140/"
+  weight = 11
 
 [[social]]
    name = "Twitter"

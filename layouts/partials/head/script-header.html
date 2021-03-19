@@ -4,5 +4,6 @@
 {{ if (isset .Params "configurator") }}
   <script src="/js/vendor/serial.js"></script>
   <script src="/js/vendor/weather.js"></script>
-  <script src="/js/vendor/app.js"></script>
+  <script src='/js/vendor/{{ .Param "configurator" }}.js'></script>
+
 {{ end }}
