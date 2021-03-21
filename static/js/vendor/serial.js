@@ -13,6 +13,7 @@ if ('usb' in navigator){
   serial.requestPort = function() {
     const filters = [
       { 'vendorId': 0x239A }, // Adafruit boards
+      { 'vendorId': 0x04D8 }, // microchip boards
       { 'vendorId': 0xcafe }, // TinyUSB example
     ];
     return navigator.usb.requestDevice({ 'filters': filters }).then(
