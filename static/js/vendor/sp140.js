@@ -79,7 +79,9 @@
           $('#units-temp').prop('checked', usb_parsed['metric_temp']);
           $('#units-alt').prop('checked', usb_parsed['metric_alt']);
           $('#seaPressureInput').val(usb_parsed['sea_pressure']);
-          console.log('received', usb_input);
+          $('#performance-chill').prop('checked', usb_parsed['performance_mode'] == 0);
+          $('#performance-sport').prop('checked', usb_parsed['performance_mode'] == 1);
+          //console.log('received', usb_input);
         };
         port.onReceiveError = error => {
           console.error(error);
