@@ -32,7 +32,7 @@
       var max_batt_v = $('input#maxBattInput').val();
       var metric_temp = $('#units-temp').prop('checked');
       var metric_alt = $('#units-alt').prop('checked');
-      var performance_mode = 0;
+      var performance_mode = $('#performance-sport').prop('checked') ? 1: 0;
 
       var usb_json = {
         'major_v': 5,
