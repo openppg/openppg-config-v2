@@ -30,9 +30,8 @@
       var baro_calibration = $('input#seaPressureInput').val();
       var min_batt_v = $('input#minBattInput').val();
       var max_batt_v = $('input#maxBattInput').val();
-      var metric_temp = $('#units-temp').prop('checked');
       var metric_alt = $('#units-alt').prop('checked');
-      var performance_mode = $('#performance-sport').prop('checked') ? 1: 0;
+      var performance_mode = $('#performance-sport').prop('checked') ? 1 : 0;
 
       var usb_json = {
         'major_v': 5,
@@ -76,7 +75,6 @@
           $('#versionMinor').text(usb_parsed['minor_v']);
           $('#orientation-lh').prop('checked', usb_parsed['screen_rot'] == 3);
           $('#orientation-rh').prop('checked', usb_parsed['screen_rot'] == 1);
-          $('#units-temp').prop('checked', usb_parsed['metric_temp']);
           $('#units-alt').prop('checked', usb_parsed['metric_alt']);
           $('#seaPressureInput').val(usb_parsed['sea_pressure']);
           $('#performance-chill').prop('checked', usb_parsed['performance_mode'] == 0);
