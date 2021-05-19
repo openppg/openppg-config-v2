@@ -38,7 +38,6 @@
         'minor_v': 0,
         'screen_rot': orientation,
         'sea_pressure': parseFloat(baro_calibration),
-        'metric_temp': metric_temp,
         'metric_alt': metric_alt,
         'min_batt_v': min_batt_v,
         'max_batt_v': max_batt_v,
