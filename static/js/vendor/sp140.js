@@ -78,12 +78,14 @@
           $('#seaPressureInput').val(usb_parsed['sea_pressure']);
           $('#performance-chill').prop('checked', usb_parsed['performance_mode'] == 0);
           $('#performance-sport').prop('checked', usb_parsed['performance_mode'] == 1);
-          //console.log('received', usb_input);
+          Rollbar.info('Synced-SP140', usb_parsed);
         };
         port.onReceiveError = error => {
+          Rollbar.warn(error);
           console.error(error);
         };
       }, error => {
+        Rollbar.warn(error);
         displayError(error)
       });
     }
@@ -134,6 +136,5 @@
     function sendJSON(usb_json) {
       port.send(new TextEncoder('utf-8').encode(JSON.stringify(usb_json)));
     }
-
   });
 })();

@@ -80,9 +80,11 @@
           $('#seaPressureInput').val(usb_parsed['sea_pressure']);
           $('#minBattInput').val(usb_parsed['min_batt_v']);
           $('#maxBattInput').val(usb_parsed['max_batt_v']);
+          Rollbar.info('Synced-SP140', usb_parsed);
           console.log('received', usb_input);
         };
         port.onReceiveError = error => {
+          Rollbar.warn(error);
           console.error(error);
         };
       }, error => {
@@ -91,6 +93,7 @@
     }
 
     function displayError(error) {
+      Rollbar.warn(error);
       console.log(error);
       statusDisplay.textContent = error.message;
     }
