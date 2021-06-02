@@ -12,7 +12,7 @@ $gray-800: #343a40;
 $gray-900: #212529;
 $black:    #000;
 
-$yellow:   #ffc107;
+$yellow:   #ffe000;
 $black:    #1d2d35;
 $beige:    #fbf7f0;
 $red:      #e55235;
@@ -23,6 +23,26 @@ $blue:     #007bff;
 $blue-300: #8ed6fb;
 $pink-500: #d32e9d;
 
+$primary: $purple;
+
+// Options
+//
+// Quickly modify global styling by enabling or disabling optional features.
+
+$enable-caret:                true;
+$enable-rounded:              true;
+$enable-shadows:              false;
+$enable-gradients:            false;
+$enable-transitions:          true;
+$enable-reduced-motion:       true;
+$enable-smooth-scroll:        true;
+$enable-grid-classes:         true;
+$enable-button-pointers:      true;
+$enable-rfs:                  true;
+$enable-validation-icons:     true;
+$enable-negative-margins:     true;
+$enable-deprecation-messages: true;
+$enable-important-utilities:  true;
 $primary: $blue;
 
 /** Bootstrap navbar fix (https://git.io/fADqW) */
@@ -41,6 +61,13 @@ $enable-responsive-font-sizes: true;
 
 $body-bg:                   $white;
 $body-color:                $black;
+
+// Links
+//
+// Style anchor elements.
+
+$link-color:                              $primary;
+$link-decoration:                         none;
 
 // Grid containers
 //
@@ -103,7 +130,7 @@ $spacer: 1rem;
 // Navbar
 
 $navbar-padding-y:                  $spacer / 2;
-$navbar-padding-x:                  0;
+$navbar-padding-x:                  null;
 
 $navbar-nav-link-padding-x:         0.5rem;
 
@@ -119,13 +146,13 @@ $card-border-color:                 $gray-200;
 //
 // Define alert colors, border radius, and padding.
 
-$alert-padding-y:                   1rem;
-$alert-padding-x:                   1.5rem;
+$alert-padding-y:                   $spacer;
+$alert-padding-x:                   $spacer * 1.5;
 $alert-margin-bottom:               0;
 $alert-border-radius:               0;
 $alert-link-font-weight:            $headings-font-weight;
 $alert-border-width:                0;
 
-$alert-bg-level:                    0;
-$alert-border-level:                0;
-$alert-color-level:                 0;
+$alert-bg-scale:                    0;
+$alert-border-scale:                0;
+$alert-color-scale:                 0;
