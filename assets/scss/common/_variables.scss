@@ -15,9 +15,10 @@ $black:    #000;
 $yellow:   #ffe000;
 $black:    #1d2d35;
 $beige:    #fbf7f0;
-// $red:      #e55235;
+$red:      #e55235;
 $purple:   #5d2f86;
 $brown:    #aa9c84;
+$blue:     #007bff;
 
 $blue-300: #8ed6fb;
 $pink-500: #d32e9d;
@@ -42,6 +43,7 @@ $enable-validation-icons:     true;
 $enable-negative-margins:     true;
 $enable-deprecation-messages: true;
 $enable-important-utilities:  true;
+$primary: $blue;
 
 /** Bootstrap navbar fix (https://git.io/fADqW) */
 $navbar-dark-toggler-icon-bg: none;
@@ -51,7 +53,7 @@ $navbar-light-toggler-icon-bg: none;
 //
 // Quickly modify global styling by enabling or disabling optional features.
 
-// $enable-responsive-font-sizes: true;
+$enable-responsive-font-sizes: true;
 
 // Body
 //
@@ -100,7 +102,7 @@ $border-color:                $gray-200;
 // Font, line-height, and color for body text, headings, and more.
 
 // stylelint-disable value-keyword-case
-$font-family-sans-serif:      "Jost", -apple-system, blinkmacsystemfont, "Segoe UI", roboto, "Helvetica Neue", arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+$font-family-sans-serif:      -apple-system, blinkmacsystemfont, "Segoe UI", roboto, "Helvetica Neue", arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 $font-family-monospace:       sfmono-regular, menlo, monaco, consolas, "Liberation Mono", "Courier New", monospace;
 $font-family-base:            $font-family-sans-serif;
 // stylelint-enable value-keyword-case
