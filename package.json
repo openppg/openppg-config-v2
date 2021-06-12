@@ -25,7 +25,7 @@
     "release": "standard-version",
     "server": "hugo server",
     "test": "npm run -s lint",
-    "test-c": "cypress",
+    "test-c": "cypress run",
     "env": "env",
     "precheck": "npm version",
     "check": "hugo version"
