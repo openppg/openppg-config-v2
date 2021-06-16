@@ -4,7 +4,7 @@
       captureUncaught: true,
       captureUnhandledRejections: true,
       payload: {
-          environment: "production"
+          environment: {{ hugo.Environment }}
       }
   };
   // Rollbar Snippet
@@ -24,7 +24,8 @@
     {{ $configuratorJs := resources.Get $configPath }}
     <script src="{{ $configuratorJs.Permalink }}"></script>
   {{ else -}}
-    {{ $configuratorJs := resources.Get $configPath | resources.Minify | fingerprint }}
+    <!-- TODO: build with | resources.Minify | fingerprint -->
+    {{ $configuratorJs := resources.Get $configPath }}
     <script src="{{ $configuratorJs.Permalink }}" integrity="{{ $configuratorJs.Data.Integrity }}"></script>
   {{ end }}
 
