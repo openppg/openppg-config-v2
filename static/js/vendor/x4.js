@@ -14,7 +14,7 @@
     if ('usb' in navigator) {
       console.log('has WebUSB support');
     } else {
-      alert('WebUSB not supported: Please use Google Chrome');
+      alert('WebUSB not supported: Please use Chrome on desktop or Android');
       $('#connect').prop('disabled', true);
       $('#connect').html('Not Supported');
       return;
