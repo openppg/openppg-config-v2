@@ -90,3 +90,7 @@ rel  = "sitemap"
   [[module.mounts]]
     source = "node_modules/clipboard"
     target = "assets/js/vendor/clipboard"
+  [[module.mounts]]
+    source = "node_modules/ua-parser-js"
+    target = "assets/js/vendor/ua-parser-js"
+
