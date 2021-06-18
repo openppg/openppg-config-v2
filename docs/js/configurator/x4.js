@@ -3,7 +3,7 @@
 (function () {
   'use strict';
 
-  document.addEventListener('DOMContentLoaded', e => {
+  document.addEventListener('DOMContentLoaded', () => {
     let connectButton = document.querySelector('#connect');
     let statusDisplay = document.querySelector('#status');
     let port;
@@ -24,24 +24,25 @@
       updateLocalPressure();
     });
 
+    console.log(geoSupported());
     // listen for form input changes and save them to the device
     $('#frm-config input').on('change', function () {
       var orientation = $('input[name=orientation]:checked', '#frm-config').val();
       var baro_calibration = $('input#seaPressureInput').val();
       var min_batt_v = $('input#minBattInput').val();
       var max_batt_v = $('input#maxBattInput').val();
+      var metric_temp = $('#units-temp').prop('checked');
       var metric_alt = $('#units-alt').prop('checked');
-      var performance_mode = $('#performance-sport').prop('checked') ? 1 : 0;
 
       var usb_json = {
-        'major_v': 5,
-        'minor_v': 0,
+        'major_v': 4,
+        'minor_v': 1,
         'screen_rot': orientation,
         'sea_pressure': parseFloat(baro_calibration),
+        'metric_temp': metric_temp,
         'metric_alt': metric_alt,
         'min_batt_v': min_batt_v,
         'max_batt_v': max_batt_v,
-        'performance_mode': performance_mode,
       }
       console.log('sending', usb_json);
       sendJSON(usb_json);
@@ -72,25 +73,27 @@
           $('#deviceId').text(usb_parsed['device_id']);
           $('#versionMajor').text(usb_parsed['major_v']);
           $('#versionMinor').text(usb_parsed['minor_v']);
-          $('#orientation-lh').prop('checked', usb_parsed['screen_rot'] == 3);
-          $('#orientation-rh').prop('checked', usb_parsed['screen_rot'] == 1);
+          $('#orientation-lh').prop('checked', usb_parsed['screen_rot'] == 2);
+          $('#orientation-rh').prop('checked', usb_parsed['screen_rot'] == 0);
+          $('#units-temp').prop('checked', usb_parsed['metric_temp']);
           $('#units-alt').prop('checked', usb_parsed['metric_alt']);
           $('#seaPressureInput').val(usb_parsed['sea_pressure']);
-          $('#performance-chill').prop('checked', usb_parsed['performance_mode'] == 0);
-          $('#performance-sport').prop('checked', usb_parsed['performance_mode'] == 1);
-          Rollbar.info('Synced-SP140', usb_parsed);
+          $('#minBattInput').val(usb_parsed['min_batt_v']);
+          $('#maxBattInput').val(usb_parsed['max_batt_v']);
+          Rollbar.info('Synced-X4', usb_parsed);
+          console.log('received', usb_input);
         };
         port.onReceiveError = error => {
           Rollbar.warn(error);
           console.error(error);
         };
       }, error => {
-        Rollbar.warn(error);
         displayError(error)
       });
     }
 
     function displayError(error) {
+      Rollbar.warn(error);
       console.log(error);
       statusDisplay.textContent = error.message;
     }

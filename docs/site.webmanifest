@@ -1,6 +1,7 @@
 {
   "name": "OpenPPG Configurator",
   "short_name": "PPG Config",
+  "start_url": "https://config.openppg.com",
   "icons": [{
     "src": "/android-chrome-192x192.png",
     "sizes": "192x192",
