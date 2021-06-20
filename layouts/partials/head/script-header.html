@@ -15,10 +15,18 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-111553987-3"></script>
 
+{{ $uaparser := resources.Get "js/vendor/ua-parser-js/dist/ua-parser.min.js" -}}
+
 {{ if (isset .Params "configurator") }}
   {{ $configPath := (printf "js/configurator/%s.js" (.Param "configurator") )}}
+
   <script src="/js/vendor/serial.js"></script>
   <script src="/js/vendor/weather.js"></script>
+
+  {{ $commonJs := resources.Get "js/configurator/common.js" -}}
+  {{ $js := slice $uaparser $commonJs | resources.Concat "common.js" -}}
+
+  <script src="{{ $js.Permalink }}" defer></script>
 
   {{ if eq (hugo.Environment) "development" -}}
     {{ $configuratorJs := resources.Get $configPath }}

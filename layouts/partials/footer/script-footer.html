@@ -2,16 +2,15 @@
 {{ $index := $indexTemplate | resources.ExecuteAsTemplate "index.js" . -}}
 {{ $lazysizes := resources.Get "js/vendor/lazysizes/lazysizes.min.js" -}}
 {{ $clipboard := resources.Get "js/vendor/clipboard/dist/clipboard.min.js" -}}
-{{ $uaparser := resources.Get "js/vendor/ua-parser-js/dist/ua-parser.min.js" -}}
 {{ if eq (hugo.Environment) "development" -}}
   {{ $app := resources.Get "js/app.js" -}}
-  {{ $js := slice $uaparser $app | resources.Concat "main.js" -}}
+  {{ $js := slice $app | resources.Concat "main.js" -}}
   <script src="{{ $js.Permalink }}" defer></script>
   <script src="{{ $index.Permalink }}" defer></script>
 {{ else -}}
   {{ $instantPage := resources.Get "js/vendor/instant.page/instantpage.js" | minify -}}
   {{ $app := resources.Get "js/app.js" | minify -}}
-  {{ $js := slice $instantPage $uaparser $app | resources.Concat "main.js" -}}
+  {{ $js := slice $instantPage $app | resources.Concat "main.js" -}}
   {{ $jsProd := $js | resources.Fingerprint "sha512" -}}
   {{ $indexProd := $index | resources.Minify | resources.Fingerprint "sha512" -}}
   <script src="{{ $jsProd.Permalink }}" integrity="{{ $jsProd.Data.Integrity }}" crossorigin="anonymous" defer></script>
