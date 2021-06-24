@@ -10,21 +10,12 @@
 
     $('#frm-config :input').prop('disabled', true);
 
-    // check if WebUSB is supported
-    if ('usb' in navigator) {
-      console.log('has WebUSB support');
-    } else {
-      alert('WebUSB not supported: Please use Chrome on desktop or Android');
-      $('#connect').prop('disabled', true);
-      $('#connect').html('Not Supported');
-      return;
-    }
+    if (!isUsbSupported()){ return }
 
     document.getElementById('btn-pressure').addEventListener('click', function () {
       updateLocalPressure();
     });
 
-    console.log(geoSupported());
     // listen for form input changes and save them to the device
     $('#frm-config input').on('change', function () {
       var orientation = $('input[name=orientation]:checked', '#frm-config').val();
