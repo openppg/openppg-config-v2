@@ -93,4 +93,6 @@ rel  = "sitemap"
   [[module.mounts]]
     source = "node_modules/ua-parser-js"
     target = "assets/js/vendor/ua-parser-js"
-
+  [[module.mounts]]
+    source = "node_modules/jquery"
+    target = "assets/js/vendor/jquery"
