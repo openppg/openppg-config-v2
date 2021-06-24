@@ -20,15 +20,14 @@
 {{ if (isset .Params "configurator") }}
   {{ $configPath := (printf "js/configurator/%s.js" (.Param "configurator") )}}
   {{ $jquery := resources.Get "js/vendor/jquery/dist/jquery.min.js" -}}
-  {{ $uaparser := resources.Get "js/vendor/ua-parser-js/dist/ua-parser.min.js" -}}
+  {{ $weather := resources.Get "js/configurator/weather.js" -}}
 
   <script src="{{ $jquery.Permalink }}"></script>
 
   <script src="/js/vendor/serial.js"></script>
-  <script src="/js/vendor/weather.js"></script>
 
   {{ $commonJs := resources.Get "js/configurator/common.js" -}}
-  {{ $js := slice $uaparser $commonJs | resources.Concat "common.js" -}}
+  {{ $js := slice $weather $commonJs | resources.Concat "configs.js" -}}
 
   <script src="{{ $js.Permalink }}" defer></script>
 

@@ -91,8 +91,5 @@ rel  = "sitemap"
     source = "node_modules/clipboard"
     target = "assets/js/vendor/clipboard"
   [[module.mounts]]
-    source = "node_modules/ua-parser-js"
-    target = "assets/js/vendor/ua-parser-js"
-  [[module.mounts]]
     source = "node_modules/jquery"
     target = "assets/js/vendor/jquery"
