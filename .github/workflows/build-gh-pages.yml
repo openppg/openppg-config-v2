@@ -17,3 +17,4 @@ jobs:
         with:
           branch: pages-test # The branch the action should deploy to.
           folder: docs # The folder the action should deploy.
+          target-folder: docs # Keep in the same folder for now based on pages config
