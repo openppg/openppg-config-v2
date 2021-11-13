@@ -14,7 +14,7 @@
   url = "/configurators/x4/"
   weight = 10
 
-  [[main]]
+[[main]]
   name = "SP140 Configurator"
   url = "/configurators/sp140/"
   weight = 11

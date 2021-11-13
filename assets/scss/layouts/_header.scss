@@ -39,7 +39,7 @@
 }
 
 .nav-item {
-  margin-left: 1.25rem;
+  margin-left: 1rem;
 }
 
 @include media-breakpoint-up(md) {
@@ -56,8 +56,8 @@
 
 @include media-breakpoint-down(md) {
   .navbar .container {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 }
 
