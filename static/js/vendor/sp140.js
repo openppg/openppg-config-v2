@@ -3,7 +3,7 @@
 (function () {
   'use strict';
 
-  document.addEventListener('DOMContentLoaded', e => {
+  document.addEventListener('DOMContentLoaded', () => {
     let connectButton = document.querySelector('#connect');
     let statusDisplay = document.querySelector('#status');
     let port;
