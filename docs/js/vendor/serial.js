@@ -51,10 +51,10 @@ if ('usb' in navigator){
               if (elementalt.interfaceClass==0xFF) {
                 this.interfaceNumber = element.interfaceNumber;
                 elementalt.endpoints.forEach(elementendpoint => {
-                  if (elementendpoint.direction == "out") {
+                  if (elementendpoint.direction == 'out') {
                     this.endpointOut = elementendpoint.endpointNumber;
                   }
-                  if (elementendpoint.direction=="in") {
+                  if (elementendpoint.direction=='in') {
                     this.endpointIn =elementendpoint.endpointNumber;
                   }
                 })
