@@ -12,7 +12,7 @@
 
 ### Requirements
 
-OpenPPG config uses Doks and a number of other npm packages. Installing npm is pretty simple. Download and install [Node.js](https://nodejs.org/) (it includes npm) for your platform. We recommend installing the most recent LTS release.
+OpenPPG config uses [Doks](https://github.com/h-enk/doks) and a number of other npm packages. Installing npm is pretty simple. Download and install [Node.js](https://nodejs.org/) (it includes npm) for your platform. We recommend installing the most recent LTS release.
 
 ### Local development
 
