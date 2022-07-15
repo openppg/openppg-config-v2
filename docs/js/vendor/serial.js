@@ -15,6 +15,7 @@ if ('usb' in navigator){
       { 'vendorId': 0x239A }, // Adafruit boards
       { 'vendorId': 0x04D8 }, // microchip boards
       { 'vendorId': 0xcafe }, // TinyUSB example
+      { 'vendorId': 0x1b4f }, // promicro
     ];
     return navigator.usb.requestDevice({ 'filters': filters }).then(
       device => new serial.Port(device)
