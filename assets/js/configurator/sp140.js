@@ -82,9 +82,13 @@
     }
 
     function updateFormFromSync(usb_parsed){
+      console.log('raw', usb_parsed);
       if (usesNewMapping(usb_parsed)){
         usb_parsed = migrateUsbData(usb_parsed);
+        console.log('parsed', usb_parsed);
       }
+      usb_parsed = sanitizeUsbData(usb_parsed);
+      console.log('sanitized', usb_parsed);
 
       $('#armedTime').text(display(usb_parsed.armed_time));
       $('#deviceId').text(usb_parsed.device_id);
@@ -99,27 +103,33 @@
     }
 
     function migrateUsbData(usb_parsed){
-      const key_map = new Map();
+      const key_map = [];
       key_map['mj_v'] = 'major_v';
       key_map['mi_v'] = 'minor_v';
-      key_map['arch'] = 'arch';
-      key_map['scr_rot'] = 'screen_rot';
+      key_map['arc'] = 'arch';
+      key_map['scr_rt'] = 'screen_rot';
       key_map['ar_tme'] = 'armed_time';
-      key_map['m_temp'] = 'metric_temp';
+      key_map['m_tmp'] = 'metric_temp';
       key_map['m_alt'] = 'metric_alt';
       key_map['prf'] = 'performance_mode';
-      key_map['sea_p'] = 'sea_pressure';
+      key_map['s_p'] = 'sea_pressure';
       var migratedUsbData = {};
-      usb_parsed.forEach(function(value, key) {
-        migratedUsbData[key_map.get(key)] = value;
-      })
+      for (const [key, value] of Object.entries(usb_parsed)) {
+        migratedUsbData[key_map[key]] = value;
+      }
       return migratedUsbData;
+    }
+
+    function sanitizeUsbData(usb_parsed){
+      usb_parsed.screen_rot = parseInt(usb_parsed.screen_rot);
+      usb_parsed.performance_mode = parseInt(usb_parsed.performance_mode);
+      return usb_parsed;
     }
 
     function usesNewMapping(usb_parsed){
       return (usb_parsed?.mj_v >= 5 && usb_parsed?.mi_v >= 5)
     }
-    
+
 
     function displayError(error) {
       console.log(error);
