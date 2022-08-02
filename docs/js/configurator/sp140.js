@@ -57,6 +57,7 @@
       disconnect();
     });
 
+    // called when button is clicked
     function connect() {
       port.connect().then(() => {
         statusDisplay.textContent = '';
@@ -68,16 +69,7 @@
           var usb_input = textDecoder.decode(data);
           if (usb_input.length < 5) { return }
           var usb_parsed = JSON.parse(usb_input); // TODO figure out why empty data is sent
-          $('#armedTime').text(display(usb_parsed['armed_time']));
-          $('#deviceId').text(usb_parsed['device_id']);
-          $('#versionMajor').text(usb_parsed['major_v']);
-          $('#versionMinor').text(usb_parsed['minor_v']);
-          $('#orientation-lh').prop('checked', usb_parsed['screen_rot'] == 3);
-          $('#orientation-rh').prop('checked', usb_parsed['screen_rot'] == 1);
-          $('#units-alt').prop('checked', usb_parsed['metric_alt']);
-          $('#seaPressureInput').val(usb_parsed['sea_pressure']);
-          $('#performance-chill').prop('checked', usb_parsed['performance_mode'] == 0);
-          $('#performance-sport').prop('checked', usb_parsed['performance_mode'] == 1);
+          updateFormFromSync(usb_parsed);
           Rollbar.info('Synced-SP140', usb_parsed);
         };
         port.onReceiveError = error => {
@@ -90,12 +82,71 @@
       });
     }
 
+    // Update the page from received data
+    function updateFormFromSync(usb_parsed){
+      console.log('raw', usb_parsed);
+      if (usesNewMapping(usb_parsed)){
+        usb_parsed = migrateUsbData(usb_parsed);
+        console.log('parsed', usb_parsed);
+      }
+      else{
+        usb_parsed.arch = 'SAMD21';
+      }
+      usb_parsed = sanitizeUsbData(usb_parsed);
+      console.log('sanitized', usb_parsed);
+
+      $('#armedTime').text(displayTime(usb_parsed.armed_time));
+      $('#deviceId').text(usb_parsed.device_id);
+      $('#deviceArch').text(usb_parsed.arch);
+      $('#versionMajor').text(usb_parsed.major_v);
+      $('#versionMinor').text(usb_parsed.minor_v);
+      $('#orientation-lh').prop('checked', usb_parsed.screen_rot == 3);
+      $('#orientation-rh').prop('checked', usb_parsed.screen_rot == 1);
+      $('#units-alt').prop('checked', usb_parsed.metric_alt);
+      $('#seaPressureInput').val(usb_parsed.sea_pressure);
+      $('#performance-chill').prop('checked', usb_parsed.performance_mode == 0);
+      $('#performance-sport').prop('checked', usb_parsed.performance_mode == 1);
+    }
+
+    // migrate new data to old mappings
+    function migrateUsbData(usb_parsed){
+      const key_map = [];
+      key_map['mj_v'] = 'major_v';
+      key_map['mi_v'] = 'minor_v';
+      key_map['arch'] = 'arch';
+      key_map['scr_rt'] = 'screen_rot';
+      key_map['ar_tme'] = 'armed_time';
+      key_map['m_tmp'] = 'metric_temp';
+      key_map['m_alt'] = 'metric_alt';
+      key_map['prf'] = 'performance_mode';
+      key_map['sea_p'] = 'sea_pressure';
+      key_map['id'] = 'device_id';
+      var migratedUsbData = {};
+      for (const [key, value] of Object.entries(usb_parsed)) {
+        migratedUsbData[key_map[key]] = value;
+      }
+      return migratedUsbData;
+    }
+
+    // clean up string numbers to be numbers
+    function sanitizeUsbData(usb_parsed){
+      usb_parsed.screen_rot = parseInt(usb_parsed.screen_rot);
+      usb_parsed.performance_mode = parseInt(usb_parsed.performance_mode);
+      return usb_parsed;
+    }
+
+    // check if version is at least 5.5
+    function usesNewMapping(usb_parsed){
+      return (usb_parsed?.mj_v >= 5 && usb_parsed?.mi_v >= 5)
+    }
+
     function displayError(error) {
       console.log(error);
       statusDisplay.textContent = error.message;
     }
 
-    function display(minutes) {
+    // format minutes to HH:MM
+    function displayTime(minutes) {
       const format = val => `0${Math.floor(val)}`.slice(-2)
       const hours = minutes / 60
 
