@@ -113,13 +113,13 @@
       const key_map = [];
       key_map['mj_v'] = 'major_v';
       key_map['mi_v'] = 'minor_v';
-      key_map['arc'] = 'arch';
+      key_map['arch'] = 'arch';
       key_map['scr_rt'] = 'screen_rot';
       key_map['ar_tme'] = 'armed_time';
       key_map['m_tmp'] = 'metric_temp';
       key_map['m_alt'] = 'metric_alt';
       key_map['prf'] = 'performance_mode';
-      key_map['s_p'] = 'sea_pressure';
+      key_map['sea_p'] = 'sea_pressure';
       key_map['id'] = 'device_id';
       var migratedUsbData = {};
       for (const [key, value] of Object.entries(usb_parsed)) {
