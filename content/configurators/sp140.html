@@ -2,7 +2,7 @@
 title: "OpenPPG SP140 Configurator"
 description: "Change settings on your OpenPPG device via USB"
 helplink: "/docs/controllers/sp140/"
-date: 2021-02-28T15:34:28-06:00\
+date: 2022-02-28T15:34:28-06:00\
 configurator: "sp140"
 draft: false
 ---
@@ -115,25 +115,35 @@ draft: false
   <div class="col-md-8 my-4">
     <div class="card card-body bg-light">
       <h4 class="card-title mt-0">Upgrades</h4>
-      <p>
-        5.5 Versions Coming Soon
-      <p>
-        <a href="https://openppg-firmware.s3.amazonaws.com/sp140/sp140-v5-4.uf2" target="_blank">Latest SP140 firmware
-          <i class="fas fa-download"></i> (5.4)
-        </a>
-      </p>
+      <p>Latest SP140 firmware (5.6)</p>
+      <div class="row mb-2">
+        <div class="col-md-5">
+          RP2040 <br />
+          <a href="https://github.com/openppg/eppg-controller/releases/download/v5.6/OpenPPG-CRP2040-SP140.uf2" target="_blank">
+            <i class="fas fa-download"></i> (5.6R)
+          </a>
+        </div>
+        <div class="col-md-5">
+          SAMD21  <br />
+          <a href="https://github.com/openppg/eppg-controller/releases/download/v5.6/OpenPPG-CRM0-SP140.uf2" target="_blank">
+            <i class="fas fa-download"></i> (5.6)
+          </a>
+        </div>
+      </div>
+      <br />
       <p>
         Older versions: (also available from <a href=" https://github.com/openppg/eppg-controller/releases" target="_blank">
-           Github</a>)
+           Github</a>) <br />
+           SAMD21
         <ul class="old-releases">
           <li>
-            <a href="https://openppg-firmware.s3.amazonaws.com/sp140/sp140-v5-3.uf2" target="_blank">Voltage reading improvements
-              <i class="fas fa-download"></i> (5.3)
+            <a href="https://openppg-firmware.s3.amazonaws.com/sp140/sp140-v5-4.uf2" target="_blank">Power smoothing and new boot screen
+              <i class="fas fa-download"></i> (5.4)
             </a>
           </li>
           <li>
-            <a href="https://openppg-firmware.s3.amazonaws.com/sp140/sp140-v5-2.uf2" target="_blank">Button tweaks
-              <i class="fas fa-download"></i> (5.2)
+            <a href="https://openppg-firmware.s3.amazonaws.com/sp140/sp140-v5-3.uf2" target="_blank">Voltage reading improvements
+              <i class="fas fa-download"></i> (5.3)
             </a>
           </li>
         </ul>
