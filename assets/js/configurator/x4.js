@@ -60,9 +60,7 @@
 
     function connect() {
       port.connect().then(() => {
-        statusDisplay.textContent = '';
-        connectButton.textContent = 'Disconnect';
-        $('#frm-config :input').prop('disabled', false);
+        didConnect();
 
         port.onReceive = data => {
           let textDecoder = new TextDecoder();
@@ -131,6 +129,7 @@
     function disconnect() {
       port.disconnect();
       $('#frm-config :input').prop('disabled', true);
+      $('button#bl').prop('disabled', true);
       connectButton.textContent = 'Connect';
       statusDisplay.textContent = '';
       port = null;
@@ -138,6 +137,13 @@
 
     function sendJSON(usb_json) {
       port.send(new TextEncoder('utf-8').encode(JSON.stringify(usb_json)));
+    }
+
+    function didConnect() {
+      statusDisplay.textContent = '';
+      connectButton.textContent = 'Disconnect';
+      $('#frm-config :input').prop('disabled', false);
+      $('button#bl').prop('disabled', false);
     }
   });
 })();
