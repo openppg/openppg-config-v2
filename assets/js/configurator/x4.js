@@ -24,7 +24,6 @@
       updateLocalPressure();
     });
 
-    console.log(geoSupported());
     // listen for form input changes and save them to the device
     $('#frm-config input').on('change', function () {
       var orientation = $('input[name=orientation]:checked', '#frm-config').val();
