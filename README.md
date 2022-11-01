@@ -1,8 +1,8 @@
 # OpenPPG Config
 
- Configure your OpenPPG controller via WebUSB
+Configure your OpenPPG controller via WebUSB
 
-[![Build and Deploy](https://github.com/openppg/openppg-config-v2/actions/workflows/build-gh-pages.yml/badge.svg)](https://github.com/openppg/openppg-config-v2/actions/workflows/build-gh-pages.yml)
+[![Build and Deploy](https://github.com/openppg/openppg-config-v2/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/openppg/openppg-config-v2/actions/workflows/pages/pages-build-deployment)
 
 ### Notes:
 
