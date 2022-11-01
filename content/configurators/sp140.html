@@ -114,9 +114,27 @@ draft: false
 <div class="row">
   <div class="col-md-8 my-4">
     <div class="card card-body bg-light">
-      <h4 class="card-title mt-0">Upgrades</h4>
-      <p>Latest SP140 firmware (5.6)</p>
-      <div class="row mb-2">
+      <h4 class="card-title mt-0">Upgrades </h4>
+      <small class="text-muted">New firmware can add features and improve functionality</small>
+      <h5>Latest SP140 firmware (5.7)</h5>
+      <span><a href="https://github.com/openppg/eppg-controller/releases/" target="_blank">Release notes <i class="fas fa-info-circle"></i></a></span>
+      <div class="row mb-4">
+        <div class="col-md-5">
+          RP2040 <br />
+          <a href="https://github.com/openppg/eppg-controller/releases/download/v5.7/OpenPPG-CRP2040-SP140.uf2" target="_blank">
+            <i class="fas fa-download"></i> (5.7R)
+          </a>
+        </div>
+        <div class="col-md-5">
+          SAMD21  <br />
+          <a href="https://github.com/openppg/eppg-controller/releases/download/v5.7/OpenPPG-CM0-SP140.uf2" target="_blank">
+            <i class="fas fa-download"></i> (5.7)
+          </a>
+        </div>
+      </div>
+      <p>Older versions: (also available from <a href="https://github.com/openppg/eppg-controller/releases" target="_blank">
+        Github</a>) </p>
+      <div class="row mb-4 old-releases">
         <div class="col-md-5">
           RP2040 <br />
           <a href="https://github.com/openppg/eppg-controller/releases/download/v5.6/OpenPPG-CRP2040-SP140.uf2" target="_blank">
@@ -130,24 +148,6 @@ draft: false
           </a>
         </div>
       </div>
-      <br />
-      <p>
-        Older versions: (also available from <a href=" https://github.com/openppg/eppg-controller/releases" target="_blank">
-           Github</a>) <br />
-           SAMD21
-        <ul class="old-releases">
-          <li>
-            <a href="https://openppg-firmware.s3.amazonaws.com/sp140/sp140-v5-4.uf2" target="_blank">Power smoothing and new boot screen
-              <i class="fas fa-download"></i> (5.4)
-            </a>
-          </li>
-          <li>
-            <a href="https://openppg-firmware.s3.amazonaws.com/sp140/sp140-v5-3.uf2" target="_blank">Voltage reading improvements
-              <i class="fas fa-download"></i> (5.3)
-            </a>
-          </li>
-        </ul>
-      </p>
       <button id="bl" class="btn btn-warning hvr-icon-spin" disabled>Reboot in update mode
         <i class="fas fa-sync hvr-icon"> </i></button>
     </div>
