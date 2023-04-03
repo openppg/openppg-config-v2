@@ -76,7 +76,7 @@
         };
       }, error => {
         Rollbar.warn(error);
-        displayError(error)
+        displayError(error);
       });
     }
 
