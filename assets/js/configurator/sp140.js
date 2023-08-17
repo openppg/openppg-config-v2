@@ -104,6 +104,8 @@
       $('#seaPressureInput').val(usb_parsed.sea_pressure);
       $('#performance-chill').prop('checked', usb_parsed.performance_mode == 0);
       $('#performance-sport').prop('checked', usb_parsed.performance_mode == 1);
+      $('#theme-light').prop('checked', usb_parsed.theme == 0);
+      $('#theme-dark').prop('checked', usb_parsed.theme == 1);
     }
 
     // migrate new data to old mappings
@@ -119,6 +121,7 @@
       key_map['prf'] = 'performance_mode';
       key_map['sea_p'] = 'sea_pressure';
       key_map['id'] = 'device_id';
+      key_map['thm'] = 'theme';
       var migratedUsbData = {};
       for (const [key, value] of Object.entries(usb_parsed)) {
         migratedUsbData[key_map[key]] = value;
