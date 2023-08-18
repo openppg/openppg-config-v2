@@ -139,7 +139,10 @@
 
     // check if version is at least 5.5
     function usesNewMapping(usb_parsed){
-      return (usb_parsed?.mj_v >= 5 && usb_parsed?.mi_v >= 5)
+      if (usb_parsed?.mj_v >= 6) {
+        return true; // Automatically true for 6.x and above
+      }
+      return (usb_parsed?.mj_v === 5 && usb_parsed?.mi_v >= 5);
     }
 
     function displayError(error) {
