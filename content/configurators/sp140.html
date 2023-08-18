@@ -130,55 +130,72 @@ draft: false
     <div class="card card-body bg-light">
       <h4 class="card-title mt-0">Upgrades </h4>
       <small class="text-muted">New firmware can add features and improve functionality.</small>
-      <h6>Beta SP140 firmware (6.0) - Coming soon</h6>
-      <div class="row mb-4"> </div>
-      <h5>Latest SP140 firmware (5.9) - ESC V2 FW only</h5>
-      <span><a href="https://github.com/openppg/eppg-controller/releases/tag/v5.9" target="_blank">Release notes <i class="fas fa-info-circle"></i></a></span>
+      <h5>Latest SP140 firmware (6.0)</h5>
+      <span><a href="https://github.com/openppg/eppg-controller/releases/tag/v6.0" target="_blank">Release notes <i class="fas fa-info-circle"></i></a></span>
       <div class="row mb-4">
-        <div class="col-md-5">
+        <div class="col-md-5 mb-2">
           RP2040 <br />
-          <a href="https://github.com/openppg/eppg-controller/releases/download/v5.9/OpenPPG-CRP2040-SP140.uf2" target="_blank">
-            <i class="fas fa-download"></i> (5.9R)
+          <a href="https://github.com/openppg/eppg-controller/releases/download/v6.0/OpenPPG-CRP2040-SP140.uf2" target="_blank">
+            <i class="fas fa-download"></i> (6.0R)
           </a>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-5 mb-2">
           SAMD21  <br />
-          <a href="https://github.com/openppg/eppg-controller/releases/download/v5.9/OpenPPG-CM0-SP140.uf2" target="_blank">
-            <i class="fas fa-download"></i> (5.9)
-          </a>
+            <i>coming soon</i>
         </div>
       </div>
-      <p>Older versions: (also available from <a href="https://github.com/openppg/eppg-controller/releases" target="_blank">
-        Github</a>) </p>
-        <div class="row mb-4 old-releases">
-          <div class="col-md-5">
-            RP2040 <br />
-            <a href="https://github.com/openppg/eppg-controller/releases/download/v5.8/OpenPPG-CRP2040-SP140.uf2" target="_blank">
-              <i class="fas fa-download"></i> (5.8R)
-            </a>
-          </div>
-          <div class="col-md-5">
-            SAMD21  <br />
-            <a href="https://github.com/openppg/eppg-controller/releases/download/v5.8/OpenPPG-CM0-SP140.uf2" target="_blank">
-              <i class="fas fa-download"></i> (5.8)
-            </a>
-          </div>
-      </div>
-      <p>Legacy - ESC V1 Firmware only </p>
-      <div class="row mb-4 old-releases">
-        <div class="col-md-5">
-          RP2040 <br />
-          <a href="https://github.com/openppg/eppg-controller/releases/download/v5.7/OpenPPG-CRP2040-SP140.uf2" target="_blank">
-            <i class="fas fa-download"></i> (5.7R)
-          </a>
-        </div>
-        <div class="col-md-5">
-          SAMD21  <br />
-          <a href="https://github.com/openppg/eppg-controller/releases/download/v5.7/OpenPPG-CM0-SP140.uf2" target="_blank">
-            <i class="fas fa-download"></i> (5.7)
-          </a>
-        </div>
-      </div>
+
+{{< details "Older ESC V2 Firmware" >}}
+  <p>(also available from <a href="https://github.com/openppg/eppg-controller/releases" target="_blank">
+  Github</a>) </p>
+  <div class="row mb-4 old-releases">
+    <div class="col-md-6 mb-2">
+      RP2040 <br />
+      <a href="https://github.com/openppg/eppg-controller/releases/download/v5.9/OpenPPG-CRP2040-SP140.uf2" target="_blank">
+        <i class="fas fa-download"></i> (5.9R)
+      </a>
+    </div>
+    <div class="col-md-6 mb-2">
+      SAMD21  <br />
+      <a href="https://github.com/openppg/eppg-controller/releases/download/v5.9/OpenPPG-CM0-SP140.uf2" target="_blank">
+        <i class="fas fa-download"></i> (5.9)
+      </a>
+    </div>
+  </div>
+  <div class="row mb-4 old-releases">
+    <div class="col-md-6 mb-2 ">
+      RP2040 <br />
+      <a href="https://github.com/openppg/eppg-controller/releases/download/v5.8/OpenPPG-CRP2040-SP140.uf2" target="_blank">
+        <i class="fas fa-download"></i> (5.8R)
+      </a>
+    </div>
+    <div class="col-md-6 mb-2">
+      SAMD21  <br />
+      <a href="https://github.com/openppg/eppg-controller/releases/download/v5.8/OpenPPG-CM0-SP140.uf2" target="_blank">
+        <i class="fas fa-download"></i> (5.8)
+      </a>
+    </div>
+  </div>
+{{< /details >}}
+
+{{< details "Legacy Versions" >}}
+<p>Legacy - ESC V1 Firmware only </p>
+<div class="row mb-4 old-releases">
+  <div class="col-md-6 mb-2">
+    RP2040 <br />
+    <a href="https://github.com/openppg/eppg-controller/releases/download/v5.7/OpenPPG-CRP2040-SP140.uf2" target="_blank">
+      <i class="fas fa-download"></i> (5.7R)
+    </a>
+  </div>
+  <div class="col-md-6 mb-2">
+    SAMD21  <br />
+    <a href="https://github.com/openppg/eppg-controller/releases/download/v5.7/OpenPPG-CM0-SP140.uf2" target="_blank">
+      <i class="fas fa-download"></i> (5.7)
+    </a>
+  </div>
+</div>
+{{< /details >}}
+
       <button id="bl" class="btn btn-warning hvr-icon-spin" disabled>Reboot in update mode
         <i class="fas fa-sync hvr-icon"> </i></button>
     </div>
