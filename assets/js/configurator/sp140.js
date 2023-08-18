@@ -32,16 +32,16 @@
       var max_batt_v = $('input#maxBattInput').val();
       var metric_alt = $('#units-alt').prop('checked');
       var performance_mode = $('#performance-sport').prop('checked') ? 1 : 0;
+      var theme = $('#theme-dark').prop('checked') ? 1 : 0;
 
       var usb_json = {
-        'major_v': 5,
-        'minor_v': 0,
         'screen_rot': orientation,
         'sea_pressure': parseFloat(baro_calibration),
         'metric_alt': metric_alt,
         'min_batt_v': min_batt_v,
         'max_batt_v': max_batt_v,
         'performance_mode': performance_mode,
+        'theme': theme,
       }
       console.log('sending', usb_json);
       sendJSON(usb_json);
@@ -104,6 +104,8 @@
       $('#seaPressureInput').val(usb_parsed.sea_pressure);
       $('#performance-chill').prop('checked', usb_parsed.performance_mode == 0);
       $('#performance-sport').prop('checked', usb_parsed.performance_mode == 1);
+      $('#theme-light').prop('checked', usb_parsed.theme == 0);
+      $('#theme-dark').prop('checked', usb_parsed.theme == 1);
     }
 
     // migrate new data to old mappings
@@ -119,6 +121,7 @@
       key_map['prf'] = 'performance_mode';
       key_map['sea_p'] = 'sea_pressure';
       key_map['id'] = 'device_id';
+      key_map['thm'] = 'theme';
       var migratedUsbData = {};
       for (const [key, value] of Object.entries(usb_parsed)) {
         migratedUsbData[key_map[key]] = value;
@@ -130,12 +133,16 @@
     function sanitizeUsbData(usb_parsed){
       usb_parsed.screen_rot = parseInt(usb_parsed.screen_rot);
       usb_parsed.performance_mode = parseInt(usb_parsed.performance_mode);
+      usb_parsed.theme = parseInt(usb_parsed.theme);
       return usb_parsed;
     }
 
     // check if version is at least 5.5
     function usesNewMapping(usb_parsed){
-      return (usb_parsed?.mj_v >= 5 && usb_parsed?.mi_v >= 5)
+      if (usb_parsed?.mj_v >= 6) {
+        return true; // Automatically true for 6.x and above
+      }
+      return (usb_parsed?.mj_v === 5 && usb_parsed?.mi_v >= 5);
     }
 
     function displayError(error) {

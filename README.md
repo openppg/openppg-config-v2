@@ -28,6 +28,13 @@ npm install
 npm run start
 ```
 
+To interact with WebUSB devices you must use https. Hugo now provides https server out of the box. You can access the site at https://localhost:1313.
+Run the following command to start the server in HTTPS mode:
+
+```bash
+hugo server --tlsAuto
+```
+
 #### 3. (Not required)  Build files
 
 *Github actions now auto-builds and deploys code when merged/commited into the master branch*
