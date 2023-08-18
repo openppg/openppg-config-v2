@@ -32,16 +32,16 @@
       var max_batt_v = $('input#maxBattInput').val();
       var metric_alt = $('#units-alt').prop('checked');
       var performance_mode = $('#performance-sport').prop('checked') ? 1 : 0;
+      var theme = $('#theme-dark').prop('checked') ? 1 : 0;
 
       var usb_json = {
-        'major_v': 5,
-        'minor_v': 0,
         'screen_rot': orientation,
         'sea_pressure': parseFloat(baro_calibration),
         'metric_alt': metric_alt,
         'min_batt_v': min_batt_v,
         'max_batt_v': max_batt_v,
         'performance_mode': performance_mode,
+        'theme': theme,
       }
       console.log('sending', usb_json);
       sendJSON(usb_json);
@@ -133,6 +133,7 @@
     function sanitizeUsbData(usb_parsed){
       usb_parsed.screen_rot = parseInt(usb_parsed.screen_rot);
       usb_parsed.performance_mode = parseInt(usb_parsed.performance_mode);
+      usb_parsed.theme = parseInt(usb_parsed.theme);
       return usb_parsed;
     }
 
