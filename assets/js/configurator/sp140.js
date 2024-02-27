@@ -98,6 +98,7 @@
       $('#deviceArch').text(usb_parsed.arch);
       $('#versionMajor').text(usb_parsed.major_v);
       $('#versionMinor').text(usb_parsed.minor_v);
+      $('#deviceRev').text(usb_parsed.revision);
       $('#orientation-lh').prop('checked', usb_parsed.screen_rot == 3);
       $('#orientation-rh').prop('checked', usb_parsed.screen_rot == 1);
       $('#units-alt').prop('checked', usb_parsed.metric_alt);
@@ -122,6 +123,7 @@
       key_map['sea_p'] = 'sea_pressure';
       key_map['id'] = 'device_id';
       key_map['thm'] = 'theme';
+      key_map['rev'] = 'revision';
       var migratedUsbData = {};
       for (const [key, value] of Object.entries(usb_parsed)) {
         migratedUsbData[key_map[key]] = value;
