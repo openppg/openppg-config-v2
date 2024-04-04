@@ -27,7 +27,6 @@
     "env": "env",
     "precheck": "npm version",
     "check": "exec-bin node_modules/.bin/hugo/hugo version",
-    "copy:katex-fonts": "shx cp ./node_modules/katex/dist/fonts/* ./static/fonts/",
     "postinstall": "hugo-installer --version otherDependencies.hugo --extended --destination node_modules/.bin/hugo",
     "version": "auto-changelog -p && git add CHANGELOG.md"
   },
@@ -47,7 +46,6 @@
     "highlight.js": "^11.5",
     "hugo-installer": "^4.0",
     "instant.page": "^5.1",
-    "katex": "^0.16",
     "lazysizes": "^5.3",
     "markdownlint-cli2": "^0.4.0",
     "netlify-plugin-submit-sitemap": "^0.4.0",
