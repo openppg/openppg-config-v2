@@ -2,7 +2,8 @@
 
 Configure your OpenPPG controller via WebUSB
 
-[![Build and Deploy](https://github.com/openppg/openppg-config-v2/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/openppg/openppg-config-v2/actions/workflows/pages/pages-build-deployment)
+[![Deploy Hugo site to Pages](https://github.com/openppg/openppg-config-v2/actions/workflows/pages.yml/badge.svg)](https://github.com/openppg/openppg-config-v2/actions/workflows/pages.yml) 
+[![Hyas CI](https://github.com/openppg/openppg-config-v2/actions/workflows/node.js-ci.yml/badge.svg)](https://github.com/openppg/openppg-config-v2/actions/workflows/node.js-ci.yml)
 
 ### Notes:
 
@@ -24,13 +25,13 @@ npm install
 
 #### 2. Start local development server
 
-To interact with WebUSB devices you must use https. Hugo now provides https server out of the box. You can access the site at https://localhost:1313.
+To interact with WebUSB devices you must use *https*. Hugo now provides https server out of the box. You can access the site at https://localhost:1313.
 
 ```bash
 npm run start
 ```
 
-#### 3. (Not required)  Build files
+#### 3. (Not required) Build files
 
 *Github actions now auto-builds and deploys code when merged/commited into the master branch*
 
