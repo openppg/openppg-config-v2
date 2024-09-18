@@ -1,7 +1,5 @@
-# Test and build your Hyas project
-# For more information see: https://henkverlinde.com/continuous-integration-workflow-for-your-hyas-project/
 
-name: Hyas CI
+name: CI
 
 on:
   push:
@@ -30,7 +28,7 @@ jobs:
     - name: Install Hugo
       uses: peaceiris/actions-hugo@v3.0.0
       with:
-        hugo-version: '0.115.1'
+        hugo-version: '0.115.4'
         extended: true
 
     - name: Check install Hugo
