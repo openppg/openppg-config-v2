@@ -1,0 +1,45 @@
+---
+title: "OpenPPG ESP32 Configurator"
+description: "Change settings on your OpenPPG device via USB"
+helplink: "/docs/controllers/esp32/"
+date: 2022-02-28T15:34:28-06:00\
+configurator: "esp32"
+draft: false
+---
+
+<div class="connect-container">
+  <button id="connect" class="btn btn-primary btn-lg">Connect</button>
+  <span id="status"></span>
+</div>
+
+<hr width="75%">
+
+<h3>
+  Controller config <span id="saved-status" class="blinkable"> <i class="fas fa-save" aria-hidden="true"></i></span>
+</h3>
+
+<div class="row">
+  <div class="col-md-8 my-4">
+    <div class="card card-body bg-light">
+      <h4 class="card-title mt-0">Upgrades </h4>
+      <small class="text-muted">New firmware can add features and improve functionality.</small>
+      <h5>Latest ESP32 firmware (6.4)</h5>
+      <span><a href="https://github.com/openppg/eppg-controller/releases/tag/v6.4" target="_blank">Release notes <i class="fas fa-info-circle"></i></a></span>
+      <div class="row mb-4">
+        <div class="col-md-5 mb-2">
+          RP2040 <br />
+          <a href="https://github.com/openppg/eppg-controller/releases/download/v6.4/OpenPPG-CRP2040-ESP32.uf2" target="_blank">
+            <i class="fas fa-download"></i> (6.4R)
+          </a>
+        </div>
+        <div class="col-md-5 mb-2">
+          SAMD21  <br />
+            <i>coming soon</i>
+        </div>
+      </div>
+
+      <button id="bl" class="btn btn-warning hvr-icon-spin" disabled>Reboot in update mode
+        <i class="fas fa-sync hvr-icon"> </i></button>
+    </div>
+  </div>
+</div>

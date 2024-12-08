@@ -19,6 +19,9 @@
   {{ $configPath := (printf "js/configurator/%s.js" (.Param "configurator") )}}
   <script src="/js/vendor/serial.js"></script>
   <script src="/js/vendor/weather.js"></script>
+  <!-- ESP Web Tools lives at node_modules/esptool-js/bundle.js -->
+  {{ $espWebTools := resources.Get "js/vendor/esptool-js/bundle.js" -}}
+  <script src="{{ $espWebTools.Permalink }}" crossorigin="anonymous"></script>
 
   {{ if eq (hugo.Environment) "development" -}}
     {{ $configuratorJs := resources.Get $configPath }}
