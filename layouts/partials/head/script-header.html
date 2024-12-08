@@ -19,10 +19,14 @@
   {{ $configPath := (printf "js/configurator/%s.js" (.Param "configurator") )}}
   <script src="/js/vendor/serial.js"></script>
   <script src="/js/vendor/weather.js"></script>
-  <!-- ESP Web Tools lives at node_modules/esptool-js/bundle.js -->
+  <!-- ESP Web Tools lives at node_modules/esptool-js/bundle.js
   {{ $espWebTools := resources.Get "js/vendor/esptool-js/bundle.js" -}}
   <script src="{{ $espWebTools.Permalink }}" crossorigin="anonymous"></script>
-
+  -->
+  <script
+  type="module"
+  src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"
+  ></script>
   {{ if eq (hugo.Environment) "development" -}}
     {{ $configuratorJs := resources.Get $configPath }}
     <script src="{{ $configuratorJs.Permalink }}"></script>
