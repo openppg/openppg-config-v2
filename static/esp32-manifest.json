@@ -7,13 +7,12 @@
       "chipFamily": "ESP32-S3",
       "ota": {
         "path": "24.11.1/esp-web-tools-example-esp32s3.ota.bin",
-        "md5": "1a3b08f67b53b9932b82b88fb7b02a54",
         "summary": "## What's Changed\r\n* Updates for OpenPPG 7.0.0 testing in https://github.com/openppg/eppg-controller/pull/\r\n",
         "release_url": "https://github.com/openppg/eppg-controller/releases/tag/7.0.0"
       },
       "parts": [
         {
-          "path": "24.11.1/esp-web-tools-example-esp32s3.factory.bin",
+          "path": "firmware/test-firmware-merged.bin",
           "offset": 0
         }
       ]
