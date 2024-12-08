@@ -1,0 +1,21 @@
+{
+  "name": "OpenPPG  Firmware",
+  "version": "7.0.0",
+  "new_install_prompt_erase": true,
+  "builds": [
+    {
+      "chipFamily": "ESP32-S3",
+      "ota": {
+        "path": "24.11.1/esp-web-tools-example-esp32s3.ota.bin",
+        "summary": "## What's Changed\r\n* Updates for OpenPPG 7.0.0 testing in https://github.com/openppg/eppg-controller/pull/\r\n",
+        "release_url": "https://github.com/openppg/eppg-controller/releases/tag/7.0.0"
+      },
+      "parts": [
+        {
+          "path": "firmware/test-firmware-merged.bin",
+          "offset": 0
+        }
+      ]
+    }
+  ]
+}

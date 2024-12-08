@@ -62,5 +62,8 @@
   },
   "overrides": {
     "semver": "^7.5.4"
+  },
+  "dependencies": {
+    "esp-web-tools": "^10.0.1"
   }
 }
