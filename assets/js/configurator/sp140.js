@@ -91,11 +91,11 @@
     // Update the page from received data
     function updateFormFromSync(usb_parsed){
       console.log('raw', usb_parsed);
-      if (usesNewMapping(usb_parsed)){
+      if (usesNewMapping(usb_parsed)) {
         usb_parsed = migrateUsbData(usb_parsed);
         console.log('parsed', usb_parsed);
-      }
-      else{
+      } else if (usb_parsed.major_v !== undefined && !usb_parsed.arch) {
+        // Only set SAMD21 as default during initial sync AND when no arch is specified
         usb_parsed.arch = 'SAMD21';
       }
       usb_parsed = sanitizeUsbData(usb_parsed);
@@ -107,6 +107,7 @@
       if (usb_parsed.device_id !== undefined) $('#deviceId').text(usb_parsed.device_id);
       if (usb_parsed.id !== undefined) $('#deviceId').text(usb_parsed.id);
       if (usb_parsed.arch !== undefined) $('#deviceArch').text(usb_parsed.arch);
+      if (usb_parsed.rev !== undefined) $('#deviceRev').text(usb_parsed.rev);
       if (usb_parsed.revision !== undefined) $('#deviceRev').text(usb_parsed.revision);
 
       // Units settings
