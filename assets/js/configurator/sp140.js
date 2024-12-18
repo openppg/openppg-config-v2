@@ -5,6 +5,7 @@
 
   document.addEventListener('DOMContentLoaded', () => {
     let connectButton = document.querySelector('#connect');
+    let syncButton = document.querySelector('#sync');
     let statusDisplay = document.querySelector('#status');
     let port;
 
@@ -187,6 +188,7 @@
       port.disconnect();
       $('#frm-config :input').prop('disabled', true);
       $('button#bl').prop('disabled', true);
+      syncButton.disabled = true;
       connectButton.textContent = 'Connect';
       statusDisplay.textContent = '';
       port = null;
@@ -196,11 +198,41 @@
       port.send(new TextEncoder('utf-8').encode(JSON.stringify(usb_json)));
     }
 
+    let lastSyncTime = 0;
+    const SYNC_COOLDOWN = 2000; // 2 seconds in milliseconds
+
+    function sendSyncCommand() {
+      const now = Date.now();
+      if (now - lastSyncTime < SYNC_COOLDOWN) {
+        console.log('Sync cooldown active, please wait');
+        return;
+      }
+
+      let sync_command_json = { 'command': 'sync' };
+      console.log('sending', sync_command_json);
+      sendJSON(sync_command_json);
+      lastSyncTime = now;
+
+      // Visually disable the button
+      syncButton.disabled = true;
+      setTimeout(() => {
+        syncButton.disabled = false;
+      }, SYNC_COOLDOWN);
+    }
+
     function didConnect() {
       statusDisplay.textContent = '';
       connectButton.textContent = 'Disconnect';
       $('#frm-config :input').prop('disabled', false);
       $('button#bl').prop('disabled', false);
+      syncButton.disabled = false;
+
+      sendSyncCommand();
     }
+
+    // Add sync button click handler
+    syncButton.addEventListener('click', function() {
+      sendSyncCommand();
+    });
   });
 })();
