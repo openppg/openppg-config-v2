@@ -67,15 +67,25 @@
           let textDecoder = new TextDecoder();
           var usb_input = textDecoder.decode(data);
           if (usb_input.length < 5) { return }
-          var usb_parsed = JSON.parse(usb_input);
 
-          // Update the form with the received data
-          updateFormFromSync(usb_parsed);
+          // Split the input on newlines and process each valid JSON object
+          usb_input.split('\n').forEach(jsonStr => {
+            try {
+              if (jsonStr.trim().length > 0) {
+                var usb_parsed = JSON.parse(jsonStr);
 
-          // Request the next chunk of data if available
-          requestNextChunk();
+                // Update the form with the received data
+                updateFormFromSync(usb_parsed);
 
-          Rollbar.info('Synced-SP140', usb_parsed);
+                // Request the next chunk of data if available
+                requestNextChunk();
+
+                Rollbar.info('Synced-SP140', usb_parsed);
+              }
+            } catch (e) {
+              console.warn('Failed to parse JSON:', e, jsonStr);
+            }
+          });
         };
 
         port.onReceiveError = error => {
