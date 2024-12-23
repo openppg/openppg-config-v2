@@ -117,8 +117,6 @@
       if (usb_parsed.device_id !== undefined) $('#deviceId').text(usb_parsed.device_id);
       if (usb_parsed.id !== undefined) $('#deviceId').text(usb_parsed.id);
       if (usb_parsed.arch !== undefined) $('#deviceArch').text(usb_parsed.arch);
-      if (usb_parsed.rev !== undefined) $('#deviceRev').text(usb_parsed.rev);
-      if (usb_parsed.revision !== undefined) $('#deviceRev').text(usb_parsed.revision);
 
       // Units settings
       if (usb_parsed.metric_alt !== undefined) $('#units-alt').prop('checked', usb_parsed.metric_alt);
