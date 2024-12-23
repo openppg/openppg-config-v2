@@ -25,31 +25,25 @@ draft: false
 <div class="tw-flex tw-flex-wrap">
   <div class="tw-w-full">
     <form id="frm-config">
-      <h5 class="tw-mt-4">Orientation</h5>
+      <h5 class="tw-mt-4 tw-mb-3">Orientation</h5>
       <div class="tw-mb-6">
-        <div class="tw-flex tw-space-x-4">
-          <label class="tw-flex tw-items-center">
-            <input class="tw-mr-2" name="orientation" type="radio" id="orientation-lh" value="3">
-            <span>Left Hand</span>
-          </label>
-          <label class="tw-flex tw-items-center">
-            <input class="tw-mr-2" name="orientation" type="radio" id="orientation-rh" value="1">
-            <span>Right Hand</span>
-          </label>
+        <div class="tw-segmented-control">
+          <input type="radio" name="orientation" id="orientation-lh" value="3" class="tw-hidden">
+          <label for="orientation-lh" class="tw-segmented-control-item">Left Hand</label>
+
+          <input type="radio" name="orientation" id="orientation-rh" value="1" class="tw-hidden">
+          <label for="orientation-rh" class="tw-segmented-control-item">Right Hand</label>
         </div>
       </div>
 
-      <h5>Interface Mode <small class="tw-text-gray-600">(6.0+)</small></h5>
+      <h5 class="tw-mb-3">Interface Mode <small class="tw-text-gray-600">(6.0+)</small></h5>
       <div class="tw-mb-6">
-        <div class="tw-flex tw-space-x-4">
-          <label class="tw-flex tw-items-center">
-            <input class="tw-mr-2" name="theme-mode" type="radio" id="theme-light" value="0">
-            <span>Light</span>
-          </label>
-          <label class="tw-flex tw-items-center">
-            <input class="tw-mr-2" name="theme-mode" type="radio" id="theme-dark" value="1">
-            <span>Dark</span>
-          </label>
+        <div class="tw-segmented-control">
+          <input type="radio" name="theme-mode" id="theme-light" value="0" class="tw-hidden">
+          <label for="theme-light" class="tw-segmented-control-item">Light</label>
+
+          <input type="radio" name="theme-mode" id="theme-dark" value="1" class="tw-hidden">
+          <label for="theme-dark" class="tw-segmented-control-item">Dark</label>
         </div>
       </div>
 
@@ -85,17 +79,14 @@ draft: false
         </div>
       </div>
 
-      <h5>Performance Mode</h5>
+      <h5 class="tw-mb-3">Performance Mode</h5>
       <div class="tw-mb-6">
-        <div class="tw-flex tw-space-x-4">
-          <label class="tw-flex tw-items-center">
-            <input class="tw-mr-2" name="performance-mode" type="radio" id="performance-chill" value="0">
-            <span>Chill</span>
-          </label>
-          <label class="tw-flex tw-items-center">
-            <input class="tw-mr-2" name="performance-mode" type="radio" id="performance-sport" value="1">
-            <span>Sport</span>
-          </label>
+        <div class="tw-segmented-control">
+          <input type="radio" name="performance-mode" id="performance-chill" value="0" class="tw-hidden">
+          <label for="performance-chill" class="tw-segmented-control-item">Chill</label>
+
+          <input type="radio" name="performance-mode" id="performance-sport" value="1" class="tw-hidden">
+          <label for="performance-sport" class="tw-segmented-control-item">Sport</label>
         </div>
       </div>
 
