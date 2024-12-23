@@ -12,7 +12,7 @@
     "init": "shx rm -rf .git && git init -b main",
     "create": "exec-bin node_modules/.bin/hugo/hugo new",
     "prestart": "npm run clean",
-    "start": "exec-bin node_modules/.bin/hugo/hugo server --bind=0.0.0.0 --disableFastRender --tlsAuto",
+    "start": "exec-bin node_modules/.bin/hugo/hugo server --bind=0.0.0.0 --disableFastRender",
     "prebuild": "npm run clean",
     "build": "exec-bin node_modules/.bin/hugo/hugo --gc --minify --cleanDestinationDir",
     "build:preview": "npm run build -D -F",
@@ -37,7 +37,7 @@
     "@fullhuman/postcss-purgecss": "^4.1",
     "@hyas/images": "^0.2.2",
     "auto-changelog": "^2.4",
-    "autoprefixer": "^10.4",
+    "autoprefixer": "^10.4.20",
     "bootstrap": "^4.6",
     "clipboard": "^2.0",
     "eslint": "^8.19",
@@ -50,12 +50,15 @@
     "markdownlint-cli2": "^0.4.0",
     "netlify-plugin-submit-sitemap": "^0.4.0",
     "node-fetch": "^3.2",
-    "postcss": "^8.4",
+    "postcss": "^8.4.49",
     "postcss-cli": "^10.0",
+    "postcss-import": "^16.1.0",
+    "postcss-preset-env": "^10.1.2",
     "purgecss-whitelister": "^2.4",
     "shx": "^0.3.4",
     "stylelint": "^14.9",
-    "stylelint-config-standard-scss": "^4.0"
+    "stylelint-config-standard-scss": "^4.0",
+    "tailwindcss": "^3.4.17"
   },
   "otherDependencies": {
     "hugo": "0.115.4"

@@ -2,127 +2,114 @@
 title: "OpenPPG SP140 Configurator"
 description: "Change settings on your OpenPPG device via USB"
 helplink: "/docs/controllers/sp140/"
-date: 2022-02-28T15:34:28-06:00\
+date: 2022-02-28T15:34:28-06:00
 configurator: "sp140"
 draft: false
 ---
 
-<div class="connect-container">
-  <button id="connect" class="btn btn-primary btn-lg">Connect</button>
+<div class="tw-flex tw-items-center tw-space-x-4 tw-mb-6">
+  <button id="connect" class="tw-btn-primary">Connect</button>
+  <button id="sync" class="tw-btn-secondary tw-opacity-50 tw-cursor-not-allowed" disabled>Refresh</button>
   <span id="status"></span>
 </div>
 
-<hr width="75%">
+<hr class="tw-w-3/4 tw-my-8">
 
-<h3>
-  Controller config <span id="saved-status" class="blinkable"> <i class="fas fa-save" aria-hidden="true"></i></span>
+<h3 class="tw-flex tw-items-center">
+  Controller config
+  <span id="saved-status" class="blinkable tw-ml-2">
+    <i class="fas fa-save" aria-hidden="true"></i>
+  </span>
 </h3>
 
-<div class="row">
-  <div class="col-md-12">
+<div class="tw-flex tw-flex-wrap">
+  <div class="tw-w-full">
     <form id="frm-config">
-      <h5 class="mt-1">Orientation</h5>
-      <div class="form-row mb-3">
-        <div class="form-group col-md-8">
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" name="orientation" type="radio" id="orientation-lh" value="3">
-            <label class="form-check-label" for="orientation-lh">Left Hand</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" name="orientation" type="radio" id="orientation-rh" value="1">
-            <label class="form-check-label" for="orientation-rh">Right Hand</label>
-          </div>
+      <h5 class="tw-mt-4">Orientation</h5>
+      <div class="tw-mb-6">
+        <div class="tw-flex tw-space-x-4">
+          <label class="tw-flex tw-items-center">
+            <input class="tw-mr-2" name="orientation" type="radio" id="orientation-lh" value="3">
+            <span>Left Hand</span>
+          </label>
+          <label class="tw-flex tw-items-center">
+            <input class="tw-mr-2" name="orientation" type="radio" id="orientation-rh" value="1">
+            <span>Right Hand</span>
+          </label>
         </div>
       </div>
 
-      <h5>Interface Mode  <small>(6.0+)</small> </h5>
-      <div class="form-row mb-3">
-        <div class="form-group col-md-8">
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" name="theme-mode" type="radio" id="theme-light" value="0">
-            <label class="form-check-label" for="theme-light">Light</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" name="theme-mode" type="radio" id="theme-dark" value="1">
-            <label class="form-check-label" for="theme-dark">Dark</label>
-          </div>
+      <h5>Interface Mode <small class="tw-text-gray-600">(6.0+)</small></h5>
+      <div class="tw-mb-6">
+        <div class="tw-flex tw-space-x-4">
+          <label class="tw-flex tw-items-center">
+            <input class="tw-mr-2" name="theme-mode" type="radio" id="theme-light" value="0">
+            <span>Light</span>
+          </label>
+          <label class="tw-flex tw-items-center">
+            <input class="tw-mr-2" name="theme-mode" type="radio" id="theme-dark" value="1">
+            <span>Dark</span>
+          </label>
         </div>
       </div>
 
       <h5>Units</h5>
-      <div class="form-row">
-        <div class="form-group col-md-8">
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" name="orientation" type="checkbox" id="units-alt">
-            <label class="form-check-label" for="units-alt">Metric Altitude (m)</label>
-          </div>
-        </div>
+      <div class="tw-mb-6">
+        <label class="tw-flex tw-items-center">
+          <input class="tw-mr-2" name="orientation" type="checkbox" id="units-alt">
+          <span>Metric Altitude (m)</span>
+        </label>
       </div>
-      <div class="form-row mb-3">
-        <div class="form-group col-md-6">
-          <label for="seaPressureInput">Baro Pressure Calibration</label>
-          <div class="input-group">
-            <input type="number" step="0.01" class="form-control" id="seaPressureInput" placeholder="pressure">
-            <div class="input-group-append">
-              <span class="input-group-text" id="inputGroup-sizing-default">mbar</span>
-            </div>
+
+      <div class="tw-flex tw-flex-wrap tw--mx-2 tw-mb-6">
+        <div class="tw-w-full md:tw-w-1/2 tw-px-2">
+          <label for="seaPressureInput" class="tw-block tw-mb-2">Baro Pressure Calibration</label>
+          <div class="tw-flex">
+            <input type="number" step="0.01" class="tw-flex-1 tw-input tw-rounded-r-none" id="seaPressureInput" placeholder="pressure">
+            <span class="tw-px-3 tw-py-2 tw-bg-gray-100 tw-border tw-border-l-0 tw-rounded-r">mbar</span>
           </div>
-          <small id="seaPressure" class="form-text text-muted">Get baro pressure for your area
-            <a href="https://merrysky.net/" target="_blank">here</a>. Default is 1013.25</small>
+          <small id="seaPressure" class="tw-text-gray-600 tw-mt-1 tw-block">Get baro pressure for your area
+            <a href="https://merrysky.net/" target="_blank" class="tw-text-blue-500 hover:tw-underline">here</a>. Default is 1013.25</small>
         </div>
 
-        <div class="form-group col-md-6" id="auto-baro-group">
-          <label for="autoSeaPressureInput"><i>Beta:</i> Auto Baro Pressure Calibration</label>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <button class="btn btn-outline-secondary" type="button" id="btn-pressure">
-                <i class="fas fa-sync"></i></button>
-            </div>
-            <input type="number" class="form-control" id="autoSeaPressureInput" placeholder="pressure">
-            <div class="input-group-append">
-              <span class="input-group-text" id="inputGroup-sizing-default">mbar</span>
-            </div>
+        <div class="tw-w-full md:tw-w-1/2 tw-px-2" id="auto-baro-group">
+          <label for="autoSeaPressureInput" class="tw-block tw-mb-2"><i>Beta:</i> Auto Baro Pressure Calibration</label>
+          <div class="tw-flex">
+            <button class="tw-px-3 tw-py-2 tw-border tw-rounded-l hover:tw-bg-gray-100" type="button" id="btn-pressure">
+              <i class="fas fa-sync"></i>
+            </button>
+            <input type="number" class="tw-flex-1 tw-input tw-rounded-none tw-border-l-0" id="autoSeaPressureInput" placeholder="pressure">
+            <span class="tw-px-3 tw-py-2 tw-bg-gray-100 tw-border tw-border-l-0 tw-rounded-r">mbar</span>
           </div>
-          <small>
-            Press refresh button to get baro pressure for your current location. Then copy it to the baro input</small>
+          <small class="tw-text-gray-600 tw-mt-1 tw-block">Press refresh button to get baro pressure for your current location. Then copy it to the baro input</small>
         </div>
       </div>
 
       <h5>Performance Mode</h5>
-      <div class="form-row mb-3">
-        <div class="form-group col-md-8">
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" name="performance-mode" type="radio" id="performance-chill" value="0">
-            <label class="form-check-label" for="performance-chill">Chill</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" name="performance-mode" type="radio" id="performance-sport" value="1">
-            <label class="form-check-label" for="performance-sport">Sport</label>
-          </div>
+      <div class="tw-mb-6">
+        <div class="tw-flex tw-space-x-4">
+          <label class="tw-flex tw-items-center">
+            <input class="tw-mr-2" name="performance-mode" type="radio" id="performance-chill" value="0">
+            <span>Chill</span>
+          </label>
+          <label class="tw-flex tw-items-center">
+            <input class="tw-mr-2" name="performance-mode" type="radio" id="performance-sport" value="1">
+            <span>Sport</span>
+          </label>
         </div>
       </div>
 
-      <p class="mb-1">
+      <p class="tw-mb-1">
         <strong>Armed Time:</strong>
         <code><span id="armedTime"></span></code>
       </p>
 
-      <p class="mb-1">
+      <p class="tw-mb-1">
         <strong>Device ID: </strong>
         <code><span id="deviceId"></span></code>
       </p>
 
-      <p class="mb-1">
-        <strong>Device Architecture: </strong>
-        <code><span id="deviceArch"></span></code>
-      </p>
-
-      <p class="mb-1">
-        <strong>Hardware Revision: </strong>
-        <code><span id="deviceRev"></span></code>
-      </p>
-
-      <p class="mb-1">
+      <p class="tw-mb-1">
         <strong>Firmware Version: </strong>
         <code><span id="versionMajor"></span>.<span id="versionMinor"></span></code>
       </p>
@@ -130,80 +117,68 @@ draft: false
   </div>
 </div>
 
-<div class="row">
-  <div class="col-md-8 my-4">
-    <div class="card card-body bg-light">
-      <h4 class="card-title mt-0">Upgrades </h4>
-      <small class="text-muted">New firmware can add features and improve functionality.</small>
-      <h5>Latest SP140 firmware (6.4)</h5>
-      <span><a href="https://github.com/openppg/eppg-controller/releases/tag/v6.4" target="_blank">Release notes <i class="fas fa-info-circle"></i></a></span>
-      <div class="row mb-4">
-        <div class="col-md-5 mb-2">
+<div class="tw-flex tw-flex-wrap tw-mt-8">
+  <div class="tw-w-full md:tw-w-2/3 tw-mb-8">
+    <div class="tw-bg-gray-50 tw-rounded-lg tw-p-6">
+      <h4 class="tw-mt-0 tw-mb-4">Upgrades</h4>
+      <small class="tw-text-gray-600 tw-block tw-mb-4">New firmware can add features and improve functionality.</small>
+
+      <h5>Latest SP140 firmware (6.5)</h5>
+      <span><a href="https://github.com/openppg/eppg-controller/releases/tag/v6.5" target="_blank" class="tw-text-blue-500 hover:tw-underline">Release notes <i class="fas fa-info-circle"></i></a></span>
+
+      <div class="tw-flex tw-flex-wrap tw-mb-8">
+        <div class="tw-w-full md:tw-w-5/12 tw-mb-2">
           RP2040 <br />
-          <a href="https://github.com/openppg/eppg-controller/releases/download/v6.4/OpenPPG-CRP2040-SP140.uf2" target="_blank">
-            <i class="fas fa-download"></i> (6.4R)
+          <a href="https://github.com/openppg/eppg-controller/releases/download/v6.5/OpenPPG-CRP2040-SP140.uf2" target="_blank" class="tw-text-blue-500 hover:tw-underline">
+            <i class="fas fa-download"></i> (6.5R)
           </a>
         </div>
-        <div class="col-md-5 mb-2">
-          SAMD21  <br />
-            <i>coming soon</i>
+        <div class="tw-w-full md:tw-w-5/12 tw-mb-2">
+          SAMD21 <br />
+          <i>coming soon</i>
         </div>
       </div>
 
+      {{< details "Older ESC V2 Firmware" >}}
+      <p>(also available from <a href="https://github.com/openppg/eppg-controller/releases" target="_blank" class="tw-text-blue-500 hover:tw-underline">Github</a>)</p>
+      <div class="tw-flex tw-flex-wrap tw-mb-8 old-releases">
+        <div class="tw-w-full md:tw-w-1/2 tw-mb-2">
+          RP2040 <br />
+          <a href="https://github.com/openppg/eppg-controller/releases/download/v5.9/OpenPPG-CRP2040-SP140.uf2" target="_blank" class="tw-text-blue-500 hover:tw-underline">
+            <i class="fas fa-download"></i> (5.9R)
+          </a>
+        </div>
+        <div class="tw-w-full md:tw-w-1/2 tw-mb-2">
+          SAMD21 <br />
+          <a href="https://github.com/openppg/eppg-controller/releases/download/v5.9/OpenPPG-CM0-SP140.uf2" target="_blank" class="tw-text-blue-500 hover:tw-underline">
+            <i class="fas fa-download"></i> (5.9)
+          </a>
+        </div>
+      </div>
+      {{< /details >}}
 
-{{< details "Older ESC V2 Firmware" >}}
-  <p>(also available from <a href="https://github.com/openppg/eppg-controller/releases" target="_blank">
-  Github</a>) </p>
-  <div class="row mb-4 old-releases">
-    <div class="col-md-6 mb-2">
-      RP2040 <br />
-      <a href="https://github.com/openppg/eppg-controller/releases/download/v5.9/OpenPPG-CRP2040-SP140.uf2" target="_blank">
-        <i class="fas fa-download"></i> (5.9R)
-      </a>
-    </div>
-    <div class="col-md-6 mb-2">
-      SAMD21  <br />
-      <a href="https://github.com/openppg/eppg-controller/releases/download/v5.9/OpenPPG-CM0-SP140.uf2" target="_blank">
-        <i class="fas fa-download"></i> (5.9)
-      </a>
-    </div>
-  </div>
-  <div class="row mb-4 old-releases">
-    <div class="col-md-6 mb-2 ">
-      RP2040 <br />
-      <a href="https://github.com/openppg/eppg-controller/releases/download/v5.8/OpenPPG-CRP2040-SP140.uf2" target="_blank">
-        <i class="fas fa-download"></i> (5.8R)
-      </a>
-    </div>
-    <div class="col-md-6 mb-2">
-      SAMD21  <br />
-      <a href="https://github.com/openppg/eppg-controller/releases/download/v5.8/OpenPPG-CM0-SP140.uf2" target="_blank">
-        <i class="fas fa-download"></i> (5.8)
-      </a>
-    </div>
-  </div>
-{{< /details >}}
+      {{< details "Legacy Versions" >}}
+      <p>Legacy - ESC V1 Firmware only</p>
+      <div class="tw-flex tw-flex-wrap tw-mb-8 old-releases">
+        <div class="tw-w-full md:tw-w-1/2 tw-mb-2">
+          RP2040 <br />
+          <a href="https://github.com/openppg/eppg-controller/releases/download/v5.7/OpenPPG-CRP2040-SP140.uf2" target="_blank" class="tw-text-blue-500 hover:tw-underline">
+            <i class="fas fa-download"></i> (5.7R)
+          </a>
+        </div>
+        <div class="tw-w-full md:tw-w-1/2 tw-mb-2">
+          SAMD21 <br />
+          <a href="https://github.com/openppg/eppg-controller/releases/download/v5.7/OpenPPG-CM0-SP140.uf2" target="_blank" class="tw-text-blue-500 hover:tw-underline">
+            <i class="fas fa-download"></i> (5.7)
+          </a>
+        </div>
+      </div>
+      {{< /details >}}
 
-{{< details "Legacy Versions" >}}
-<p>Legacy - ESC V1 Firmware only </p>
-<div class="row mb-4 old-releases">
-  <div class="col-md-6 mb-2">
-    RP2040 <br />
-    <a href="https://github.com/openppg/eppg-controller/releases/download/v5.7/OpenPPG-CRP2040-SP140.uf2" target="_blank">
-      <i class="fas fa-download"></i> (5.7R)
-    </a>
-  </div>
-  <div class="col-md-6 mb-2">
-    SAMD21  <br />
-    <a href="https://github.com/openppg/eppg-controller/releases/download/v5.7/OpenPPG-CM0-SP140.uf2" target="_blank">
-      <i class="fas fa-download"></i> (5.7)
-    </a>
-  </div>
-</div>
-{{< /details >}}
-
-      <button id="bl" class="btn btn-warning hvr-icon-spin" disabled>Reboot in update mode
-        <i class="fas fa-sync hvr-icon"> </i></button>
+      <button id="bl" class="tw-btn-warning tw-opacity-50 tw-cursor-not-allowed" disabled>
+        Reboot in update mode
+        <i class="fas fa-sync tw-ml-2"></i>
+      </button>
     </div>
   </div>
 </div>

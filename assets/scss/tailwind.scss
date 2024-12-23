@@ -1,0 +1,120 @@
+/* Tailwind colors */
+$tw-blue-500: #3b82f6;
+$tw-blue-600: #2563eb;
+$tw-gray-500: #6b7280;
+$tw-gray-600: #4b5563;
+$tw-yellow-500: #eab308;
+$tw-yellow-600: #ca8a04;
+
+/* Custom components */
+.tw-btn-primary {
+  padding: 0.5rem 1rem;
+  background-color: $tw-blue-500;
+  color: white;
+  border-radius: 0.25rem;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: $tw-blue-600;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba($tw-blue-500, 0.5);
+  }
+}
+
+.tw-btn-secondary {
+  padding: 0.5rem 1rem;
+  background-color: $tw-gray-500;
+  color: white;
+  border-radius: 0.25rem;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: $tw-gray-600;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba($tw-gray-500, 0.5);
+  }
+}
+
+.tw-btn-warning {
+  padding: 0.5rem 1rem;
+  background-color: $tw-yellow-500;
+  color: white;
+  border-radius: 0.25rem;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: $tw-yellow-600;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba($tw-yellow-500, 0.5);
+  }
+}
+
+.tw-input {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.25rem;
+  transition: all 0.2s;
+
+  &:focus {
+    outline: none;
+    border-color: $tw-blue-500;
+    box-shadow: 0 0 0 2px rgba($tw-blue-500, 0.25);
+  }
+}
+
+/* Utility classes */
+.tw-flex { display: flex; }
+.tw-items-center { align-items: center; }
+.tw-space-x-4 > * + * { margin-left: 1rem; }
+.tw-mb-6 { margin-bottom: 1.5rem; }
+.tw-mb-8 { margin-bottom: 2rem; }
+.tw-mt-8 { margin-top: 2rem; }
+.tw-ml-2 { margin-left: 0.5rem; }
+.tw-w-full { width: 100%; }
+.tw-bg-gray-50 { background-color: #f9fafb; }
+.tw-rounded-lg { border-radius: 0.5rem; }
+.tw-p-6 { padding: 1.5rem; }
+.tw-text-gray-600 { color: #4b5563; }
+.tw-text-blue-500 { color: $tw-blue-500; }
+
+/* Responsive utilities */
+@media (min-width: 768px) {
+  .md\:tw-w-1\/2 { width: 50%; }
+  .md\:tw-w-2\/3 { width: 66.666667%; }
+  .md\:tw-w-5\/12 { width: 41.666667%; }
+}
+
+/* Hover states */
+.hover\:tw-bg-gray-100:hover { background-color: #f3f4f6; }
+.hover\:tw-underline:hover { text-decoration: underline; }
+
+/* States */
+.tw-opacity-50 { opacity: 0.5; }
+.tw-cursor-not-allowed { cursor: not-allowed; }
+
+/* Existing animations */
+.blinkable {
+  opacity: 0;
+}
+
+.blink {
+  opacity: 0;
+  animation: blinker 2s ease-out;
+}
+
+@keyframes blinker {
+  33% { opacity: 1; }
+}
+
+.old-releases {
+  font-size: smaller;
+}
