@@ -49,10 +49,13 @@ draft: false
 
       <h5>Units</h5>
       <div class="tw-mb-6">
-        <label class="tw-flex tw-items-center">
-          <input class="tw-mr-2" name="orientation" type="checkbox" id="units-alt">
-          <span>Metric Altitude (m)</span>
-        </label>
+        <div class="tw-segmented-control">
+          <input type="radio" name="units-alt" id="units-feet" value="0" class="tw-hidden">
+          <label for="units-feet" class="tw-segmented-control__item">Feet</label>
+
+          <input type="radio" name="units-alt" id="units-meters" value="1" class="tw-hidden">
+          <label for="units-meters" class="tw-segmented-control__item">Meters</label>
+        </div>
       </div>
 
       <h5 class="tw-mb-3">Performance Mode</h5>

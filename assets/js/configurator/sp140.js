@@ -26,7 +26,7 @@
       var orientation = $('input[name=orientation]:checked', '#frm-config').val();
       var min_batt_v = $('input#minBattInput').val();
       var max_batt_v = $('input#maxBattInput').val();
-      var metric_alt = $('#units-alt').prop('checked');
+      var metric_alt = $('input[name=units-alt]:checked', '#frm-config').val() === "1";
       var performance_mode = $('#performance-sport').prop('checked') ? 1 : 0;
       var theme = $('#theme-dark').prop('checked') ? 1 : 0;
 
@@ -113,7 +113,10 @@
       if (usb_parsed.arch !== undefined) $('#deviceArch').text(usb_parsed.arch);
 
       // Units settings
-      if (usb_parsed.metric_alt !== undefined) $('#units-alt').prop('checked', usb_parsed.metric_alt);
+      if (usb_parsed.metric_alt !== undefined) {
+        $('#units-feet').prop('checked', !usb_parsed.metric_alt);
+        $('#units-meters').prop('checked', usb_parsed.metric_alt);
+      }
       if (usb_parsed.sea_pressure !== undefined) $('#seaPressureInput').val(usb_parsed.sea_pressure);
       if (usb_parsed.armed_time !== undefined) $('#armedTime').text(displayTime(usb_parsed.armed_time));
 
