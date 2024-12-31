@@ -21,14 +21,9 @@
       return;
     }
 
-    document.getElementById('btn-pressure').addEventListener('click', function () {
-      updateLocalPressure();
-    });
-
     // listen for form input changes and save them to the device
     $('#frm-config input').on('change', function () {
       var orientation = $('input[name=orientation]:checked', '#frm-config').val();
-      var baro_calibration = $('input#seaPressureInput').val();
       var min_batt_v = $('input#minBattInput').val();
       var max_batt_v = $('input#maxBattInput').val();
       var metric_alt = $('#units-alt').prop('checked');
@@ -37,7 +32,6 @@
 
       var usb_json = {
         'screen_rot': orientation,
-        'sea_pressure': parseFloat(baro_calibration),
         'metric_alt': metric_alt,
         'min_batt_v': min_batt_v,
         'max_batt_v': max_batt_v,
