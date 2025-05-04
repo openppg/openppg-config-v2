@@ -1,25 +1,26 @@
 ---
-title: "OpenPPG ESP32 Configurator"
+title: "OpenPPG V3 Controller Configurator"
 description: "Upgrade firmware on your OpenPPG device via USB"
-helplink: "/docs/controllers/esp32/"
+helplink: "/docs/controllers/sp140-v3/"
 date: 2022-02-28T15:34:28-06:00\
 configurator: "esp32"
 draft: false
 ---
 
-
 <div class="row">
   <div class="col-md-8 my-4">
     <div class="card card-body bg-light">
-      <h4 class="card-title mt-0">Upgrades </h4>
+      <h4 class="card-title mt-0">Upgrades</h4>
       <small class="text-muted">New firmware can add features and improve functionality.</small>
-      <h5>Latest ESP32 firmware </h5>
+      <p class="mt-2"><small>Make sure your controller is connected via USB and you are using Chrome or Edge on a computer (not smartphone).</small></p>
+
+      <h5>Latest V3 controller firmware</h5>
       <span><a href="https://github.com/openppg/eppg-controller/releases/" target="_blank">Release notes <i class="fas fa-info-circle"></i></a></span>
-      <div class="row mb-4">
-        <div class="col-md-5 mb-2">
+      <div class="row my-3">
+        <div class="col-md-6 mb-2">
           <esp-web-install-button
-            manifest="/esp32-manifest.json">
-            <button slot="activate" class="btn btn-primary btn-lg">Install</button>
+            manifest="/firmware/esp32-manifest.json">
+            <button slot="activate" class="btn btn-primary btn-md">Open Installer</button>
             <span slot="unsupported">Ah snap, your browser doesn't work! Please use Chrome.</span>
             <span slot="not-allowed">Ah snap, you are not allowed to use this on HTTP!</span>
           </esp-web-install-button>
