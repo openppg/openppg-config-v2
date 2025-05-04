@@ -7,7 +7,7 @@
       "chipFamily": "ESP32-S3",
       "parts": [
         {
-          "path": "firmware/full-controller-firmware.bin",
+          "path": "full-controller-firmware.bin",
           "offset": 0
         }
       ]
