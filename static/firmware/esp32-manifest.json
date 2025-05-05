@@ -1,6 +1,6 @@
 {
-  "name": "OpenPPG Firmware",
-  "version": "7.0.0",
+  "name": "OpenPPG Firmware Beta",
+  "version": "7.0",
   "new_install_prompt_erase": true,
   "builds": [
     {
