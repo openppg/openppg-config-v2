@@ -65,6 +65,10 @@ rel  = "sitemap"
   filename = "sitemap.xml"
   priority = 0.5
 
+[taxonomies]
+  # Explicitly define empty taxonomies to disable the default ones (tags, categories)
+  # This will prevent Hugo from generating tag pages
+
 [permalinks]
   blog = "/blog/:title/"
 
