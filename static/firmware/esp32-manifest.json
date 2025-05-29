@@ -1,6 +1,6 @@
 {
-  "name": "OpenPPG Firmware Beta",
-  "version": "7.0",
+  "name": "OpenPPG Controller Firmware",
+  "version": "7.1",
   "new_install_prompt_erase": true,
   "builds": [
     {

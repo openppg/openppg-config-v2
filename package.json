@@ -64,6 +64,6 @@
     "semver": "^7.5.4"
   },
   "dependencies": {
-    "esp-web-tools": "^10.1.0"
+    "esp-web-tools": "^10.1.1"
   }
 }
