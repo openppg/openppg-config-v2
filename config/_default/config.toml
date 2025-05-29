@@ -1,6 +1,6 @@
 baseurl = "/"
 relativeURLs = true
-disableAliases = true
+disableAliases = false
 disableHugoGeneratorInject = true
 enableEmoji = true
 enableGitInfo = false
