@@ -12,6 +12,19 @@ twitterSite = "openppg"
 twitterCreator = "openppg"
 ogLocale = "en_US"
 
+## Social Media (replaces deprecated .Site.Social)
+[Social]
+twitter = "openppg"
+# facebook = "your-facebook-page"
+# facebook_admin = "your-facebook-admin-id"
+
+## Author (replaces deprecated .Site.Authors)
+[Author]
+name = "OpenPPG"
+# [Author.Social]
+# twitter = "openppg"
+# facebook = "your-facebook-profile"
+
 ## JSON-LD
 schemaType = "Organization"
 schemaLogo = "gear-icon.png"
