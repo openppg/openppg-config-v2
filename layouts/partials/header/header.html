@@ -19,14 +19,36 @@
       <ul class="navbar-nav main-nav me-auto order-5 order-md-2">
         {{- $current := . -}}
         {{ range .Site.Menus.main -}}
-          {{- $active := or ($current.IsMenuCurrent "main" .) ($current.HasMenuCurrent "main" .) -}}
-          {{- $active = or $active (eq .Name $current.Title) -}}
-          {{- $active := in $current.RelPermalink .URL -}}
-          {{- $active = or $active (and (eq .Name "Docs") (eq $current.Section "docs")) -}}
-          {{- $active = or $active (and (eq .Name "Guides") (eq $current.Section "guides")) -}}
-          <li class="nav-item{{ if $active }} active{{ end }}">
-            <a class="nav-link" href="{{ .URL | absURL }}">{{ .Name }}</a>
-          </li>
+          {{- if .HasChildren -}}
+            {{- $dropdownActive := false -}}
+            {{- range .Children -}}
+              {{- $childActive := or ($current.IsMenuCurrent "main" .) ($current.HasMenuCurrent "main" .) -}}
+              {{- $childActive = or $childActive (eq .Name $current.Title) -}}
+              {{- $childActive = or $childActive (in $current.RelPermalink .URL) -}}
+              {{- if $childActive -}}
+                {{- $dropdownActive = true -}}
+              {{- end -}}
+            {{- end -}}
+            <li class="nav-item dropdown{{ if $dropdownActive }} active{{ end }}">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown{{ .Identifier }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{ .Name }}
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown{{ .Identifier }}">
+                {{ range .Children -}}
+                  <li><a class="dropdown-item" href="{{ .URL | absURL }}">{{ .Name }}</a></li>
+                {{ end -}}
+              </ul>
+            </li>
+          {{- else -}}
+            {{- $active := or ($current.IsMenuCurrent "main" .) ($current.HasMenuCurrent "main" .) -}}
+            {{- $active = or $active (eq .Name $current.Title) -}}
+            {{- $active = or $active (in $current.RelPermalink .URL) -}}
+            {{- $active = or $active (and (eq .Name "Docs") (eq $current.Section "docs")) -}}
+            {{- $active = or $active (and (eq .Name "Guides") (eq $current.Section "guides")) -}}
+            <li class="nav-item{{ if $active }} active{{ end }}">
+              <a class="nav-link" href="{{ .URL | absURL }}">{{ .Name }}</a>
+            </li>
+          {{- end -}}
         {{ end -}}
       </ul>
       <div class="break order-6 d-md-none"></div>

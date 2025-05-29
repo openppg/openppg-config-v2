@@ -1,3 +1,6 @@
+<!-- Bootstrap Bundle JS for dropdown functionality -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3/dist/js/bootstrap.bundle.min.js" integrity="sha256-y3ibfOyBqlgBd+GzwFYQEVOZdNJD06HeDXihongBXKs=" crossorigin="anonymous"></script>
+
 {{ $indexTemplate := resources.Get "js/index.js" -}}
 {{ $index := $indexTemplate | resources.ExecuteAsTemplate "index.js" . -}}
 {{ $lazysizes := resources.Get "js/vendor/lazysizes/lazysizes.min.js" -}}

@@ -10,13 +10,25 @@
   weight = 5
 
 [[main]]
-  name = "X4 Configurator"
-  url = "/configurators/x4/"
+  name = "SP140 Configurator"
+  url = "/configurators/sp140-v3/"
   weight = 10
 
 [[main]]
-  name = "SP140 Configurator"
-  url = "/configurators/sp140/"
+  name = "Other Configurators"
+  identifier = "other-configurators"
+  weight = 11
+
+[[main]]
+  name = "X4 (Legacy)"
+  url = "/configurators/x4/"
+  parent = "other-configurators"
+  weight = 10
+
+[[main]]
+  name = "SP140 (Legacy)"
+  url = "/configurators/sp140-v2/"
+  parent = "other-configurators"
   weight = 11
 
 [[social]]
