@@ -1,4 +1,5 @@
 baseurl = "/"
+relativeURLs = true
 disableAliases = true
 disableHugoGeneratorInject = true
 enableEmoji = true
