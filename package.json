@@ -43,7 +43,7 @@
     "eslint": "^8.19",
     "exec-bin": "^1.0.0",
     "flexsearch": "^0.7.21",
-    "highlight.js": "^11.5",
+    "highlight.js": "^11.11",
     "hugo-installer": "^4.0",
     "instant.page": "^5.1",
     "lazysizes": "^5.3",
