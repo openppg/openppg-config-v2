@@ -10,7 +10,7 @@
   weight = 5
 
 [[main]]
-  name = "SP140 Configurator"
+  name = "SP140 Updater"
   url = "/configurators/sp140-v3/"
   weight = 10
 

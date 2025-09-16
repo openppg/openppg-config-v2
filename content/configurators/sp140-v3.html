@@ -1,5 +1,5 @@
 ---
-title: "OpenPPG SP140 Configurator"
+title: "OpenPPG SP140 Updater"
 description: "Upgrade firmware on your OpenPPG device via USB"
 helplink: "/docs/controllers/sp140-v3/"
 date: 2022-02-28T15:34:28-06:00
@@ -7,29 +7,76 @@ configurator: "esp32"
 draft: false
 ---
 
-<div class="alert alert-info" role="alert">
-  <i class="fas fa-info-circle"></i> <strong>Looking for the older SP140 controller?</strong>
-  If you have an older non-CANbus SP140 controller, please use the <a href="/configurators/sp140-v2/" class="alert-link">Legacy SP140 Configurator</a> instead.
-</div>
-
-<div class="row">
-  <div class="col-md-8 my-4">
-    <div class="card card-body bg-light">
-      <h4 class="card-title mt-0">Upgrades</h4>
-      <small class="text-muted">New firmware can add features and improve functionality.</small>
-      <p class="mt-2"><small>Make sure your controller is connected via USB and you are using Chrome or Edge on a computer (not smartphone).</small></p>
-
-      <h5>Latest SP140 controller firmware</h5>
-      <span><a href="https://github.com/openppg/eppg-controller/releases/" target="_blank">Release notes <i class="fas fa-info-circle"></i></a></span>
-      <div class="row my-3">
-        <div class="col-md-6 mb-2">
-          <esp-web-install-button
-            manifest="/firmware/esp32-manifest.json">
-            <button slot="activate" class="btn btn-primary btn-md">Open Installer</button>
+<div class="configurator-intro my-4">
+  <div class="row row-cols-1 row-cols-lg-2 g-4 align-items-stretch">
+    <div class="col">
+      <div class="card card-body hero-card h-100">
+        <div class="hero-card__heading">
+          <h2 class="mt-0 mb-2">SP140 V3 Firmware Installer</h2>
+        </div>
+        <div class="hero-card__steps">
+          <span class="hero-card__steps-label">Before you update</span>
+          <ol class="hero-card__list">
+            <li><strong>Connect</strong> the SP140 controller with a data-capable USB-C cable.</li>
+            <li><strong>Use</strong> desktop Chrome or Edge and keep this page open for WebSerial access.</li>
+            <li><strong>Disconnect</strong> the main battery pack—only USB power should stay attached.</li>
+          </ol>
+        </div>
+        <div class="hero-card__actions">
+          <esp-web-install-button manifest="/firmware/esp32-manifest.json">
+            <button slot="activate" class="btn btn-primary btn-lg">Open Installer</button>
             <span slot="unsupported">Ah snap, your browser doesn't work! Please use Chrome.</span>
             <span slot="not-allowed">Ah snap, you are not allowed to use this on HTTP!</span>
           </esp-web-install-button>
         </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card card-body release-card h-100">
+        <div class="d-flex align-items-center justify-content-between mb-2">
+          <span class="badge bg-primary-subtle text-primary fw-semibold">Latest • v7.2</span>
+          <i class="fas fa-rocket text-primary"></i>
+        </div>
+        <h4 class="mt-0 mb-2">What’s new</h4>
+        <p class="text-muted small mb-3">Focused upgrades that sharpen situational awareness and smooth every throttle input.</p>
+        <ul class="list-unstyled release-card__list mb-4">
+          <li class="d-flex align-items-start gap-3">
+            <i class="fas fa-mountain text-primary"></i>
+            <span>New variometer display show altitude changes.</span>
+          </li>
+          <li class="d-flex align-items-start gap-3">
+            <i class="fas fa-bell text-primary"></i>
+            <span>Display BMS, ESC, and internal notifications for warnings and critical alerts.</span>
+          </li>
+          <li class="d-flex align-items-start gap-3">
+            <i class="fas fa-wave-square text-primary"></i>
+            <span>Enhanced throttle smoothing especially for chill mode.</span>
+          </li>
+        </ul>
+        <a class="release-card__link" href="https://github.com/openppg/eppg-controller/releases/" target="_blank" rel="noopener">Read the full release notes <i class="fas fa-arrow-right"></i></a>
+        <div class="release-card__meta">
+          <span class="text-muted small">Released September 16, 2025</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row row-cols-1 row-cols-lg-2 g-4 configurator-foot align-items-stretch">
+  <div class="col">
+    <div class="legacy-alert h-100" role="alert">
+      <div class="legacy-alert__body">
+        <span class="legacy-alert__eyebrow">Need the legacy tool?</span>
+        <p class="mb-0">If you have a non-CANbus SP140 controller, head to the <a href="/configurators/sp140-v2/" class="alert-link">Legacy SP140 Configurator</a>.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card card-body support-card h-100">
+      <h5 class="mt-0">Need help?</h5>
+      <p class="text-muted small mb-4">Trouble connecting or seeing errors? Jump into the docs below.</p>
+      <div class="d-grid gap-2">
+        <a class="btn btn-outline-primary" href="/docs/controllers/sp140-v3/">Troubleshooting guide</a>
       </div>
     </div>
   </div>

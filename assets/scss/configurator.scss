@@ -16,3 +16,152 @@
 .old-releases {
   font-size: smaller;
 }
+
+.legacy-alert {
+  padding: 1.5rem;
+  background: #fff;
+  border: 1px solid rgba(15, 118, 110, 0.18);
+  border-radius: 0.85rem;
+  box-shadow: none;
+  color: #0f172a;
+}
+
+.legacy-alert__eyebrow {
+  display: inline-block;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #0369a1;
+  margin-bottom: 0.35rem;
+}
+
+.legacy-alert p {
+  font-size: 0.95rem;
+  color: rgba(15, 23, 42, 0.78);
+}
+
+.legacy-alert .alert-link {
+  font-weight: 600;
+  color: #0369a1;
+}
+
+.legacy-alert .alert-link:hover {
+  color: #0ea5e9;
+}
+
+.configurator-intro .card {
+  border: 0;
+  box-shadow: 0 0.5rem 1.5rem rgba(3, 9, 30, 0.06);
+}
+
+.hero-card {
+  background: linear-gradient(135deg, rgba(51, 102, 255, 0.15), rgba(31, 41, 55, 0));
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  padding: clamp(2rem, calc(1.5rem + 2vw), 2.75rem) clamp(2rem, 3vw, 3.25rem);
+}
+
+.hero-card__heading {
+  max-width: 28rem;
+}
+
+.hero-card__steps {
+  font-size: 0.95rem;
+  color: rgba(15, 23, 42, 0.78);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.hero-card__steps-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #1d4ed8;
+}
+
+.hero-card__list {
+  margin: 0;
+  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.hero-card__list li {
+  line-height: 1.45;
+}
+
+.hero-card__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.hero-card__actions .btn-primary {
+  box-shadow: 0 0.5rem 1.25rem rgba(51, 102, 255, 0.3);
+  width: 100%;
+}
+
+.release-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: clamp(1.75rem, calc(1rem + 2vw), 2.5rem);
+}
+
+.release-card__list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.release-card__list i {
+  font-size: 1.25rem;
+  line-height: 1;
+  margin-top: 0.15rem;
+}
+
+.release-card__link {
+  align-items: center;
+  color: #1d4ed8;
+  display: inline-flex;
+  font-weight: 600;
+  gap: 0.4rem;
+  text-decoration: none;
+}
+
+.release-card__link:hover {
+  color: #1e40af;
+}
+
+.release-card__meta {
+  margin-top: auto;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.configurator-foot {
+  margin: 3rem 0;
+}
+
+.support-card {
+  background: #fff;
+  border: 1px solid rgba(15, 118, 110, 0.18);
+  box-shadow: none;
+  padding: clamp(1.75rem, calc(1.25rem + 2vw), 2.25rem);
+}
+
+.support-card .btn {
+  font-weight: 600;
+}
+
+@media (min-width: 768px) {
+  .hero-card__actions {
+    flex-direction: row;
+    align-items: center;
+  }
+}
