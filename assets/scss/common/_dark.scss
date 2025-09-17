@@ -123,6 +123,10 @@ body.dark .page-links h3.sidebar-link a {
   color: $body-color-dark;
 }
 
+body.dark .hero-card__steps {
+  color: $body-color-dark;
+}
+
 body.dark .navbar-light .navbar-text a:hover,
 body.dark .navbar-light .navbar-text a:focus {
   color: $navbar-dark-active-color;
