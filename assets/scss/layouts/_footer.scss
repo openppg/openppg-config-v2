@@ -10,11 +10,18 @@
 
 .footer ul {
   margin-bottom: 0;
+  padding-left: 0;
 }
 
 .footer li {
   font-size: $font-size-sm;
   margin-bottom: 0;
+}
+
+.footer-links ul {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 @include media-breakpoint-up(md) {
