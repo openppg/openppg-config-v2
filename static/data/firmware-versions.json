@@ -13,6 +13,19 @@
       ]
     },
     {
+      "version": "7.3 RC1",
+      "folder": "v7.3",
+      "release_date": "2025-11-14",
+      "is_latest": false,
+      "description": "Enhanced monitoring, diagnostics, and system health",
+      "changelog": [
+        "New system health monitors for early detection of hardware initialization failures",
+        "Enhanced ESC TWAI, BMS CAN, and barometer startup status tracking",
+        "Improved alerts and feedback with consistent error categorization",
+        "Firmware build date logging for easier debugging"
+      ]
+    },
+    {
       "version": "7.1",
       "folder": "v7.1",
       "release_date": "2025-06-07",
