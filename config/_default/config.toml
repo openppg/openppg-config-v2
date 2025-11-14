@@ -1,4 +1,4 @@
-baseurl = "/"
+baseurl = "https://config.openppg.com/"
 relativeURLs = true
 disableAliases = false
 disableHugoGeneratorInject = true
