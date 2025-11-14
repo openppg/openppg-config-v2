@@ -13,6 +13,7 @@ module.exports = {
       ],
       safelist: [
         'lazyloaded',
+        'version-selector',
         ...whitelister([
           './assets/scss/components/_code.scss',
           './assets/scss/components/_search.scss',

@@ -39,7 +39,7 @@ class ESP32FirmwareManager {
 
   async loadVersions() {
     try {
-      const response = await fetch('/data/firmware-versions.json');
+      const response = await fetch(new URL('data/firmware-versions.json', window.location.origin));
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
@@ -114,13 +114,13 @@ class ESP32FirmwareManager {
 
     try {
       // Load the manifest for this version
-      const manifestResponse = await fetch(`/firmware/${version.folder}/manifest.json`);
+      const manifestResponse = await fetch(new URL(`firmware/${version.folder}/manifest.json`, window.location.origin));
       const manifest = await manifestResponse.json();
 
       // Update paths to be absolute
       manifest.builds.forEach(build => {
         build.parts.forEach(part => {
-          part.path = `/firmware/${version.folder}/${part.path}`;
+          part.path = new URL(`firmware/${version.folder}/${part.path}`, window.location.origin).pathname;
         });
       });
 
@@ -192,7 +192,7 @@ class ESP32FirmwareManager {
   fallbackToStatic() {
     // Fallback to the original static manifest
     if (this.installButton) {
-      this.installButton.setAttribute('manifest', '/firmware/esp32-manifest.json');
+      this.installButton.setAttribute('manifest', new URL('firmware/esp32-manifest.json', window.location.origin).href);
     }
     if (this.currentManifestUrl) {
       URL.revokeObjectURL(this.currentManifestUrl);

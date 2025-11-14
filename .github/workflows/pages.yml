@@ -52,7 +52,8 @@ jobs:
           HUGO_ENV: production
         run: |
           hugo \
-            --minify
+            --minify \
+            --baseURL "https://config.openppg.com/"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
