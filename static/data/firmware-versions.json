@@ -1,0 +1,29 @@
+{
+  "versions": [
+    {
+      "version": "7.2",
+      "folder": "v7.2",
+      "release_date": "2025-09-16",
+      "is_latest": true,
+      "description": "Improved diagnostics and smoother throttle response",
+      "changelog": [
+        "New variometer display show altitude changes",
+        "Display BMS, ESC, and internal notifications for warnings and critical alerts",
+        "Enhanced throttle smoothing especially for chill mode"
+      ]
+    },
+    {
+      "version": "7.1",
+      "folder": "v7.1",
+      "release_date": "2025-06-07",
+      "is_latest": false,
+      "description": "Enhanced haptic feedback and system performance",
+      "changelog": [
+        "Enhanced haptic feedback with precise buzzer control and dedicated vibration motor task",
+        "Improved throttle and cruise control with smoother transitions and expanded activation states",
+        "Updated BLE communication with structured firmware version transmission",
+        "Better task management for vibration operations and overall system performance"
+      ]
+    }
+  ]
+}
