@@ -39,7 +39,7 @@ class ESP32FirmwareManager {
 
   async loadVersions() {
     try {
-      const response = await fetch(new URL('data/firmware-versions.json', window.location.origin));
+      const response = await fetch(new URL('data/firmware-versions.json', window.location.origin).href);
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
@@ -114,13 +114,13 @@ class ESP32FirmwareManager {
 
     try {
       // Load the manifest for this version
-      const manifestResponse = await fetch(new URL(`firmware/${version.folder}/manifest.json`, window.location.origin));
+      const manifestResponse = await fetch(new URL(`firmware/${version.folder}/manifest.json`, window.location.origin).href);
       const manifest = await manifestResponse.json();
 
       // Update paths to be absolute
       manifest.builds.forEach(build => {
         build.parts.forEach(part => {
-          part.path = new URL(`firmware/${version.folder}/${part.path}`, window.location.origin).pathname;
+          part.path = new URL(`firmware/${version.folder}/${part.path}`, window.location.origin).href;
         });
       });
 
