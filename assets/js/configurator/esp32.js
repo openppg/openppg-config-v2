@@ -5,10 +5,14 @@ class ESP32FirmwareManager {
     this.selectedVersion = null;
     this.installButton = null;
     this.versionSelector = null;
+    this.actionsContainer = null;
+    this.releaseElements = {};
+    this.currentManifestUrl = null;
   }
 
   async init() {
     try {
+      this.cacheDomElements();
       await this.loadVersions();
       this.createVersionSelector();
       this.setupEventListeners();
@@ -16,6 +20,21 @@ class ESP32FirmwareManager {
     } catch (error) {
       console.error('Failed to initialize ESP32 firmware manager:', error);
     }
+  }
+
+  cacheDomElements() {
+    this.actionsContainer = document.getElementById('firmware-actions');
+    if (this.actionsContainer) {
+      this.installButton = this.actionsContainer.querySelector('esp-web-install-button');
+    }
+
+    this.releaseElements = {
+      badge: document.getElementById('release-badge'),
+      description: document.getElementById('release-description'),
+      changelog: document.getElementById('release-changelog'),
+      link: document.getElementById('release-link'),
+      date: document.getElementById('release-date'),
+    };
   }
 
   async loadVersions() {
@@ -35,8 +54,7 @@ class ESP32FirmwareManager {
 
   createVersionSelector() {
     // Find the install button container
-    const buttonContainer = document.querySelector('.hero-card__actions');
-    if (!buttonContainer) return;
+    if (!this.actionsContainer || !this.installButton) return;
 
     // Create version selector
     const selectorContainer = document.createElement('div');
@@ -63,11 +81,9 @@ class ESP32FirmwareManager {
     selectorContainer.appendChild(select);
 
     // Insert before the install button
-    const installButton = buttonContainer.querySelector('esp-web-install-button');
-    buttonContainer.insertBefore(selectorContainer, installButton);
+    this.actionsContainer.insertBefore(selectorContainer, this.installButton);
 
     this.versionSelector = select;
-    this.installButton = installButton;
   }
 
   setupEventListeners() {
@@ -94,6 +110,7 @@ class ESP32FirmwareManager {
     if (!version) return;
 
     this.selectedVersion = version;
+    this.setInstallButtonDisabled(true);
 
     try {
       // Load the manifest for this version
@@ -114,6 +131,10 @@ class ESP32FirmwareManager {
 
       // Update the install button
       if (this.installButton) {
+        if (this.currentManifestUrl) {
+          URL.revokeObjectURL(this.currentManifestUrl);
+        }
+        this.currentManifestUrl = manifestUrl;
         this.installButton.setAttribute('manifest', manifestUrl);
       }
 
@@ -123,31 +144,26 @@ class ESP32FirmwareManager {
     } catch (error) {
       console.error('Failed to load manifest for version:', versionString, error);
       this.fallbackToStatic();
+    } finally {
+      this.setInstallButtonDisabled(false);
     }
   }
 
   updateVersionInfo(version) {
     // Update the release card with selected version info
-    const releaseCard = document.querySelector('.release-card');
-    if (!releaseCard) return;
+    const { badge, description, changelog, link, date } = this.releaseElements;
 
-    // Update badge
-    const badge = releaseCard.querySelector('.badge');
     if (badge) {
       badge.textContent = version.is_latest ? `Latest • ${version.version}` : version.version;
       badge.className = `badge ${version.is_latest ? 'bg-primary-subtle text-primary' : 'bg-secondary-subtle text-secondary'} fw-semibold`;
     }
 
-    // Update description
-    const description = releaseCard.querySelector('.text-muted.small');
     if (description && version.description) {
       description.textContent = version.description;
     }
 
-    // Update changelog
-    const changelogList = releaseCard.querySelector('.release-card__list');
-    if (changelogList && version.changelog) {
-      changelogList.innerHTML = '';
+    if (changelog && Array.isArray(version.changelog)) {
+      changelog.innerHTML = '';
       version.changelog.forEach(item => {
         const li = document.createElement('li');
         li.className = 'd-flex align-items-start gap-3';
@@ -155,28 +171,21 @@ class ESP32FirmwareManager {
           <i class="fas fa-check text-primary"></i>
           <span>${item}</span>
         `;
-        changelogList.appendChild(li);
+        changelog.appendChild(li);
       });
     }
 
-    // Update GitHub release link
-    const releaseLink = releaseCard.querySelector('.release-card__link');
-    if (releaseLink) {
-      releaseLink.href = `https://github.com/openppg/eppg-controller/releases/tag/v${version.version}`;
+    if (link) {
+      link.href = `https://github.com/openppg/eppg-controller/releases/tag/v${version.version}`;
     }
 
-    // Update release date
-    const meta = releaseCard.querySelector('.release-card__meta');
-    if (meta) {
-      const dateSpan = meta.querySelector('.text-muted');
-      if (dateSpan) {
-        const date = new Date(version.release_date);
-        dateSpan.textContent = `Released ${date.toLocaleDateString('en-US', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        })}`;
-      }
+    if (date && version.release_date) {
+      const parsedDate = new Date(version.release_date);
+      date.textContent = `Released ${parsedDate.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      })}`;
     }
   }
 
@@ -184,6 +193,18 @@ class ESP32FirmwareManager {
     // Fallback to the original static manifest
     if (this.installButton) {
       this.installButton.setAttribute('manifest', '/firmware/esp32-manifest.json');
+    }
+    if (this.currentManifestUrl) {
+      URL.revokeObjectURL(this.currentManifestUrl);
+      this.currentManifestUrl = null;
+    }
+  }
+
+  setInstallButtonDisabled(disabled) {
+    if (!this.installButton) return;
+    const activateButton = this.installButton.querySelector('[slot="activate"]');
+    if (activateButton) {
+      activateButton.disabled = disabled;
     }
   }
 }
