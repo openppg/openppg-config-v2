@@ -14,6 +14,17 @@ module.exports = {
       safelist: [
         'lazyloaded',
         'version-selector',
+        'hero-card__actions',
+        'form-select',
+        'badge',
+        'bg-primary-subtle',
+        'text-primary',
+        'bg-secondary-subtle',
+        'text-secondary',
+        'fw-semibold',
+        'release-card__list',
+        'release-card__link',
+        'release-card__meta',
         ...whitelister([
           './assets/scss/components/_code.scss',
           './assets/scss/components/_search.scss',
