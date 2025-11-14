@@ -22,8 +22,8 @@ draft: false
             <li><strong>Disconnect</strong> the main battery pack—only USB power should stay attached.</li>
           </ol>
         </div>
-        <div class="hero-card__actions">
-          <esp-web-install-button manifest="/firmware/esp32-manifest.json">
+        <div class="hero-card__actions" id="firmware-actions">
+          <esp-web-install-button>
             <button slot="activate" class="btn btn-primary btn-lg">Open Installer</button>
             <span slot="unsupported">Ah snap, your browser doesn't work! Please use Chrome.</span>
             <span slot="not-allowed">Ah snap, you are not allowed to use this on HTTP!</span>
@@ -32,14 +32,14 @@ draft: false
       </div>
     </div>
     <div class="col">
-      <div class="card card-body release-card h-100">
+      <div class="card card-body release-card h-100" id="release-card">
         <div class="d-flex align-items-center justify-content-between mb-2">
-          <span class="badge bg-primary-subtle text-primary fw-semibold">Latest • v7.2 RC1</span>
+          <span class="badge bg-primary-subtle text-primary fw-semibold" id="release-badge">Latest • v7.2</span>
           <i class="fas fa-rocket text-primary"></i>
         </div>
         <h4 class="mt-0 mb-2">What’s new</h4>
-        <p class="text-muted small mb-3">Improved diagnostics and smoother throttle response</p>
-        <ul class="list-unstyled release-card__list mb-4">
+        <p class="text-muted small mb-3" id="release-description"></p>
+        <ul class="list-unstyled release-card__list mb-4" id="release-changelog">
           <li class="d-flex align-items-start gap-3">
             <i class="fas fa-mountain text-primary"></i>
             <span>New variometer display show altitude changes.</span>
@@ -53,9 +53,9 @@ draft: false
             <span>Enhanced throttle smoothing especially for chill mode.</span>
           </li>
         </ul>
-        <a class="release-card__link" href="https://github.com/openppg/eppg-controller/releases/" target="_blank" rel="noopener">Read the full release notes <i class="fas fa-arrow-right"></i></a>
-        <div class="release-card__meta">
-          <span class="text-muted small">Released September 16, 2025</span>
+        <a class="release-card__link" id="release-link" href="https://github.com/openppg/eppg-controller/releases/" target="_blank" rel="noopener">Read the full release notes <i class="fas fa-arrow-right"></i></a>
+        <div class="release-card__meta" id="release-meta">
+          <span class="text-muted small" id="release-date">Released September 16, 2025</span>
         </div>
       </div>
     </div>

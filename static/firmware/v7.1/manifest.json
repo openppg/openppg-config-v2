@@ -1,0 +1,16 @@
+{
+  "name": "OpenPPG Controller Firmware",
+  "version": "7.1",
+  "new_install_prompt_erase": true,
+  "builds": [
+    {
+      "chipFamily": "ESP32-S3",
+      "parts": [
+        {
+          "path": "full-controller-firmware.bin",
+          "offset": 0
+        }
+      ]
+    }
+  ]
+}
