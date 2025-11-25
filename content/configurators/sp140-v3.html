@@ -1,67 +1,226 @@
 ---
-title: "OpenPPG SP140 Updater"
-description: "Upgrade firmware on your OpenPPG device via USB"
+title: "OpenPPG SP140 Configurator"
+description: "Configure settings and upgrade firmware on your OpenPPG SP140 V3 controller"
 helplink: "/docs/controllers/sp140-v3/"
 date: 2022-02-28T15:34:28-06:00
 configurator: "esp32"
 draft: false
 ---
 
-<div class="configurator-intro my-4">
-  <div class="row row-cols-1 row-cols-lg-2 g-4 align-items-stretch">
-    <div class="col">
-      <div class="card card-body hero-card h-100">
-        <div class="hero-card__heading">
-          <h2 class="mt-0 mb-2">SP140 V3 Firmware Installer</h2>
-        </div>
-        <div class="hero-card__steps">
-          <span class="hero-card__steps-label">Before you update</span>
-          <ol class="hero-card__list">
-            <li><strong>Connect</strong> the SP140 controller with a data-capable USB-C cable.</li>
-            <li><strong>Use</strong> desktop Chrome or Edge and keep this page open for WebSerial access.</li>
-            <li><strong>Disconnect</strong> the main battery pack—only USB power should stay attached.</li>
-          </ol>
-        </div>
-        <div class="hero-card__actions" id="firmware-actions">
-          <esp-web-install-button>
-            <button slot="activate" class="btn btn-primary btn-lg">Open Installer</button>
-            <span slot="unsupported">Ah snap, your browser doesn't work! Please use Chrome.</span>
-            <span slot="not-allowed">Ah snap, you are not allowed to use this on HTTP!</span>
-          </esp-web-install-button>
-        </div>
+<!-- Device Settings Section -->
+<div class="row mb-4">
+  <div class="col-12">
+    <h2 class="mb-1">Device Settings</h2>
+    <p class="text-muted mb-0">Configure your SP140 settings directly over USB. Device must be <strong>DISARMED</strong>.</p>
+  </div>
+</div>
+
+<div class="row g-4 mb-5">
+  <!-- Connection Card -->
+  <div class="col-lg-4">
+    <div class="card card-body h-100">
+      <h4 class="card-title mt-0">Connection</h4>
+      <p class="small text-muted mb-4">Connect your device via USB-C to view and change settings.</p>
+
+      <div class="d-grid gap-2">
+        <button id="connect-settings" class="btn btn-primary">
+          <i class="fas fa-plug me-2"></i>Connect
+        </button>
+        <button id="sync-settings" class="btn btn-outline-secondary" disabled>
+          <i class="fas fa-sync me-2"></i>Refresh
+        </button>
+      </div>
+
+      <div id="connection-status" class="mt-3 small text-muted">
+        <i class="fas fa-info-circle me-1"></i>
+        Connect your SP140 via USB-C to get started.
+      </div>
+
+      <div id="device-info" class="mt-4 d-none">
+        <h6 class="text-uppercase text-muted small fw-bold mb-3">Device Info</h6>
+        <dl class="row mb-0 small">
+          <dt class="col-sm-5">Firmware</dt>
+          <dd class="col-sm-7" id="info-fw-version">-</dd>
+
+          <dt class="col-sm-5">Arch</dt>
+          <dd class="col-sm-7" id="info-arch">-</dd>
+
+          <dt class="col-sm-5">Armed Time</dt>
+          <dd class="col-sm-7" id="info-armed-time">-</dd>
+        </dl>
       </div>
     </div>
-    <div class="col">
-      <div class="card card-body release-card h-100" id="release-card">
-        <div class="d-flex align-items-center justify-content-between mb-2">
-          <span class="badge bg-primary-subtle text-primary fw-semibold" id="release-badge">Latest • v7.2</span>
-          <i class="fas fa-rocket text-primary"></i>
-        </div>
-        <h4 class="mt-0 mb-2">What’s new</h4>
-        <p class="text-muted small mb-3" id="release-description"></p>
-        <ul class="list-unstyled release-card__list mb-4" id="release-changelog">
-          <li class="d-flex align-items-start gap-3">
-            <i class="fas fa-mountain text-primary"></i>
-            <span>New variometer display show altitude changes.</span>
-          </li>
-          <li class="d-flex align-items-start gap-3">
-            <i class="fas fa-bell text-primary"></i>
-            <span>Display BMS, ESC, and internal notifications for warnings and critical alerts.</span>
-          </li>
-          <li class="d-flex align-items-start gap-3">
-            <i class="fas fa-wave-square text-primary"></i>
-            <span>Enhanced throttle smoothing especially for chill mode.</span>
-          </li>
-        </ul>
-        <a class="release-card__link" id="release-link" href="https://github.com/openppg/eppg-controller/releases/" target="_blank" rel="noopener">Read the full release notes <i class="fas fa-arrow-right"></i></a>
-        <div class="release-card__meta" id="release-meta">
-          <span class="text-muted small" id="release-date">Released September 16, 2025</span>
-        </div>
+  </div>
+
+  <!-- Settings Form -->
+  <div class="col-lg-8">
+    <div class="card card-body h-100">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 class="card-title m-0">Configuration</h4>
+        <span id="save-status" class="badge bg-success-subtle text-success d-none">
+          <i class="fas fa-check me-1"></i>Saved
+        </span>
+      </div>
+
+      <form id="settings-form">
+        <fieldset disabled>
+          <!-- Screen Rotation -->
+          <div class="mb-4">
+            <label class="form-label fw-semibold">Screen Orientation</label>
+            <div class="d-flex gap-3">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="screen_rot" id="rot-lh" value="3">
+                <label class="form-check-label" for="rot-lh">Left Hand (Default)</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="screen_rot" id="rot-rh" value="1">
+                <label class="form-check-label" for="rot-rh">Right Hand</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Theme -->
+          <div class="mb-4">
+            <label class="form-label fw-semibold">Theme</label>
+            <div class="d-flex gap-3">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="theme" id="theme-light" value="0">
+                <label class="form-check-label" for="theme-light">Light</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="theme" id="theme-dark" value="1">
+                <label class="form-check-label" for="theme-dark">Dark</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Units -->
+          <div class="mb-4">
+            <label class="form-label fw-semibold">Units</label>
+            <div class="d-flex flex-wrap gap-3">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="metric-temp">
+                <label class="form-check-label" for="metric-temp">Metric Temperature (°C)</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="metric-alt">
+                <label class="form-check-label" for="metric-alt">Metric Altitude (m)</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sea Pressure -->
+          <div class="mb-4">
+            <label for="sea-pressure" class="form-label fw-semibold">Barometric Pressure (Sea Level)</label>
+            <div class="input-group mb-2">
+              <input type="number" step="0.01" min="300" max="1200" class="form-control" id="sea-pressure" placeholder="1013.25">
+              <span class="input-group-text">hPa</span>
+            </div>
+            <div class="form-text">
+              Standard sea level pressure is 1013.25 hPa. Check local weather for calibration.
+              <a href="https://merrysky.net/" target="_blank" class="text-decoration-none ms-1">Find local pressure <i class="fas fa-external-link-alt small"></i></a>
+            </div>
+          </div>
+
+          <!-- Performance Mode -->
+          <div class="mb-4">
+            <label class="form-label fw-semibold">Performance Mode</label>
+            <div class="card bg-light border-0">
+              <div class="card-body">
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="radio" name="performance_mode" id="perf-chill" value="0">
+                  <label class="form-check-label fw-semibold" for="perf-chill">
+                    Chill Mode
+                  </label>
+                  <div class="small text-muted">Smoother throttle response, ideal for cruising and beginners.</div>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="performance_mode" id="perf-sport" value="1">
+                  <label class="form-check-label fw-semibold" for="perf-sport">
+                    Sport Mode
+                  </label>
+                  <div class="small text-muted">Sharp throttle response for aggressive flying.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="d-flex gap-2 pt-2 border-top">
+            <button type="button" id="btn-reboot" class="btn btn-warning">
+              <i class="fas fa-power-off me-2"></i>Reboot Device
+            </button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</div>
+
+<hr class="my-5">
+
+<!-- Firmware Update Section -->
+<div class="row mb-4">
+  <div class="col-12">
+    <h2 class="mb-1">Firmware Updates</h2>
+    <p class="text-muted mb-0">Install the latest firmware to get new features and improvements.</p>
+  </div>
+</div>
+
+<div class="row row-cols-1 row-cols-lg-2 g-4 mb-5 align-items-stretch">
+  <div class="col">
+    <div class="card card-body hero-card h-100">
+      <div class="hero-card__heading">
+        <h4 class="mt-0 mb-2">Firmware Installer</h4>
+      </div>
+      <div class="hero-card__steps">
+        <span class="hero-card__steps-label">Before you update</span>
+        <ol class="hero-card__list">
+          <li><strong>Connect</strong> the SP140 controller with a data-capable USB-C cable.</li>
+          <li><strong>Use</strong> desktop Chrome or Edge for WebSerial access.</li>
+          <li><strong>Disconnect</strong> the main battery pack—only USB power should stay attached.</li>
+        </ol>
+      </div>
+      <div class="hero-card__actions" id="firmware-actions">
+        <esp-web-install-button>
+          <button slot="activate" class="btn btn-primary btn-lg">Open Installer</button>
+          <span slot="unsupported">Ah snap, your browser doesn't work! Please use Chrome.</span>
+          <span slot="not-allowed">Ah snap, you are not allowed to use this on HTTP!</span>
+        </esp-web-install-button>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card card-body release-card h-100" id="release-card">
+      <div class="d-flex align-items-center justify-content-between mb-2">
+        <span class="badge bg-primary-subtle text-primary fw-semibold" id="release-badge">Latest • v7.2</span>
+        <i class="fas fa-rocket text-primary"></i>
+      </div>
+      <h4 class="mt-0 mb-2">What's new</h4>
+      <p class="text-muted small mb-3" id="release-description"></p>
+      <ul class="list-unstyled release-card__list mb-4" id="release-changelog">
+        <li class="d-flex align-items-start gap-3">
+          <i class="fas fa-mountain text-primary"></i>
+          <span>New variometer display show altitude changes.</span>
+        </li>
+        <li class="d-flex align-items-start gap-3">
+          <i class="fas fa-bell text-primary"></i>
+          <span>Display BMS, ESC, and internal notifications for warnings and critical alerts.</span>
+        </li>
+        <li class="d-flex align-items-start gap-3">
+          <i class="fas fa-wave-square text-primary"></i>
+          <span>Enhanced throttle smoothing especially for chill mode.</span>
+        </li>
+      </ul>
+      <a class="release-card__link" id="release-link" href="https://github.com/openppg/eppg-controller/releases/" target="_blank" rel="noopener">Read the full release notes <i class="fas fa-arrow-right"></i></a>
+      <div class="release-card__meta" id="release-meta">
+        <span class="text-muted small" id="release-date">Released September 16, 2025</span>
       </div>
     </div>
   </div>
 </div>
 
+<!-- Footer Links -->
 <div class="row row-cols-1 row-cols-lg-2 g-4 configurator-foot align-items-stretch">
   <div class="col">
     <div class="legacy-alert h-100" role="alert">
