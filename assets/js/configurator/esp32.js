@@ -295,6 +295,8 @@ class ESP32SettingsManager {
       infoFw: document.getElementById('info-fw-version'),
       infoArch: document.getElementById('info-arch'),
       infoArmedTime: document.getElementById('info-armed-time'),
+      versionWarning: document.getElementById('version-warning'),
+      versionWarningValue: document.getElementById('version-warning-value'),
 
       // Inputs
       rotLh: document.getElementById('rot-lh'),
@@ -322,6 +324,7 @@ class ESP32SettingsManager {
           connectBtn.classList.add('btn-secondary');
         }
         this.updateStatusMessage('Web Serial is not supported in this browser. Please use Chrome or Edge on desktop.', 'error');
+        this.hideVersionWarning();
         break;
 
       case this.ConnectionState.DISCONNECTED:
@@ -334,6 +337,7 @@ class ESP32SettingsManager {
         if (fieldset) fieldset.disabled = true;
         if (syncBtn) syncBtn.disabled = true;
         if (infoPanel) infoPanel.classList.add('d-none');
+        this.hideVersionWarning();
         break;
 
       case this.ConnectionState.CONNECTING:
@@ -606,16 +610,65 @@ class ESP32SettingsManager {
     }
   }
 
+  isSupportedVersion(data) {
+    if (data.mj_v === undefined || data.mi_v === undefined) return true;
+
+    const major = Number(data.mj_v);
+    const minor = Number(data.mi_v);
+    if (Number.isNaN(major) || Number.isNaN(minor)) return true;
+
+    if (major > 7) return true;
+    if (major < 7) return false;
+    return minor >= 3;
+  }
+
+  showUnsupportedVersion(major, minor) {
+    if (this.elements.fieldset) this.elements.fieldset.disabled = true;
+
+    const versionLabel = (major !== undefined && minor !== undefined)
+      ? `v${major}.${minor}`
+      : 'this firmware';
+
+    if (this.elements.versionWarning) {
+      this.elements.versionWarning.classList.remove('d-none');
+    }
+    if (this.elements.versionWarningValue) {
+      this.elements.versionWarningValue.textContent = versionLabel;
+    }
+  }
+
+  clearVersionWarning() {
+    if (this.elements.versionWarning) this.elements.versionWarning.classList.add('d-none');
+    if (this.elements.versionWarningValue) this.elements.versionWarningValue.textContent = '-';
+    if (this.connectionState === this.ConnectionState.CONNECTED && this.elements.fieldset) {
+      this.elements.fieldset.disabled = false;
+    }
+    if (this.connectionState === this.ConnectionState.CONNECTED) {
+      this.updateStatusMessage('Connected — Device must be DISARMED to change settings.', 'success');
+    }
+  }
+
+  hideVersionWarning() {
+    if (this.elements.versionWarning) this.elements.versionWarning.classList.add('d-none');
+    if (this.elements.versionWarningValue) this.elements.versionWarningValue.textContent = '-';
+  }
+
   updateUI(data) {
     // Fields: mj_v, mi_v, arch, scr_rt, ar_tme, m_tmp, m_alt, prf, sea_p, thm
 
     // Info
     if (data.mj_v !== undefined && data.mi_v !== undefined) {
-      this.elements.infoFw.textContent = `v${data.mj_v}.${data.mi_v}`;
-      this.elements.infoPanel.classList.remove('d-none');
+      if (this.elements.infoFw) this.elements.infoFw.textContent = `v${data.mj_v}.${data.mi_v}`;
+      if (this.elements.infoPanel) this.elements.infoPanel.classList.remove('d-none');
+
+      if (this.isSupportedVersion(data)) {
+        this.clearVersionWarning();
+      } else {
+        this.showUnsupportedVersion(data.mj_v, data.mi_v);
+      }
     }
-    if (data.arch) this.elements.infoArch.textContent = data.arch;
-    if (data.ar_tme !== undefined) {
+    if (data.arch && this.elements.infoArch) this.elements.infoArch.textContent = data.arch;
+    if (data.ar_tme !== undefined && this.elements.infoArmedTime) {
         const hrs = Math.floor(data.ar_tme / 60);
         const mins = data.ar_tme % 60;
         this.elements.infoArmedTime.textContent = `${hrs}h ${mins}m`;

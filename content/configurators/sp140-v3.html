@@ -30,6 +30,11 @@ draft: false
       Connect via USB-C to get started.
     </div>
 
+    <div id="version-warning" class="alert alert-warning d-none small mb-0 mt-3" role="status">
+      <i class="fas fa-exclamation-triangle me-2"></i>
+      Firmware <span id="version-warning-value">-</span> detected. Please upgrade to v7.3 or higher to use this tool.
+    </div>
+
     <div id="device-info" class="mt-auto pt-3 d-none">
       <dl class="row mb-0 small">
         <dt class="col-6 text-muted">Firmware</dt>
@@ -102,7 +107,7 @@ draft: false
                 </div>
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" id="metric-alt">
-                  <label class="form-check-label" for="metric-alt">Metric Alt (m)</label>
+                  <label class="form-check-label" for="metric-alt">Metric Altitude (m)</label>
                 </div>
               </div>
             </div>
@@ -156,49 +161,55 @@ draft: false
 </div>
 
 <!-- Firmware Update -->
-<div class="configurator-grid mb-5">
-  <div class="card card-body config-card h-100">
-    <div class="d-flex align-items-center gap-2 mb-3">
-      <i class="fas fa-microchip text-primary"></i>
-      <h5 class="card-title m-0">Firmware Installer</h5>
-    </div>
-    <div class="small text-muted mb-3">
-      <ol class="mb-0 ps-3">
-        <li>Connect controller with a USB-C data cable</li>
-        <li>Use Chrome or Edge browser</li>
-        <li>Disconnect main battery (USB power only)</li>
-      </ol>
-    </div>
-    <div id="firmware-actions" class="mt-auto">
-      <esp-web-install-button>
-        <button slot="activate" class="btn btn-primary">
-          <i class="fas fa-download me-2"></i>Open Installer
-        </button>
-        <span slot="unsupported">Use Chrome or Edge browser</span>
-        <span slot="not-allowed">HTTPS required</span>
-      </esp-web-install-button>
-    </div>
-  </div>
-
-  <div class="card card-body config-card h-100" id="release-card">
-    <div class="d-flex align-items-center justify-content-between mb-2">
-      <div class="d-flex align-items-center gap-2">
-        <i class="fas fa-rocket text-primary"></i>
-        <h5 class="card-title m-0">What's New</h5>
+<div class="card config-card config-card--grouped mb-5">
+  <div class="card-body">
+    <div class="config-card--grouped__body">
+      <div class="config-card--grouped__pane">
+        <div class="d-flex align-items-center gap-2 mb-3">
+          <i class="fas fa-microchip text-primary"></i>
+          <h5 class="card-title m-0">Firmware Installer</h5>
+        </div>
+        <div class="small text-muted mb-3">
+          <ol class="mb-0 ps-3">
+            <li>Connect controller with a USB-C data cable</li>
+            <li>Use Chrome or Edge browser</li>
+            <li>Disconnect main battery (USB power only)</li>
+          </ol>
+        </div>
+        <div id="firmware-actions" class="mt-auto">
+          <esp-web-install-button>
+            <button slot="activate" class="btn btn-primary">
+              <i class="fas fa-download me-2"></i>Open Installer
+            </button>
+            <span slot="unsupported">Use Chrome or Edge browser</span>
+            <span slot="not-allowed">HTTPS required</span>
+          </esp-web-install-button>
+        </div>
       </div>
-      <span class="badge bg-primary-subtle text-primary fw-semibold" id="release-badge">v7.2</span>
-    </div>
-    <ul class="list-unstyled small mb-3" id="release-changelog">
-      <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Variometer altitude display</li>
-      <li class="mb-2"><i class="fas fa-check text-success me-2"></i>BMS/ESC notification alerts</li>
-      <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Enhanced throttle smoothing</li>
-    </ul>
-    <div class="mt-auto d-flex justify-content-between align-items-center">
-      <a class="small text-decoration-none" id="release-link"
-        href="https://github.com/openppg/eppg-controller/releases/" target="_blank" rel="noopener">
-        Release notes <i class="fas fa-arrow-right small"></i>
-      </a>
-      <span class="text-muted small" id="release-date">Sep 2025</span>
+
+      <div class="config-card--grouped__divider" aria-hidden="true"></div>
+
+      <div class="config-card--grouped__pane" id="release-card">
+        <div class="d-flex align-items-center justify-content-between mb-2">
+          <div class="d-flex align-items-center gap-2">
+            <i class="fas fa-rocket text-primary"></i>
+            <h5 class="card-title m-0">What's New</h5>
+          </div>
+          <span class="badge bg-primary-subtle text-primary fw-semibold" id="release-badge">v7.2</span>
+        </div>
+        <ul class="list-unstyled small mb-3" id="release-changelog">
+          <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Variometer altitude display</li>
+          <li class="mb-2"><i class="fas fa-check text-success me-2"></i>BMS/ESC notification alerts</li>
+          <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Enhanced throttle smoothing</li>
+        </ul>
+        <div class="mt-auto d-flex justify-content-between align-items-center">
+          <a class="small text-decoration-none" id="release-link"
+            href="https://github.com/openppg/eppg-controller/releases/" target="_blank" rel="noopener">
+            Release notes <i class="fas fa-arrow-right small"></i>
+          </a>
+          <span class="text-muted small" id="release-date">Sep 2025</span>
+        </div>
+      </div>
     </div>
   </div>
 </div>
