@@ -39,7 +39,7 @@ draft: false
       <dl class="row mb-0 small">
         <dt class="col-6 text-muted">Firmware</dt>
         <dd class="col-6 mb-1" id="info-fw-version">-</dd>
-        <dt class="col-6 text-muted">Arch</dt>
+        <dt class="col-6 text-muted">Architecture</dt>
         <dd class="col-6 mb-1" id="info-arch">-</dd>
         <dt class="col-6 text-muted">Armed Time</dt>
         <dd class="col-6 mb-0" id="info-armed-time">-</dd>
@@ -65,7 +65,9 @@ draft: false
           <!-- Screen Rotation -->
           <div class="setting-block">
             <div class="mb-3">
-              <label class="form-label fw-semibold small text-uppercase text-muted">Screen Orientation</label>
+              <label class="form-label fw-semibold text-muted">Screen orientation
+                <span class="text-muted fw-normal small">(requires device reboot)</span>
+              </label>
               <div class="d-flex gap-3">
                 <div class="form-check">
                   <input class="form-check-input" type="radio" name="screen_rot" id="rot-lh" value="3">
@@ -100,15 +102,9 @@ draft: false
           <div class="setting-block">
             <div class="mb-3">
               <label class="form-label fw-semibold small text-uppercase text-muted">Units</label>
-              <div class="d-flex flex-wrap gap-3">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="metric-temp">
-                  <label class="form-check-label" for="metric-temp">Metric Temp (°C)</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="metric-alt">
-                  <label class="form-check-label" for="metric-alt">Metric Altitude (m)</label>
-                </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="metric-alt">
+                <label class="form-check-label" for="metric-alt">Metric Altitude (m)</label>
               </div>
             </div>
           </div>
@@ -116,8 +112,8 @@ draft: false
           <!-- Sea Pressure -->
           <div class="setting-block">
             <div class="mb-3">
-              <label for="sea-pressure" class="form-label fw-semibold small text-uppercase text-muted">Baro
-                Pressure</label>
+              <label for="sea-pressure" class="form-label fw-semibold small text-uppercase text-muted">Barometer
+                Pressure Calibration</label>
               <div class="input-group input-group-sm">
                 <input type="number" step="0.01" min="300" max="1200" class="form-control" id="sea-pressure"
                   placeholder="1013.25">
@@ -148,11 +144,11 @@ draft: false
           </div>
 
           <!-- Reboot -->
-          <div class="setting-block d-flex align-items-stretch">
+          <!-- <div class="setting-block d-flex align-items-stretch">
             <button type="button" id="btn-reboot" class="btn btn-sm btn-contrast-warning w-100 align-self-end">
               <i class="fas fa-power-off me-1"></i>Reboot Device
             </button>
-          </div>
+          </div> -->
         </div>
       </fieldset>
     </form>

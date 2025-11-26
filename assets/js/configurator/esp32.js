@@ -303,7 +303,6 @@ class ESP32SettingsManager {
       rotRh: document.getElementById('rot-rh'),
       themeLight: document.getElementById('theme-light'),
       themeDark: document.getElementById('theme-dark'),
-      metricTemp: document.getElementById('metric-temp'),
       metricAlt: document.getElementById('metric-alt'),
       seaPressure: document.getElementById('sea-pressure'),
       perfChill: document.getElementById('perf-chill'),
@@ -422,7 +421,6 @@ class ESP32SettingsManager {
     addInputListener(this.elements.themeLight, () => this.updateSetting('theme', 0));
     addInputListener(this.elements.themeDark, () => this.updateSetting('theme', 1));
 
-    addInputListener(this.elements.metricTemp, (e) => this.updateSetting('metric_temp', e.target.checked));
     addInputListener(this.elements.metricAlt, (e) => this.updateSetting('metric_alt', e.target.checked));
 
     addInputListener(this.elements.perfChill, () => this.updateSetting('performance_mode', 0));
@@ -685,7 +683,6 @@ class ESP32SettingsManager {
       if (data.thm === 1 && this.elements.themeDark) this.elements.themeDark.checked = true;
     }
 
-    if (data.m_tmp !== undefined && this.elements.metricTemp) this.elements.metricTemp.checked = data.m_tmp;
     if (data.m_alt !== undefined && this.elements.metricAlt) this.elements.metricAlt.checked = data.m_alt;
 
     if (data.sea_p !== undefined && this.elements.seaPressure) this.elements.seaPressure.value = data.sea_p;
