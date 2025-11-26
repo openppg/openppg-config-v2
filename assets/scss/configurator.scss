@@ -31,30 +31,6 @@
    Configurator Page - Unified Card System
    ============================================ */
 
-.configurator-page-wrapper {
-  width: 100vw;
-  max-width: 100vw;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-  background: #f8fafc;
-}
-
-.configurator-page {
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: clamp(1rem, 7vw, 5rem);
-  padding-right: clamp(1rem, 7vw, 5rem);
-  padding-top: 2rem;
-}
-
-@media (min-width: 1600px) {
-  .configurator-page {
-    max-width: 1600px;
-  }
-}
 
 /* Base card style for all configurator cards */
 .config-card {
