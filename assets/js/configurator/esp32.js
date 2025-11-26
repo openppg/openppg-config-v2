@@ -252,6 +252,7 @@ class ESP32SettingsManager {
 
     this.setupListeners();
     this.setupSerialEvents();
+    window.addEventListener('beforeunload', () => this.forceClosePort());
     this.setConnectionState(this.ConnectionState.DISCONNECTED);
   }
 
@@ -429,9 +430,9 @@ class ESP32SettingsManager {
     this.elements.seaPressure?.addEventListener('change', (e) => {
       let val = parseFloat(e.target.value);
       if (!isNaN(val)) {
-         if (val < 300) val = 300;
-         if (val > 1200) val = 1200;
-         this.updateSetting('sea_pressure', val);
+        if (val < 300) val = 300;
+        if (val > 1200) val = 1200;
+        this.updateSetting('sea_pressure', val);
       }
     });
   }
@@ -445,12 +446,9 @@ class ESP32SettingsManager {
 
       // Request port from user
       this.port = await navigator.serial.requestPort({
-        // Filter for common USB-to-Serial chips used in ESP32
+        // Filter for Espressif devices (ESP32-S3)
         filters: [
           { usbVendorId: 0x303A }, // Espressif
-          { usbVendorId: 0x10C4 }, // Silicon Labs CP210x
-          { usbVendorId: 0x1A86 }, // CH340
-          { usbVendorId: 0x0403 }, // FTDI
         ]
       }).catch(() => {
         // If filtered request fails or is cancelled, try without filters
@@ -464,13 +462,35 @@ class ESP32SettingsManager {
       // Open the port
       await this.port.open({ baudRate: 115200 });
 
+      // Toggle DTR/RTS to reset the device's USB CDC state
+      // First, de-assert signals
+      await this.port.setSignals({ dataTerminalReady: false, requestToSend: false });
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      // Then assert signals (DTR=true is often required for ESP32-S3 Native USB to send data)
+      await this.port.setSignals({ dataTerminalReady: true, requestToSend: true });
+      await new Promise(resolve => setTimeout(resolve, 100));
+
       this.keepReading = true;
       this.readLoop();
 
       this.setConnectionState(this.ConnectionState.CONNECTED);
 
-      // Small delay to let the device settle, then sync
-      await new Promise(resolve => setTimeout(resolve, 100));
+      // Wait a bit more for the device to be ready after the signal toggle
+      await new Promise(resolve => setTimeout(resolve, 500));
+
+      // Send a newline to clear any input buffer on the device side
+      if (this.port && this.port.writable) {
+        const writer = this.port.writable.getWriter();
+        try {
+          await writer.write(this.encoder.encode('\n'));
+        } catch (e) {
+          console.error('Error clearing buffer:', e);
+        } finally {
+          writer.releaseLock();
+        }
+      }
+
       await this.sendJson({ command: 'sync' });
 
     } catch (error) {
@@ -518,6 +538,22 @@ class ESP32SettingsManager {
 
     this.setConnectionState(this.ConnectionState.DISCONNECTED);
     this.updateStatusMessage('Disconnected.', 'info');
+  }
+
+  forceClosePort() {
+    // Best-effort close for page unload to prevent ports getting stuck open
+    try {
+      this.keepReading = false;
+      if (this.reader) {
+        this.reader.cancel().catch(() => { });
+        this.reader.releaseLock?.();
+      }
+      if (this.port) {
+        this.port.close().catch(() => { });
+      }
+    } catch (e) {
+      // ignore
+    }
   }
 
   async readLoop() {
@@ -667,9 +703,9 @@ class ESP32SettingsManager {
     }
     if (data.arch && this.elements.infoArch) this.elements.infoArch.textContent = data.arch;
     if (data.ar_tme !== undefined && this.elements.infoArmedTime) {
-        const hrs = Math.floor(data.ar_tme / 60);
-        const mins = data.ar_tme % 60;
-        this.elements.infoArmedTime.textContent = `${hrs}h ${mins}m`;
+      const hrs = Math.floor(data.ar_tme / 60);
+      const mins = data.ar_tme % 60;
+      this.elements.infoArmedTime.textContent = `${hrs}h ${mins}m`;
     }
 
     // Settings
