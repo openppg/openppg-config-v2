@@ -9,9 +9,8 @@ draft: false
 
 
 <!-- Device Settings -->
-<div class="row g-4 g-xl-5 mb-4">
-  <div class="col-lg-4 col-xl-3">
-    <div class="card card-body config-card h-100">
+<div class="configurator-grid mb-5">
+  <div class="card card-body config-card h-100">
       <div class="d-flex align-items-center gap-2 mb-3">
         <i class="fas fa-usb text-primary"></i>
         <h5 class="card-title m-0">Connection</h5>
@@ -42,10 +41,8 @@ draft: false
         </dl>
       </div>
     </div>
-  </div>
 
-  <div class="col-lg-8 col-xl-9">
-    <div class="card card-body config-card h-100">
+  <div class="card card-body config-card h-100">
       <div class="d-flex justify-content-between align-items-center mb-3">
         <div class="d-flex align-items-center gap-2">
           <i class="fas fa-sliders-h text-primary"></i>
@@ -59,9 +56,9 @@ draft: false
       <form id="settings-form">
         <fieldset disabled>
           <!-- Using responsive grid to let items flow better -->
-          <div class="row row-cols-1 row-cols-md-2 row-cols-xl-2 g-4">
+          <div class="settings-grid">
             <!-- Screen Rotation -->
-            <div class="col">
+            <div class="setting-block">
               <div class="mb-3">
                 <label class="form-label fw-semibold small text-uppercase text-muted">Screen Orientation</label>
                 <div class="d-flex gap-3">
@@ -78,7 +75,7 @@ draft: false
             </div>
 
             <!-- Theme -->
-            <div class="col">
+            <div class="setting-block">
               <div class="mb-3">
                 <label class="form-label fw-semibold small text-uppercase text-muted">Theme</label>
                 <div class="d-flex gap-3">
@@ -95,7 +92,7 @@ draft: false
             </div>
 
             <!-- Units -->
-            <div class="col">
+            <div class="setting-block">
               <div class="mb-3">
                 <label class="form-label fw-semibold small text-uppercase text-muted">Units</label>
                 <div class="d-flex flex-wrap gap-3">
@@ -112,7 +109,7 @@ draft: false
             </div>
 
             <!-- Sea Pressure -->
-            <div class="col">
+            <div class="setting-block">
               <div class="mb-3">
                 <label for="sea-pressure" class="form-label fw-semibold small text-uppercase text-muted">Baro
                   Pressure</label>
@@ -129,7 +126,7 @@ draft: false
             </div>
 
             <!-- Performance Mode -->
-            <div class="col">
+            <div class="setting-block">
               <div class="mb-3">
                 <label class="form-label fw-semibold small text-uppercase text-muted">Performance Mode</label>
                 <div class="d-flex gap-3">
@@ -146,12 +143,10 @@ draft: false
             </div>
 
             <!-- Reboot -->
-            <div class="col d-flex align-items-center">
-              <div class="pt-3 w-100">
-                <button type="button" id="btn-reboot" class="btn btn-sm btn-outline-warning w-100">
-                  <i class="fas fa-power-off me-1"></i>Reboot Device
-                </button>
-              </div>
+            <div class="setting-block d-flex align-items-stretch">
+              <button type="button" id="btn-reboot" class="btn btn-sm btn-contrast-warning w-100 align-self-end">
+                <i class="fas fa-power-off me-1"></i>Reboot Device
+              </button>
             </div>
           </div>
         </fieldset>
@@ -161,9 +156,8 @@ draft: false
 </div>
 
 <!-- Firmware Update -->
-<div class="row g-4 g-xl-5 mb-4">
-  <div class="col-lg-6">
-    <div class="card card-body config-card h-100">
+<div class="configurator-grid mb-5">
+  <div class="card card-body config-card h-100">
       <div class="d-flex align-items-center gap-2 mb-3">
         <i class="fas fa-microchip text-primary"></i>
         <h5 class="card-title m-0">Firmware Installer</h5>
@@ -185,9 +179,7 @@ draft: false
         </esp-web-install-button>
       </div>
     </div>
-  </div>
 
-  <div class="col-lg-6">
     <div class="card card-body config-card h-100" id="release-card">
       <div class="d-flex align-items-center justify-content-between mb-2">
         <div class="d-flex align-items-center gap-2">
@@ -209,13 +201,11 @@ draft: false
         <span class="text-muted small" id="release-date">Sep 2025</span>
       </div>
     </div>
-  </div>
 </div>
 
 <!-- Footer -->
-<div class="row g-4">
-  <div class="col-lg-6">
-    <div class="card card-body config-card config-card--subtle">
+<div class="configurator-grid configurator-grid--two mb-0">
+  <div class="card card-body config-card config-card--subtle">
       <div class="d-flex align-items-start gap-3">
         <i class="fas fa-history text-muted"></i>
         <div>
@@ -225,9 +215,7 @@ draft: false
         </div>
       </div>
     </div>
-  </div>
-  <div class="col-lg-6">
-    <div class="card card-body config-card config-card--subtle">
+  <div class="card card-body config-card config-card--subtle">
       <div class="d-flex align-items-start gap-3">
         <i class="fas fa-question-circle text-muted"></i>
         <div>

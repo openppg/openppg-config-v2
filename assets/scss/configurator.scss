@@ -31,6 +31,48 @@
    Configurator Page - Unified Card System
    ============================================ */
 
+.configurator-grid {
+  display: grid;
+  grid-template-columns: minmax(260px, 320px) minmax(480px, 1fr);
+  gap: clamp(1rem, 3vw, 2.5rem);
+  align-items: start;
+}
+
+.configurator-grid--two {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+@media (max-width: 991.98px) {
+  .configurator-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.settings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: clamp(1rem, 2.5vw, 1.5rem);
+}
+
+.setting-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.btn-contrast-warning {
+  background-color: #fbbf24;
+  border-color: #f59e0b;
+  color: #78350f;
+  font-weight: 600;
+}
+
+.btn-contrast-warning:hover,
+.btn-contrast-warning:focus {
+  background-color: #f59e0b;
+  border-color: #d97706;
+  color: #451a03;
+}
 
 /* Base card style for all configurator cards */
 .config-card {
