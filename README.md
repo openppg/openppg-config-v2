@@ -41,6 +41,17 @@ When ready to publish to a static hosting site
 npm run build
 ```
 
+### Staging Deployment
+
+Staging is hosted on Cloudflare Pages at `config-staging.openppg.com`. To manually deploy:
+
+```bash
+npm run build -- --baseURL "https://config-staging.openppg.com/"
+wrangler pages deploy docs --project-name openppg-config-staging
+```
+
+**Note:** You must be logged into wrangler (`wrangler login`) with access to the OpenPPG Cloudflare account.
+
 ### Firmware Development
 
 #### Building ESP32-S3 Firmware
