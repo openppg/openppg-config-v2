@@ -28,7 +28,7 @@ jobs:
     - name: Install Hugo
       uses: peaceiris/actions-hugo@v3.0.0
       with:
-        hugo-version: '0.123.8'
+        hugo-version: '0.146.7'
         extended: true
 
     - name: Check install Hugo
