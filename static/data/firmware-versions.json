@@ -1,21 +1,9 @@
 {
   "versions": [
     {
-      "version": "7.2",
-      "folder": "v7.2",
-      "release_date": "2025-09-16",
-      "is_latest": false,
-      "description": "Improved diagnostics and smoother throttle response",
-      "changelog": [
-        "New variometer display show altitude changes",
-        "Display BMS, ESC, and internal notifications for warnings and critical alerts",
-        "Enhanced throttle smoothing especially for chill mode"
-      ]
-    },
-    {
       "version": "7.4 Beta",
       "folder": "v7.4-beta",
-      "release_date": "2025-11-26",
+      "release_date": "2025-12-01",
       "is_latest": false,
       "description": "Same as RC1 but for BLE tweaks",
       "changelog": [
@@ -35,7 +23,20 @@
         "New system health monitors for early detection of hardware initialization failures",
         "Enhanced ESC TWAI, BMS CAN, and barometer startup status tracking",
         "Improved alerts and feedback with consistent error categorization",
-        "Firmware build date logging for easier debugging"
+        "Firmware build date logging for easier debugging",
+        "Recommended for all users including RC1 users"
+      ]
+    },
+    {
+      "version": "7.2",
+      "folder": "v7.2",
+      "release_date": "2025-09-16",
+      "is_latest": false,
+      "description": "Improved diagnostics and smoother throttle response",
+      "changelog": [
+        "New variometer display show altitude changes",
+        "Display BMS, ESC, and internal notifications for warnings and critical alerts",
+        "Enhanced throttle smoothing especially for chill mode"
       ]
     },
     {

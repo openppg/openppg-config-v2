@@ -18,17 +18,17 @@ jobs:
         node-version: ['20', '22', '24']
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
 
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v6
       with:
         node-version: ${{ matrix.node-version }}
 
     - name: Install Hugo
       uses: peaceiris/actions-hugo@v3.0.0
       with:
-        hugo-version: '0.123.8'
+        hugo-version: '0.146.7'
         extended: true
 
     - name: Check install Hugo
