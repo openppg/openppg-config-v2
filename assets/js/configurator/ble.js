@@ -1,7 +1,6 @@
 
 // BLE UUIDs
 const CONFIG_SERVICE_UUID = '1779a55b-deb8-4482-a5d1-a12e62146138';
-const BMS_SERVICE_UUID = '9e0f2fa3-3f2b-49c0-a6a3-3d8923062133';
 const DEVICE_INFO_SERVICE_UUID = '0000180a-0000-1000-8000-00805f9b34fb';
 
 const CHAR_UUIDS = {
@@ -13,18 +12,11 @@ const CHAR_UUIDS = {
   FW_VERSION: '00002a26-0000-1000-8000-00805f9b34fb',
   HW_REVISION: '00002a27-0000-1000-8000-00805f9b34fb',
   ARMED_TIME: '58b29259-43ef-4593-b700-250ec839a2b2',
-
-  // BMS
-  SOC: 'acdeb138-3bd0-4bb3-b159-19f6f70871ed',
-  VOLTAGE: 'ac0768df-2f49-43d4-b23d-1dc82c90a9e9',
-  CURRENT: '6feec926-ba3c-4e65-bc71-5db481811186',
-  POWER: '9dea1343-434f-4555-a0a1-bb43fcbc68a6',
 };
 
 let device;
 let server;
 let configService;
-let bmsService;
 let deviceInfoService;
 
 // UI Elements
@@ -46,7 +38,7 @@ async function connect() {
   try {
     device = await navigator.bluetooth.requestDevice({
       filters: [{ name: 'OpenPPG Controller' }],
-      optionalServices: [CONFIG_SERVICE_UUID, BMS_SERVICE_UUID, DEVICE_INFO_SERVICE_UUID]
+      optionalServices: [CONFIG_SERVICE_UUID, DEVICE_INFO_SERVICE_UUID]
     });
 
     device.addEventListener('gattserverdisconnected', onDisconnected);
@@ -56,7 +48,6 @@ async function connect() {
 
     updateStatus('Getting Services...');
     configService = await server.getPrimaryService(CONFIG_SERVICE_UUID);
-    bmsService = await server.getPrimaryService(BMS_SERVICE_UUID);
     // Device Info might be optional or standard
     try {
       deviceInfoService = await server.getPrimaryService(DEVICE_INFO_SERVICE_UUID);
@@ -67,7 +58,6 @@ async function connect() {
     isConnected = true;
     updateUIConnected();
     await readAllData();
-    startNotifications();
 
   } catch (error) {
     console.error('Connection failed', error);
@@ -161,39 +151,6 @@ async function readAllData() {
   } catch (e) {
     console.error('Error reading data', e);
   }
-}
-
-async function startNotifications() {
-  // BMS Telemetry
-  const startNotify = async (uuid, cb) => {
-    try {
-      const char = await bmsService.getCharacteristic(uuid);
-      await char.startNotifications();
-      char.addEventListener('characteristicvaluechanged', cb);
-    } catch (e) {
-      console.warn('Failed to subscribe to ' + uuid, e);
-    }
-  };
-
-  await startNotify(CHAR_UUIDS.SOC, (e) => {
-    const val = e.target.value.getFloat32(0, true);
-    document.getElementById('val-soc').textContent = val.toFixed(0) + ' %';
-  });
-
-  await startNotify(CHAR_UUIDS.VOLTAGE, (e) => {
-    const val = e.target.value.getFloat32(0, true);
-    document.getElementById('val-voltage').textContent = val.toFixed(1) + ' V';
-  });
-
-  await startNotify(CHAR_UUIDS.CURRENT, (e) => {
-    const val = e.target.value.getFloat32(0, true);
-    document.getElementById('val-current').textContent = val.toFixed(1) + ' A';
-  });
-
-  await startNotify(CHAR_UUIDS.POWER, (e) => {
-    const val = e.target.value.getFloat32(0, true);
-    document.getElementById('val-power').textContent = val.toFixed(1) + ' kW';
-  });
 }
 
 // Write Handlers

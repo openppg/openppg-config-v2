@@ -5,12 +5,11 @@
       "folder": "v7.4-beta",
       "release_date": "2025-12-01",
       "is_latest": false,
-      "description": "Same as RC1 but for BLE tweaks",
+      "description": "TBD",
       "changelog": [
-        "New system health monitors for early detection of hardware initialization failures",
-        "Enhanced ESC TWAI, BMS CAN, and barometer startup status tracking",
-        "Improved alerts and feedback with consistent error categorization",
-        "Firmware build date logging for easier debugging"
+        "TBD",
+        "Fix cruise control on chill mode",
+        "Better BLE support"
       ]
     },
     {
