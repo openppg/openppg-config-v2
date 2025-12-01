@@ -4,7 +4,7 @@
       "version": "7.2",
       "folder": "v7.2",
       "release_date": "2025-09-16",
-      "is_latest": true,
+      "is_latest": false,
       "description": "Improved diagnostics and smoother throttle response",
       "changelog": [
         "New variometer display show altitude changes",
@@ -13,10 +13,23 @@
       ]
     },
     {
-      "version": "7.3 RC1",
-      "folder": "v7.3",
-      "release_date": "2025-11-14",
+      "version": "7.4 Beta",
+      "folder": "v7.4-beta",
+      "release_date": "2025-11-26",
       "is_latest": false,
+      "description": "Same as RC1 but for BLE tweaks",
+      "changelog": [
+        "New system health monitors for early detection of hardware initialization failures",
+        "Enhanced ESC TWAI, BMS CAN, and barometer startup status tracking",
+        "Improved alerts and feedback with consistent error categorization",
+        "Firmware build date logging for easier debugging"
+      ]
+    },
+    {
+      "version": "7.3",
+      "folder": "v7.3",
+      "release_date": "2025-11-26",
+      "is_latest": true,
       "description": "Enhanced monitoring, diagnostics, and system health",
       "changelog": [
         "New system health monitors for early detection of hardware initialization failures",
