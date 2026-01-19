@@ -24,7 +24,7 @@ draft: false
         </div>
         <div class="hero-card__actions" id="firmware-actions">
           <esp-web-install-button>
-            <button slot="activate" class="btn btn-primary btn-lg">Open Installer</button>
+            <button slot="activate" class="btn btn-primary btn-lg">Install Latest Firmware</button>
             <span slot="unsupported">Ah snap, your browser doesn't work! Please use Chrome.</span>
             <span slot="not-allowed">Ah snap, you are not allowed to use this on HTTP!</span>
           </esp-web-install-button>
@@ -53,7 +53,8 @@ draft: false
             <span>Enhanced throttle smoothing especially for chill mode.</span>
           </li>
         </ul>
-        <a class="release-card__link" id="release-link" href="https://github.com/openppg/eppg-controller/releases/" target="_blank" rel="noopener">Read the full release notes <i class="fas fa-arrow-right"></i></a>
+        <a class="release-card__link" id="release-link" href="https://github.com/openppg/eppg-controller/releases/"
+          target="_blank" rel="noopener">Read the full release notes <i class="fas fa-arrow-right"></i></a>
         <div class="release-card__meta" id="release-meta">
           <span class="text-muted small" id="release-date">Released September 16, 2025</span>
         </div>
@@ -62,21 +63,50 @@ draft: false
   </div>
 </div>
 
-<div class="row row-cols-1 row-cols-lg-2 g-4 configurator-foot align-items-stretch">
-  <div class="col">
-    <div class="legacy-alert h-100" role="alert">
-      <div class="legacy-alert__body">
-        <span class="legacy-alert__eyebrow">Need the legacy tool?</span>
-        <p class="mb-0">If you have a non-CANbus SP140 controller, head to the <a href="/configurators/sp140-v2/" class="alert-link">Legacy SP140 Configurator</a>.</p>
-      </div>
-    </div>
-  </div>
+
+<div class="row row-cols-1 row-cols-lg-2 g-4 configurator-foot align-items-start">
   <div class="col">
     <div class="card card-body support-card h-100">
       <h5 class="mt-0">Need help?</h5>
       <p class="text-muted small mb-4">Trouble connecting or seeing errors? Jump into the docs below.</p>
       <div class="d-grid gap-2">
         <a class="btn btn-outline-primary" href="/docs/controllers/sp140-v3/">Troubleshooting guide</a>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="accordion h-100" id="advancedAccordion">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingAdvanced">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseAdvanced" aria-expanded="false" aria-controls="collapseAdvanced">
+            <i class="fas fa-sliders-h me-2"></i> Advanced Options
+          </button>
+        </h2>
+        <div id="collapseAdvanced" class="accordion-collapse collapse" aria-labelledby="headingAdvanced"
+          data-bs-parent="#advancedAccordion">
+          <div class="accordion-body">
+            <p class="text-muted small mb-4">Install older firmware versions or access legacy configurator tools.</p>
+
+            <!-- Version selector will be dynamically inserted here by JavaScript -->
+            <div id="advanced-version-selector"></div>
+
+            <!-- Install button for selected version -->
+            <div id="advanced-installer-actions" class="mt-3">
+              <esp-web-install-button id="advanced-install-button">
+                <button slot="activate" class="btn btn-outline-primary">Install Selected Version</button>
+                <span slot="unsupported">Ah snap, your browser doesn't work! Please use Chrome.</span>
+                <span slot="not-allowed">Ah snap, you are not allowed to use this on HTTP!</span>
+              </esp-web-install-button>
+            </div>
+
+            <div class="mt-4 pt-4 border-top">
+              <h6 class="text-muted mb-2"><i class="fas fa-info-circle me-1"></i> Legacy Controller</h6>
+              <p class="text-muted small mb-0">If you have a non-CANbus SP140 controller, use the <a
+                  href="/configurators/sp140-v2/">Legacy SP140 Configurator</a>.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
