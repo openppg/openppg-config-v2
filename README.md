@@ -56,7 +56,19 @@ wrangler pages deploy docs --project-name openppg-config-staging
 
 #### Building ESP32-S3 Firmware
 
-To build and merge firmware binaries for the OpenPPG SP140 ESP32-S3 controller using PlatformIO:
+Most updates should be firmware-only so user preferences (NVS) and partitions are preserved. Use this command to flash just the app image:
+
+```bash
+esptool.py --chip esp32s3 write_flash \
+  --flash_mode dio \
+  --flash_freq 80m \
+  --flash_size 8MB \
+  0x10000 .pio/build/OpenPPG-CESP32S3-CAN-SP140/firmware.bin
+```
+
+Note: In web installer manifests, firmware-only updates must use `offset: 65536` (hex `0x10000`). An `offset: 0` manifest flashes a full image and will overwrite bootloader/partitions/NVS.
+
+Use a full image only for factory resets or when you need to update the bootloader/partitions. This merges all binaries into a single flashable image:
 
 ```bash
 esptool.py --chip esp32s3 merge_bin \
