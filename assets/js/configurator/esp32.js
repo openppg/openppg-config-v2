@@ -295,6 +295,16 @@ class ESP32SettingsManager {
       connecting: 'Opening connection...',
       disconnected: 'Disconnected.',
     };
+    this.overlayMessages = {
+      disconnected: {
+        icon: 'fa-plug',
+        text: 'Connect your controller to configure settings',
+      },
+      loading: {
+        icon: 'fa-spinner fa-spin',
+        text: 'Loading settings...',
+      },
+    };
 
     // Connection state enum
     this.ConnectionState = {
@@ -393,6 +403,9 @@ class ESP32SettingsManager {
       fieldset: document.getElementById('settings-form')?.querySelector('fieldset'),
       saveStatus: document.getElementById('save-status'),
       rebootBtn: document.getElementById('btn-reboot'),
+      settingsOverlay: document.getElementById('settings-overlay'),
+      settingsOverlayIcon: document.getElementById('settings-overlay-icon'),
+      settingsOverlayText: document.getElementById('settings-overlay-text'),
 
       // Info fields
       infoPanel: document.getElementById('device-info'),
@@ -415,11 +428,11 @@ class ESP32SettingsManager {
 
   setConnectionState(state) {
     this.connectionState = state;
-    const { connectBtn, fieldset, syncBtn, infoPanel } = this.elements;
-    const settingsOverlay = document.getElementById('settings-overlay');
+    const { connectBtn, fieldset, syncBtn, infoPanel, settingsOverlay } = this.elements;
 
     switch (state) {
       case this.ConnectionState.UNSUPPORTED:
+        this.updateOverlay('disconnected');
         if (connectBtn) {
           connectBtn.disabled = true;
           connectBtn.innerHTML = '<i class="fas fa-exclamation-triangle me-2"></i>Not Supported';
@@ -433,6 +446,7 @@ class ESP32SettingsManager {
         break;
 
       case this.ConnectionState.DISCONNECTED:
+        this.updateOverlay('disconnected');
         this.stopSyncLoading();
         if (connectBtn) {
           connectBtn.disabled = false;
@@ -449,6 +463,7 @@ class ESP32SettingsManager {
         break;
 
       case this.ConnectionState.CONNECTING:
+        this.updateOverlay('loading');
         if (connectBtn) {
           connectBtn.disabled = true;
           connectBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Connecting...';
@@ -473,6 +488,7 @@ class ESP32SettingsManager {
         break;
 
       case this.ConnectionState.ERROR:
+        this.updateOverlay('disconnected');
         this.stopSyncLoading();
         if (connectBtn) {
           connectBtn.disabled = false;
@@ -485,6 +501,19 @@ class ESP32SettingsManager {
         // Show overlay on error
         if (settingsOverlay) settingsOverlay.classList.remove('d-none');
         break;
+    }
+  }
+
+  updateOverlay(mode) {
+    const { settingsOverlayIcon, settingsOverlayText } = this.elements;
+    const config = this.overlayMessages[mode];
+    if (!config) return;
+
+    if (settingsOverlayIcon) {
+      settingsOverlayIcon.className = `fas ${config.icon} fa-3x text-muted mb-3 opacity-50`;
+    }
+    if (settingsOverlayText) {
+      settingsOverlayText.textContent = config.text;
     }
   }
 
@@ -751,6 +780,10 @@ class ESP32SettingsManager {
     if (!this.elements.syncBtn) return;
 
     this.isSyncing = true;
+    this.updateOverlay('loading');
+    if (this.elements.settingsOverlay) {
+      this.elements.settingsOverlay.classList.remove('d-none');
+    }
     this.elements.syncBtn.disabled = true;
     this.elements.syncBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Loading...';
 
@@ -773,6 +806,14 @@ class ESP32SettingsManager {
       const shouldEnable = this.connectionState === this.ConnectionState.CONNECTED;
       this.elements.syncBtn.disabled = !shouldEnable;
       this.elements.syncBtn.innerHTML = '<i class="fas fa-sync me-2"></i>Refresh';
+    }
+    if (this.elements.settingsOverlay) {
+      if (this.connectionState === this.ConnectionState.CONNECTED) {
+        this.elements.settingsOverlay.classList.add('d-none');
+      } else {
+        this.updateOverlay('disconnected');
+        this.elements.settingsOverlay.classList.remove('d-none');
+      }
     }
   }
 
