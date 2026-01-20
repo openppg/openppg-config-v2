@@ -154,7 +154,6 @@ draft: false
     </form>
   </div>
 </div>
-</div>
 
 <!-- Firmware Update -->
 <div class="card config-card config-card--grouped mb-5">
@@ -165,20 +164,19 @@ draft: false
           <i class="fas fa-microchip text-primary"></i>
           <h5 class="card-title m-0">Firmware Installer</h5>
         </div>
-        <div class="small text-muted mb-3">
-          <ol class="mb-0 ps-3">
-            <li>Connect controller with a USB-C data cable</li>
-            <li>Use Chrome or Edge browser</li>
-            <li>Disconnect main battery (USB power only)</li>
+        <div class="hero-card__steps">
+          <span class="hero-card__steps-label">Before you update</span>
+          <ol class="hero-card__list">
+            <li><strong>Disconnect</strong> the main battery pack.</li>
+            <li><strong>Connect</strong> the SP140 controller to your computer with a data-capable USB-C cable.</li>
+            <li><strong>Use</strong> desktop Chrome or Edge and keep this page open for WebSerial access.</li>
           </ol>
         </div>
         <div id="firmware-actions" class="mt-auto">
           <esp-web-install-button>
-            <button slot="activate" class="btn btn-primary">
-              <i class="fas fa-download me-2"></i>Open Installer
-            </button>
-            <span slot="unsupported">Use Chrome or Edge browser</span>
-            <span slot="not-allowed">HTTPS required</span>
+            <button slot="activate" class="btn btn-primary btn-lg">Install Latest Firmware</button>
+            <span slot="unsupported">Ah snap, your browser doesn't work! Please use Chrome.</span>
+            <span slot="not-allowed">Ah snap, you are not allowed to use this on HTTP!</span>
           </esp-web-install-button>
         </div>
       </div>
@@ -198,39 +196,57 @@ draft: false
           <li class="mb-2"><i class="fas fa-check text-success me-2"></i>BMS/ESC notification alerts</li>
           <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Enhanced throttle smoothing</li>
         </ul>
-        <div class="mt-auto d-flex justify-content-between align-items-center">
-          <a class="small text-decoration-none" id="release-link"
-            href="https://github.com/openppg/eppg-controller/releases/" target="_blank" rel="noopener">
-            Release notes <i class="fas fa-arrow-right small"></i>
-          </a>
-          <span class="text-muted small" id="release-date">Sep 2025</span>
+        <a class="release-card__link" id="release-link" href="https://github.com/openppg/eppg-controller/releases/"
+          target="_blank" rel="noopener">Read the full release notes <i class="fas fa-arrow-right"></i></a>
+        <div class="release-card__meta" id="release-meta">
+          <span class="text-muted small" id="release-date">Released September 16, 2025</span>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Footer -->
-<div class="configurator-grid configurator-grid--two mb-5">
-  <div class="card card-body config-card config-card--subtle">
-    <div class="d-flex align-items-start gap-3">
-      <i class="fas fa-history text-muted"></i>
-      <div>
-        <strong class="small">Legacy Controller?</strong>
-        <p class="small text-muted mb-0">Non-CANbus SP140? Use the <a href="/configurators/sp140-v2/">Legacy
-            Configurator</a>.</p>
+<div class="row row-cols-1 row-cols-lg-2 g-4 configurator-foot align-items-start">
+  <div class="col">
+    <div class="card card-body support-card h-100">
+      <h5 class="mt-0">Need help?</h5>
+      <p class="text-muted small mb-4">Trouble connecting or seeing errors? Jump into the docs below.</p>
+      <div class="d-grid gap-2">
+        <a class="btn btn-outline-primary" href="/docs/controllers/sp140-v3/">Troubleshooting guide</a>
       </div>
     </div>
   </div>
-  <div class="card card-body config-card config-card--subtle">
-    <div class="d-flex align-items-start gap-3">
-      <i class="fas fa-question-circle text-muted"></i>
-      <div>
-        <strong class="small">Need Help?</strong>
-        <p class="small text-muted mb-0">Check the <a href="/docs/controllers/sp140-v3/">troubleshooting guide</a> for
-          common issues.</p>
+  <div class="col">
+    <div class="accordion h-100" id="advancedAccordion">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingAdvanced">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseAdvanced" aria-expanded="false" aria-controls="collapseAdvanced">
+            <i class="fas fa-sliders-h me-2"></i> Advanced Options
+          </button>
+        </h2>
+        <div id="collapseAdvanced" class="accordion-collapse collapse" aria-labelledby="headingAdvanced"
+          data-bs-parent="#advancedAccordion">
+          <div class="accordion-body">
+            <p class="text-muted small mb-4">Install older firmware versions.</p>
+
+            <!-- Version selector will be dynamically inserted here by JavaScript -->
+            <div id="advanced-version-selector"></div>
+
+            <!-- Install button for selected version -->
+            <div id="advanced-installer-actions" class="mt-3 d-flex align-items-center justify-content-between gap-3">
+              <esp-web-install-button id="advanced-install-button">
+                <button slot="activate" class="btn btn-outline-primary">Install Selected Version</button>
+                <span slot="unsupported">Ah snap, your browser doesn't work! Please use Chrome.</span>
+                <span slot="not-allowed">Ah snap, you are not allowed to use this on HTTP!</span>
+              </esp-web-install-button>
+              <a class="link-primary text-decoration-underline small ms-auto" href="https://github.com/openppg/eppg-controller/releases"
+                target="_blank" rel="noopener">Release notes</a>
+            </div>
+
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </div>
