@@ -22,27 +22,6 @@
   color: #fbbf24; /* amber-400 - good contrast on dark */
 }
 
-/* Settings Section Grouping */
-.settings-section {
-  display: contents; // Maintain grid flow
-}
-
-.settings-section__title {
-  @extend %uppercase-label;
-  grid-column: 1 / -1;
-  color: rgba(108, 117, 125, 0.7);
-  margin: 0;
-  padding: 0;
-
-  &:first-child {
-    padding-top: 0;
-  }
-}
-
-.dark .settings-section__title {
-  color: rgba(156, 163, 175, 0.6);
-}
-
 /* Status Dot Animation */
 .status-dot {
   display: inline-block;
@@ -151,6 +130,8 @@
     display: flex;
     flex-direction: column;
     gap: 0.35rem;
+    min-width: 7.5rem;
+    text-align: center;
   }
 
   &__label {
@@ -189,6 +170,45 @@
 /* Button Transitions */
 .btn {
   @extend %smooth-transition;
+}
+
+.btn-group {
+  display: flex;
+  gap: 0;
+}
+
+.btn-group > .btn {
+  border: 1px solid var(--bs-border-color);
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+}
+
+.btn-group > .btn + .btn {
+  margin-left: -1px;
+}
+
+.btn-group > .btn:first-child {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.btn-group > .btn:last-child {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.btn-group > .btn:not(:first-child):not(:last-child) {
+  border-radius: 0;
+}
+
+.btn-group > .btn:hover {
+  background-color: rgba(var(--bs-primary-rgb), 0.08);
+}
+
+.btn-group .btn-check:checked + .btn {
+  background-color: var(--bs-primary);
+  border-color: var(--bs-primary);
+  color: #fff;
 }
 
 .btn-group .btn-check:checked + .btn {

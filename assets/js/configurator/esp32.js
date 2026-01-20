@@ -462,7 +462,7 @@ class ESP32SettingsManager {
         }
         if (fieldset) fieldset.disabled = false;
         if (syncBtn) syncBtn.disabled = false;
-        this.updateStatusMessage('Connected — Device must be DISARMED to change settings.', 'success');
+        this.updateStatusMessage('Device must be DISARMED to change settings.', 'plain');
         // Hide overlay when connected
         if (settingsOverlay) settingsOverlay.classList.add('d-none');
         break;
@@ -492,19 +492,20 @@ class ESP32SettingsManager {
       info: { icon: 'fa-info-circle', colorClass: 'text-muted' },
       success: { icon: 'fa-check-circle', colorClass: 'text-success' },
       warning: { icon: 'fa-exclamation-triangle', colorClass: 'status-warning' },
-      error: { icon: 'fa-times-circle', colorClass: 'text-danger' }
+      error: { icon: 'fa-times-circle', colorClass: 'text-danger' },
+      plain: { icon: null, colorClass: 'text-muted' }
     };
 
     const { icon, colorClass } = config[type] || config.info;
 
     // Update icon if element exists
     if (statusIcon) {
-      statusIcon.className = `fas ${icon} me-2`;
+      statusIcon.className = icon ? `fas ${icon} me-2` : '';
     }
 
     // Update status text and color
     status.className = `mt-3 small ${colorClass}`;
-    status.innerHTML = `<i class="fas ${icon} me-2"></i>${message}`;
+    status.innerHTML = icon ? `<i class="fas ${icon} me-2"></i>${message}` : message;
   }
 
   setupListeners() {
@@ -872,7 +873,7 @@ class ESP32SettingsManager {
       this.elements.fieldset.disabled = false;
     }
     if (this.connectionState === this.ConnectionState.CONNECTED) {
-      this.updateStatusMessage('Connected — Device must be DISARMED to change settings.', 'success');
+      this.updateStatusMessage('Device must be DISARMED to change settings.', 'plain');
     }
   }
 
