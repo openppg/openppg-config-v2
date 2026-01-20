@@ -1,18 +1,160 @@
 ---
-title: "OpenPPG SP140 Updater"
-description: "Upgrade firmware on your OpenPPG device via USB"
+title: "OpenPPG SP140 Configurator"
+description: "Configure settings and upgrade firmware on your OpenPPG SP140 V3 controller"
 helplink: "/docs/controllers/sp140-v3/"
 date: 2022-02-28T15:34:28-06:00
 configurator: "esp32"
 draft: false
 ---
 
-<div class="configurator-intro my-4">
-  <div class="row row-cols-1 row-cols-lg-2 g-4 align-items-stretch">
-    <div class="col">
-      <div class="card card-body hero-card h-100">
-        <div class="hero-card__heading">
-          <h2 class="mt-0 mb-2">SP140 V3 Firmware Installer</h2>
+
+<!-- Device Settings -->
+<div class="configurator-grid mb-5">
+  <div class="card card-body config-card h-100">
+    <div class="d-flex align-items-center gap-2 mb-3">
+      <i class="fab fa-usb text-primary"></i>
+      <h5 class="card-title m-0">Connection</h5>
+    </div>
+
+    <div class="d-grid gap-2 mb-3">
+      <button id="connect-settings" class="btn btn-primary">
+        <i class="fas fa-plug me-2"></i>Connect
+      </button>
+      <button id="sync-settings" class="btn btn-outline-secondary" disabled>
+        <i class="fas fa-sync me-2"></i>Refresh
+      </button>
+    </div>
+
+    <div id="connection-status" class="small text-muted" role="status" aria-live="polite" aria-atomic="true">
+      <i class="fas fa-info-circle me-1"></i>
+      Connect via USB-C to get started.
+    </div>
+
+    <div id="version-warning" class="alert alert-warning d-none small mb-0 mt-3" role="status">
+      <i class="fas fa-exclamation-triangle me-2"></i>
+      Firmware <span id="version-warning-value">-</span> detected. Please upgrade to v7.3 or higher to use this tool.
+    </div>
+
+    <div id="device-info" class="device-info-panel mt-auto d-none">
+      <div class="device-info-panel__header">
+        <span class="device-info-panel__status">
+          <span class="status-dot status-dot--connected"></span>
+          Connected
+        </span>
+      </div>
+      <div class="device-info-panel__details">
+        <div class="device-info-item">
+          <span class="device-info-item__label">Firmware</span>
+          <span class="device-info-item__value" id="info-fw-version">-</span>
+        </div>
+        <div class="device-info-item">
+          <span class="device-info-item__label">Flight Time</span>
+          <span class="device-info-item__value" id="info-armed-time">-</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-body config-card h-100 position-relative">
+    <div id="settings-overlay" class="settings-overlay">
+      <div class="settings-overlay__content">
+        <i id="settings-overlay-icon" class="fas fa-plug fa-3x text-muted mb-3 opacity-50"></i>
+        <p id="settings-overlay-text" class="text-muted mb-0">Connect your controller to configure settings</p>
+      </div>
+    </div>
+
+    <div class="d-flex align-items-center gap-2 mb-3 position-relative">
+      <i class="fas fa-sliders-h text-primary"></i>
+      <h5 class="card-title m-0">Settings</h5>
+      <span id="save-status" class="badge bg-success-subtle text-success position-absolute top-0 end-0 opacity-0">
+        <i class="fas fa-check me-1"></i>Saved
+      </span>
+    </div>
+
+    <div id="reboot-alert" class="alert alert-info alert-sm d-none mb-3">
+      <i class="fas fa-info-circle me-2"></i>
+      Settings requiring reboot have been changed.
+      <button type="button" id="alert-reboot-btn" class="btn btn-link btn-sm p-0 ms-1">Reboot now</button>
+    </div>
+
+    <form id="settings-form">
+      <fieldset disabled>
+        <!-- Using responsive grid to let items flow better -->
+        <div class="settings-grid">
+          <!-- Screen Rotation -->
+          <div class="setting-block">
+            <label class="form-label">
+              Screen orientation
+              <span id="screen-rot-reboot-note" class="badge bg-warning-subtle text-warning-emphasis">
+                <i class="fas fa-sync-alt me-1"></i>Reboot required
+              </span>
+            </label>
+            <div class="btn-group btn-group-sm w-100" role="group" aria-label="Screen orientation selection" aria-describedby="screen-rot-reboot-note">
+              <input type="radio" class="btn-check" name="screen_rot" id="rot-lh" value="3">
+              <label class="btn btn-outline-primary" for="rot-lh">Left Hand</label>
+              <input type="radio" class="btn-check" name="screen_rot" id="rot-rh" value="1">
+              <label class="btn btn-outline-primary" for="rot-rh">Right Hand</label>
+            </div>
+          </div>
+
+          <!-- Theme -->
+          <div class="setting-block">
+            <label class="form-label">
+              Theme
+              <span id="theme-reboot-note" class="badge bg-warning-subtle text-warning-emphasis">
+                <i class="fas fa-sync-alt me-1"></i>Reboot required
+              </span>
+            </label>
+            <div class="btn-group btn-group-sm w-100" role="group" aria-label="Theme selection" aria-describedby="theme-reboot-note">
+              <input type="radio" class="btn-check" name="theme" id="theme-light" value="0">
+              <label class="btn btn-outline-primary" for="theme-light">Light</label>
+              <input type="radio" class="btn-check" name="theme" id="theme-dark" value="1">
+              <label class="btn btn-outline-primary" for="theme-dark">Dark</label>
+            </div>
+          </div>
+
+          <!-- Units -->
+          <div class="setting-block">
+            <label class="form-label">Units (Altitude)</label>
+            <div class="btn-group btn-group-sm w-100" role="group" aria-label="Units selection">
+              <input type="radio" class="btn-check" name="units" id="units-imperial" value="0">
+              <label class="btn btn-outline-primary" for="units-imperial">Imperial (ft)</label>
+              <input type="radio" class="btn-check" name="units" id="units-metric" value="1">
+              <label class="btn btn-outline-primary" for="units-metric">Metric (m)</label>
+            </div>
+          </div>
+
+          <!-- Performance Mode -->
+          <div class="setting-block">
+            <label class="form-label">Performance Mode</label>
+            <div class="btn-group btn-group-sm w-100" role="group" aria-label="Performance mode selection">
+              <input type="radio" class="btn-check" name="performance_mode" id="perf-chill" value="0">
+              <label class="btn btn-outline-primary" for="perf-chill">Chill</label>
+              <input type="radio" class="btn-check" name="performance_mode" id="perf-sport" value="1">
+              <label class="btn btn-outline-primary" for="perf-sport">Sport</label>
+            </div>
+          </div>
+
+          <!-- Reboot Button -->
+          <div class="setting-block d-flex align-items-stretch">
+            <button type="button" id="btn-reboot" class="btn btn-sm btn-warning w-100 align-self-end">
+              <i class="fas fa-power-off me-2"></i>Reboot Device
+            </button>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>
+
+<!-- Firmware Update -->
+<div class="card config-card config-card--grouped mb-5">
+  <div class="card-body">
+    <div class="config-card--grouped__body">
+      <div class="config-card--grouped__pane">
+        <div class="d-flex align-items-center gap-2 mb-3">
+          <i class="fas fa-microchip text-primary"></i>
+          <h5 class="card-title m-0">Firmware Installer</h5>
         </div>
         <div class="hero-card__steps">
           <span class="hero-card__steps-label">Before you update</span>
@@ -22,36 +164,40 @@ draft: false
             <li><strong>Use</strong> desktop Chrome or Edge and keep this page open for WebSerial access.</li>
           </ol>
         </div>
-        <div class="hero-card__actions" id="firmware-actions">
+        <div id="firmware-actions" class="mt-auto pt-3">
+          <div id="version-comparison" class="version-comparison d-none mb-4">
+            <div class="version-comparison__item">
+              <span class="version-comparison__label">Your Version</span>
+              <span class="version-comparison__value" id="current-fw-version">-</span>
+            </div>
+            <i class="fas fa-arrow-right text-muted mx-3"></i>
+            <div class="version-comparison__item">
+              <span class="version-comparison__label">Latest</span>
+              <span class="version-comparison__value text-primary fw-semibold" id="latest-fw-version">-</span>
+            </div>
+          </div>
           <esp-web-install-button>
-            <button slot="activate" class="btn btn-primary btn-lg">Install Latest Firmware</button>
+            <button slot="activate" class="btn btn-primary btn-lg w-100" style="padding: 0.75rem 1.5rem;">Install Latest Firmware</button>
             <span slot="unsupported">Ah snap, your browser doesn't work! Please use Chrome.</span>
             <span slot="not-allowed">Ah snap, you are not allowed to use this on HTTP!</span>
           </esp-web-install-button>
         </div>
       </div>
-    </div>
-    <div class="col">
-      <div class="card card-body release-card h-100" id="release-card">
+
+      <div class="config-card--grouped__divider" aria-hidden="true"></div>
+
+      <div class="config-card--grouped__pane" id="release-card">
         <div class="d-flex align-items-center justify-content-between mb-2">
-          <span class="badge bg-primary-subtle text-primary fw-semibold" id="release-badge">Latest • v7.2</span>
-          <i class="fas fa-rocket text-primary"></i>
+          <div class="d-flex align-items-center gap-2">
+            <i class="fas fa-rocket text-primary"></i>
+            <h5 class="card-title m-0">What's New</h5>
+          </div>
+          <span class="badge bg-primary-subtle text-primary fw-semibold" id="release-badge">v7.2</span>
         </div>
-        <h4 class="mt-0 mb-2">What’s new</h4>
-        <p class="text-muted small mb-3" id="release-description"></p>
-        <ul class="list-unstyled release-card__list mb-4" id="release-changelog">
-          <li class="d-flex align-items-start gap-3">
-            <i class="fas fa-mountain text-primary"></i>
-            <span>New variometer display show altitude changes.</span>
-          </li>
-          <li class="d-flex align-items-start gap-3">
-            <i class="fas fa-bell text-primary"></i>
-            <span>Display BMS, ESC, and internal notifications for warnings and critical alerts.</span>
-          </li>
-          <li class="d-flex align-items-start gap-3">
-            <i class="fas fa-wave-square text-primary"></i>
-            <span>Enhanced throttle smoothing especially for chill mode.</span>
-          </li>
+        <ul class="list-unstyled small mb-3" id="release-changelog">
+          <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Variometer altitude display</li>
+          <li class="mb-2"><i class="fas fa-check text-success me-2"></i>BMS/ESC notification alerts</li>
+          <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Enhanced throttle smoothing</li>
         </ul>
         <a class="release-card__link" id="release-link" href="https://github.com/openppg/eppg-controller/releases/"
           target="_blank" rel="noopener">Read the full release notes <i class="fas fa-arrow-right"></i></a>
@@ -63,14 +209,13 @@ draft: false
   </div>
 </div>
 
-
 <div class="row row-cols-1 row-cols-lg-2 g-4 configurator-foot align-items-start">
   <div class="col">
     <div class="card card-body support-card h-100">
-      <h5 class="mt-0">Need help?</h5>
-      <p class="text-muted small mb-4">Trouble connecting or seeing errors? Jump into the docs below.</p>
+      <h5 class="mt-0">Learn more about your controller</h5>
+      <p class="text-muted small mb-4">Explore features, settings, and get the most out of your SP140 V3 controller.</p>
       <div class="d-grid gap-2">
-        <a class="btn btn-outline-primary" href="/docs/controllers/sp140-v3/">Troubleshooting guide</a>
+        <a class="btn btn-outline-primary" href="/docs/controllers/sp140-v3/">Controller guide</a>
       </div>
     </div>
   </div>
@@ -86,7 +231,7 @@ draft: false
         <div id="collapseAdvanced" class="accordion-collapse collapse" aria-labelledby="headingAdvanced"
           data-bs-parent="#advancedAccordion">
           <div class="accordion-body">
-            <p class="text-muted small mb-4">Install older firmware versions or access legacy configurator tools.</p>
+            <p class="text-muted small mb-4">Install older firmware versions.</p>
 
             <!-- Version selector will be dynamically inserted here by JavaScript -->
             <div id="advanced-version-selector"></div>
