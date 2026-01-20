@@ -17,7 +17,6 @@ const CHAR_UUIDS = {
 let device;
 let server;
 let configService;
-let deviceInfoService;
 
 // UI Elements
 // Elements are queried in functions/events to ensure DOM is ready
@@ -31,14 +30,11 @@ document.addEventListener('DOMContentLoaded', () => {
   settingsFieldset = document.getElementById('settings-fieldset');
 });
 
-// State
-let isConnected = false;
-
 async function connect() {
   try {
     device = await navigator.bluetooth.requestDevice({
       filters: [{ name: 'OpenPPG Controller' }],
-      optionalServices: [CONFIG_SERVICE_UUID, DEVICE_INFO_SERVICE_UUID]
+      optionalServices: [CONFIG_SERVICE_UUID, DEVICE_INFO_SERVICE_UUID],
     });
 
     device.addEventListener('gattserverdisconnected', onDisconnected);
@@ -50,12 +46,11 @@ async function connect() {
     configService = await server.getPrimaryService(CONFIG_SERVICE_UUID);
     // Device Info might be optional or standard
     try {
-      deviceInfoService = await server.getPrimaryService(DEVICE_INFO_SERVICE_UUID);
+      await server.getPrimaryService(DEVICE_INFO_SERVICE_UUID);
     } catch (e) {
       console.warn('Device Info Service not found', e);
     }
 
-    isConnected = true;
     updateUIConnected();
     await readAllData();
 
@@ -66,7 +61,6 @@ async function connect() {
 }
 
 function onDisconnected() {
-  isConnected = false;
   updateUIDisconnected();
   updateStatus('Disconnected');
 }
