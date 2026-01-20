@@ -23,11 +23,17 @@ let configService;
 let connectionStatus;
 let deviceInfoDiv;
 let settingsFieldset;
+let settingsOverlay;
+let settingsOverlayIcon;
+let settingsOverlayText;
 
 document.addEventListener('DOMContentLoaded', () => {
   connectionStatus = document.getElementById('connection-status');
   deviceInfoDiv = document.getElementById('device-info');
   settingsFieldset = document.getElementById('settings-fieldset');
+  settingsOverlay = document.getElementById('settings-overlay');
+  settingsOverlayIcon = document.getElementById('settings-overlay-icon');
+  settingsOverlayText = document.getElementById('settings-overlay-text');
 });
 
 async function connect() {
@@ -80,14 +86,18 @@ function updateUIConnected() {
   document.getElementById('disconnect-ble').classList.remove('d-none');
   deviceInfoDiv.classList.remove('d-none');
   settingsFieldset.disabled = false;
-  updateStatus('Connected');
+  if (settingsOverlay) settingsOverlay.classList.add('d-none');
+  updateStatus('Device must be DISARMED to change settings.');
 }
 
 function updateUIDisconnected() {
   document.getElementById('connect-ble').classList.remove('d-none');
   document.getElementById('disconnect-ble').classList.add('d-none');
-  // deviceInfoDiv.classList.add('d-none'); // Keep info visible? No, hide it.
+  deviceInfoDiv.classList.add('d-none');
   settingsFieldset.disabled = true;
+  if (settingsOverlay) {
+    settingsOverlay.classList.remove('d-none');
+  }
 }
 
 async function readAllData() {
@@ -130,7 +140,11 @@ async function readAllData() {
     // Metric Alt
     const altChar = await configService.getCharacteristic(CHAR_UUIDS.METRIC_ALT);
     const altVal = await altChar.readValue();
-    document.getElementById('metric-alt').checked = altVal.getUint8(0) === 1;
+    const isMetric = altVal.getUint8(0) === 1;
+    const unitsMetric = document.getElementById('units-metric');
+    const unitsImperial = document.getElementById('units-imperial');
+    if (unitsMetric) unitsMetric.checked = isMetric;
+    if (unitsImperial) unitsImperial.checked = !isMetric;
 
     // Performance Mode
     const perfChar = await configService.getCharacteristic(CHAR_UUIDS.PERFORMANCE_MODE);
@@ -179,12 +193,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  const metricAlt = document.getElementById('metric-alt');
-  if (metricAlt) {
-    metricAlt.addEventListener('change', (e) => {
-      writeSetting(CHAR_UUIDS.METRIC_ALT, e.target.checked ? 1 : 0, 'u8');
+  document.querySelectorAll('input[name="units"]').forEach(el => {
+    el.addEventListener('change', (e) => {
+      writeSetting(CHAR_UUIDS.METRIC_ALT, parseInt(e.target.value), 'u8');
     });
-  }
+  });
 
   document.querySelectorAll('input[name="performance_mode"]').forEach(el => {
     el.addEventListener('change', (e) => {

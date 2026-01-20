@@ -34,30 +34,49 @@ draft: false
       </button>
     </div>
 
-    <div id="connection-status" class="small text-muted">
+    <div id="connection-status" class="small text-muted" role="status" aria-live="polite" aria-atomic="true">
       <i class="fas fa-info-circle me-1"></i>
       Connect via Bluetooth to get started.
     </div>
 
-    <div id="device-info" class="mt-auto pt-3 d-none">
-      <dl class="row mb-0 small">
-        <dt class="col-5 text-muted">Firmware</dt>
-        <dd class="col-7 mb-1" id="info-fw-version">-</dd>
-        <dt class="col-5 text-muted">Hardware</dt>
-        <dd class="col-7 mb-1" id="info-hw-revision">-</dd>
-        <dt class="col-5 text-muted">Armed Time</dt>
-        <dd class="col-7 mb-0" id="info-armed-time">-</dd>
-      </dl>
+    <div id="device-info" class="device-info-panel mt-auto d-none">
+      <div class="device-info-panel__header">
+        <span class="device-info-panel__status">
+          <span class="status-dot status-dot--connected"></span>
+          Connected
+        </span>
+      </div>
+      <div class="device-info-panel__details">
+        <div class="device-info-item">
+          <span class="device-info-item__label">Firmware</span>
+          <span class="device-info-item__value" id="info-fw-version">-</span>
+        </div>
+        <div class="device-info-item">
+          <span class="device-info-item__label">Hardware</span>
+          <span class="device-info-item__value" id="info-hw-revision">-</span>
+        </div>
+        <div class="device-info-item">
+          <span class="device-info-item__label">Armed Time</span>
+          <span class="device-info-item__value" id="info-armed-time">-</span>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="card card-body config-card h-100">
+  <div class="card card-body config-card h-100 position-relative">
+    <div id="settings-overlay" class="settings-overlay">
+      <div class="settings-overlay__content">
+        <i id="settings-overlay-icon" class="fas fa-bluetooth fa-3x text-muted mb-3 opacity-50"></i>
+        <p id="settings-overlay-text" class="text-muted mb-0">Connect your controller to configure settings</p>
+      </div>
+    </div>
+
     <div class="d-flex justify-content-between align-items-center mb-3">
       <div class="d-flex align-items-center gap-2">
         <i class="fas fa-sliders-h text-primary"></i>
         <h5 class="card-title m-0">Settings</h5>
       </div>
-      <span id="save-status" class="badge bg-success-subtle text-success d-none">
+      <span id="save-status" class="badge bg-success-subtle text-success position-absolute top-0 end-0 opacity-0">
         <i class="fas fa-check me-1"></i>Saved
       </span>
     </div>
@@ -68,58 +87,38 @@ draft: false
         <div class="settings-grid">
           <!-- Screen Rotation -->
           <div class="setting-block">
-            <div class="mb-3">
-              <label class="form-label fw-semibold small text-uppercase text-muted">Screen Orientation</label>
-              <div class="d-flex gap-3">
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="screen_rot" id="rot-lh" value="3">
-                  <label class="form-check-label" for="rot-lh">Left Hand</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="screen_rot" id="rot-rh" value="1">
-                  <label class="form-check-label" for="rot-rh">Right Hand</label>
-                </div>
-              </div>
+            <label class="form-label">Screen orientation</label>
+            <div class="btn-group btn-group-sm w-100" role="group" aria-label="Screen orientation selection">
+              <input type="radio" class="btn-check" name="screen_rot" id="rot-lh" value="3">
+              <label class="btn btn-outline-primary" for="rot-lh">Left Hand</label>
+              <input type="radio" class="btn-check" name="screen_rot" id="rot-rh" value="1">
+              <label class="btn btn-outline-primary" for="rot-rh">Right Hand</label>
             </div>
           </div>
 
-
-
           <!-- Units -->
           <div class="setting-block">
-            <div class="mb-3">
-              <label class="form-label fw-semibold small text-uppercase text-muted">Units</label>
-              <div class="d-flex flex-wrap gap-3">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="metric-alt">
-                  <label class="form-check-label" for="metric-alt">Metric Altitude (m)</label>
-                </div>
-              </div>
+            <label class="form-label">Units</label>
+            <div class="btn-group btn-group-sm w-100" role="group" aria-label="Units selection">
+              <input type="radio" class="btn-check" name="units" id="units-imperial" value="0">
+              <label class="btn btn-outline-primary" for="units-imperial">Imperial (ft)</label>
+              <input type="radio" class="btn-check" name="units" id="units-metric" value="1">
+              <label class="btn btn-outline-primary" for="units-metric">Metric (m)</label>
             </div>
           </div>
 
           <!-- Performance Mode -->
           <div class="setting-block">
-            <div class="mb-3">
-              <label class="form-label fw-semibold small text-uppercase text-muted">Performance Mode</label>
-              <div class="d-flex gap-3">
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="performance_mode" id="perf-chill" value="0">
-                  <label class="form-check-label" for="perf-chill">Chill</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="performance_mode" id="perf-sport" value="1">
-                  <label class="form-check-label" for="perf-sport">Sport</label>
-                </div>
-              </div>
+            <label class="form-label">Performance Mode</label>
+            <div class="btn-group btn-group-sm w-100" role="group" aria-label="Performance mode selection">
+              <input type="radio" class="btn-check" name="performance_mode" id="perf-chill" value="0">
+              <label class="btn btn-outline-primary" for="perf-chill">Chill</label>
+              <input type="radio" class="btn-check" name="performance_mode" id="perf-sport" value="1">
+              <label class="btn btn-outline-primary" for="perf-sport">Sport</label>
             </div>
           </div>
-
-
-
         </div>
       </fieldset>
     </form>
   </div>
-</div>
 </div>

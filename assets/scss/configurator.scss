@@ -629,6 +629,14 @@
   color: #1e40af;
 }
 
+.dark .release-card__link {
+  color: #60a5fa;
+}
+
+.dark .release-card__link:hover {
+  color: #93c5fd;
+}
+
 .release-card__meta {
   margin-top: auto;
   display: flex;

@@ -127,6 +127,10 @@ body.dark .hero-card__steps {
   color: $body-color-dark;
 }
 
+body.dark #release-changelog {
+  color: $body-color-dark;
+}
+
 body.dark .navbar-light .navbar-text a:hover,
 body.dark .navbar-light .navbar-text a:focus {
   color: $navbar-dark-active-color;
@@ -269,6 +273,47 @@ body.dark .page-links li:not(:first-child) {
 body.dark .card {
   background: $body-bg-dark;
   border: 1px solid $border-dark;
+}
+
+body.dark .card-title {
+  color: $body-color-dark;
+}
+
+body.dark .accordion-item {
+  background: $body-bg-dark;
+  border-color: $border-dark;
+}
+
+body.dark .accordion-button {
+  background: $body-overlay-dark;
+  color: $body-color-dark;
+}
+
+body.dark .accordion-button:not(.collapsed) {
+  background: $body-overlay-dark;
+  color: $body-color-dark;
+}
+
+body.dark .accordion-button:focus {
+  border-color: $border-dark;
+  box-shadow: 0 0 0 0.2rem $focus-color-dark;
+}
+
+body.dark .accordion-button::after {
+  filter: invert(1);
+}
+
+body.dark .accordion-body {
+  background: $body-bg-dark;
+  color: $body-color-dark;
+}
+
+body.dark .link-primary {
+  color: $link-color-dark;
+}
+
+body.dark .link-primary:hover {
+  color: lighten($link-color-dark, 10%);
 }
 
 body.dark .card.bg-light {
