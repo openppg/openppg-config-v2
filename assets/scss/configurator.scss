@@ -445,11 +445,6 @@
   box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
   background: #fff;
   @extend %smooth-transition;
-
-  &:hover {
-    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.15);
-    transform: translateY(-2px);
-  }
 }
 
 .config-card--grouped__body {

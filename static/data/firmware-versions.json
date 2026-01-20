@@ -1,18 +1,6 @@
 {
   "versions": [
     {
-      "version": "7.4 Beta",
-      "folder": "v7.4-beta",
-      "release_date": "2025-12-01",
-      "is_latest": false,
-      "description": "TBD",
-      "changelog": [
-        "TBD",
-        "Fix cruise control on chill mode",
-        "Better BLE support"
-      ]
-    },
-    {
       "version": "7.3",
       "folder": "v7.3",
       "release_date": "2025-11-26",
