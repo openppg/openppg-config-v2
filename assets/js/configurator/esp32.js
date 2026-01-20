@@ -293,7 +293,7 @@ class ESP32SettingsManager {
     this.statusMessages = {
       connected: 'Device must be DISARMED to change settings.',
       connecting: 'Opening connection...',
-      disconnected: 'Disconnected.'
+      disconnected: 'Disconnected.',
     };
 
     // Connection state enum
@@ -302,7 +302,7 @@ class ESP32SettingsManager {
       DISCONNECTED: 'disconnected',
       CONNECTING: 'connecting',
       CONNECTED: 'connected',
-      ERROR: 'error'
+      ERROR: 'error',
     };
     this.connectionState = this.ConnectionState.DISCONNECTED;
 
@@ -323,23 +323,23 @@ class ESP32SettingsManager {
       screen_rot: {
         group: 'screen_rot',
         deviceField: 'scr_rt',
-        requiresReboot: true
+        requiresReboot: true,
       },
       theme: {
         group: 'theme',
         deviceField: 'thm',
-        requiresReboot: true
+        requiresReboot: true,
       },
       metric_alt: {
         group: 'units',
         deviceField: 'm_alt',
         toDevice: (value) => value === 1, // convert radio value (0/1) to boolean
-        fromDevice: (value) => value ? 1 : 0 // convert bool to radio value
+        fromDevice: (value) => value ? 1 : 0, // convert bool to radio value
       },
       performance_mode: {
         group: 'performance_mode',
-        deviceField: 'prf'
-      }
+        deviceField: 'prf',
+      },
     };
   }
 
@@ -415,7 +415,7 @@ class ESP32SettingsManager {
 
   setConnectionState(state) {
     this.connectionState = state;
-    const { connectBtn, fieldset, syncBtn, infoPanel, status } = this.elements;
+    const { connectBtn, fieldset, syncBtn, infoPanel } = this.elements;
     const settingsOverlay = document.getElementById('settings-overlay');
 
     switch (state) {
@@ -498,7 +498,7 @@ class ESP32SettingsManager {
       success: { icon: 'fa-check-circle', colorClass: 'text-success' },
       warning: { icon: 'fa-exclamation-triangle', colorClass: 'status-warning' },
       error: { icon: 'fa-times-circle', colorClass: 'text-danger' },
-      plain: { icon: null, colorClass: 'text-muted' }
+      plain: { icon: null, colorClass: 'text-muted' },
     };
 
     const { icon, colorClass } = config[type] || config.info;
@@ -594,7 +594,7 @@ class ESP32SettingsManager {
         // Filter for Espressif devices (ESP32-S3)
         filters: [
           { usbVendorId: 0x303A }, // Espressif
-        ]
+        ],
       }).catch(() => {
         // If filtered request fails or is cancelled, try without filters
         return navigator.serial.requestPort();
@@ -920,7 +920,7 @@ class ESP32SettingsManager {
     }
 
     // Settings - automatically apply all configured settings
-    Object.entries(this.settingsConfig).forEach(([key, config]) => {
+    Object.entries(this.settingsConfig).forEach(([, config]) => {
       const deviceValue = data[config.deviceField];
       if (deviceValue !== undefined) {
         const uiValue = config.fromDevice ? config.fromDevice(deviceValue) : deviceValue;
