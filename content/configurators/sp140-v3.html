@@ -36,13 +36,19 @@ draft: false
     </div>
 
     <div id="device-info" class="mt-auto pt-3 d-none">
-      <dl class="row mb-0 small">
-        <dt class="col-6 text-muted">Firmware</dt>
-        <dd class="col-6 mb-1" id="info-fw-version">-</dd>
-        <dt class="col-6 text-muted">Architecture</dt>
-        <dd class="col-6 mb-1" id="info-arch">-</dd>
-        <dt class="col-6 text-muted">Armed Time</dt>
-        <dd class="col-6 mb-0" id="info-armed-time">-</dd>
+      <dl class="mb-0 small d-grid gap-2">
+        <div class="d-flex justify-content-between align-items-baseline">
+          <dt class="text-muted">Firmware</dt>
+          <dd class="mb-0" id="info-fw-version">-</dd>
+        </div>
+        <div class="d-flex justify-content-between align-items-baseline">
+          <dt class="text-muted">Architecture</dt>
+          <dd class="mb-0" id="info-arch">-</dd>
+        </div>
+        <div class="d-flex justify-content-between align-items-baseline">
+          <dt class="text-muted">Armed Time</dt>
+          <dd class="mb-0" id="info-armed-time">-</dd>
+        </div>
       </dl>
     </div>
   </div>
@@ -105,23 +111,6 @@ draft: false
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="metric-alt">
                 <label class="form-check-label" for="metric-alt">Metric Altitude (m)</label>
-              </div>
-            </div>
-          </div>
-
-          <!-- Sea Pressure -->
-          <div class="setting-block">
-            <div class="mb-3">
-              <label for="sea-pressure" class="form-label fw-semibold small text-uppercase text-muted">Barometer
-                Pressure Calibration</label>
-              <div class="input-group input-group-sm">
-                <input type="number" step="0.01" min="300" max="1200" class="form-control" id="sea-pressure"
-                  placeholder="1013.25">
-                <span class="input-group-text">hPa</span>
-              </div>
-              <div class="form-text small">
-                <a href="https://merrysky.net/" target="_blank" class="text-decoration-none">Find local pressure <i
-                    class="fas fa-external-link-alt small"></i></a>
               </div>
             </div>
           </div>
