@@ -185,9 +185,6 @@ class ESP32FirmwareManager {
         this.advancedInstallButton.setAttribute('manifest', manifestUrl);
       }
 
-      // Update the UI to show which version is selected in advanced
-      this.updateVersionInfo(version);
-
     } catch (error) {
       console.error('Failed to load manifest for version:', versionString, error);
     } finally {
