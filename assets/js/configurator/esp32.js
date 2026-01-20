@@ -290,6 +290,11 @@ class ESP32SettingsManager {
     this.syncTimeout = null;
 
     this.elements = {};
+    this.statusMessages = {
+      connected: 'Device must be DISARMED to change settings.',
+      connecting: 'Opening connection...',
+      disconnected: 'Disconnected.'
+    };
 
     // Connection state enum
     this.ConnectionState = {
@@ -448,7 +453,7 @@ class ESP32SettingsManager {
           connectBtn.disabled = true;
           connectBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Connecting...';
         }
-        this.updateStatusMessage('Opening connection...', 'info');
+        this.updateStatusMessage(this.statusMessages.connecting, 'info');
         // Keep overlay visible while connecting
         if (settingsOverlay) settingsOverlay.classList.remove('d-none');
         break;
@@ -462,7 +467,7 @@ class ESP32SettingsManager {
         }
         if (fieldset) fieldset.disabled = false;
         if (syncBtn) syncBtn.disabled = false;
-        this.updateStatusMessage('Device must be DISARMED to change settings.', 'plain');
+        this.updateStatusMessage(this.statusMessages.connected, 'plain');
         // Hide overlay when connected
         if (settingsOverlay) settingsOverlay.classList.add('d-none');
         break;
@@ -675,7 +680,7 @@ class ESP32SettingsManager {
     }
 
     this.setConnectionState(this.ConnectionState.DISCONNECTED);
-    this.updateStatusMessage('Disconnected.', 'info');
+    this.updateStatusMessage(this.statusMessages.disconnected, 'info');
   }
 
   forceClosePort() {
@@ -873,7 +878,7 @@ class ESP32SettingsManager {
       this.elements.fieldset.disabled = false;
     }
     if (this.connectionState === this.ConnectionState.CONNECTED) {
-      this.updateStatusMessage('Device must be DISARMED to change settings.', 'plain');
+      this.updateStatusMessage(this.statusMessages.connected, 'plain');
     }
   }
 
