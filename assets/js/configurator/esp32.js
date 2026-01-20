@@ -230,6 +230,14 @@ class ESP32FirmwareManager {
         day: 'numeric',
       })}`;
     }
+
+    // Update the latest version in the comparison
+    if (version.is_latest) {
+      const latestFwEl = document.getElementById('latest-fw-version');
+      if (latestFwEl) {
+        latestFwEl.textContent = `v${version.version}`;
+      }
+    }
   }
 
   fallbackToStatic() {
@@ -278,6 +286,8 @@ class ESP32SettingsManager {
     this.keepReading = false;
     this.buffer = '';
     this.isConnecting = false;
+    this.isSyncing = false;
+    this.syncTimeout = null;
 
     this.elements = {};
 
@@ -290,6 +300,42 @@ class ESP32SettingsManager {
       ERROR: 'error'
     };
     this.connectionState = this.ConnectionState.DISCONNECTED;
+
+    /**
+     * Settings configuration - DRY principle for device<->UI mapping
+     * 
+     * Each entry defines:
+     * - settingKey: The key used when sending updates to device
+     * - group: The radio button group name in HTML
+     * - deviceField: The field name in device data (abbreviated)
+     * - toDevice: Optional transform when sending to device
+     * - fromDevice: Optional transform when receiving from device
+     * - requiresReboot: Whether changing this setting needs a reboot
+     * 
+     * To add a new setting: add an entry here and create the HTML button group
+     */
+    this.settingsConfig = {
+      screen_rot: {
+        group: 'screen_rot',
+        deviceField: 'scr_rt',
+        requiresReboot: true
+      },
+      theme: {
+        group: 'theme',
+        deviceField: 'thm',
+        requiresReboot: true
+      },
+      metric_alt: {
+        group: 'units',
+        deviceField: 'm_alt',
+        toDevice: (value) => value === 1, // convert radio value (0/1) to boolean
+        fromDevice: (value) => value ? 1 : 0 // convert bool to radio value
+      },
+      performance_mode: {
+        group: 'performance_mode',
+        deviceField: 'prf'
+      }
+    };
   }
 
   init() {
@@ -327,6 +373,7 @@ class ESP32SettingsManager {
     this.keepReading = false;
     this.port = null;
     this.reader = null;
+    this.stopSyncLoading();
     this.setConnectionState(this.ConnectionState.DISCONNECTED);
     this.updateStatusMessage('Device was disconnected.', 'warning');
   }
@@ -350,21 +397,21 @@ class ESP32SettingsManager {
       versionWarning: document.getElementById('version-warning'),
       versionWarningValue: document.getElementById('version-warning-value'),
 
-      // Inputs
-      rotLh: document.getElementById('rot-lh'),
-      rotRh: document.getElementById('rot-rh'),
-      themeLight: document.getElementById('theme-light'),
-      themeDark: document.getElementById('theme-dark'),
-      metricAlt: document.getElementById('metric-alt'),
+      // Settings inputs - organized by type
+      settings: {
+        screen_rot: document.getElementsByName('screen_rot'),
+        theme: document.getElementsByName('theme'),
+        units: document.getElementsByName('units'),
+        performance_mode: document.getElementsByName('performance_mode'),
+      },
       seaPressure: document.getElementById('sea-pressure'),
-      perfChill: document.getElementById('perf-chill'),
-      perfSport: document.getElementById('perf-sport'),
     };
   }
 
   setConnectionState(state) {
     this.connectionState = state;
     const { connectBtn, fieldset, syncBtn, infoPanel, status } = this.elements;
+    const settingsOverlay = document.getElementById('settings-overlay');
 
     switch (state) {
       case this.ConnectionState.UNSUPPORTED:
@@ -376,9 +423,12 @@ class ESP32SettingsManager {
         }
         this.updateStatusMessage('Web Serial is not supported in this browser. Please use Chrome or Edge on desktop.', 'error');
         this.hideVersionWarning();
+        // Show overlay when unsupported
+        if (settingsOverlay) settingsOverlay.classList.remove('d-none');
         break;
 
       case this.ConnectionState.DISCONNECTED:
+        this.stopSyncLoading();
         if (connectBtn) {
           connectBtn.disabled = false;
           connectBtn.innerHTML = '<i class="fas fa-plug me-2"></i>Connect';
@@ -389,6 +439,8 @@ class ESP32SettingsManager {
         if (syncBtn) syncBtn.disabled = true;
         if (infoPanel) infoPanel.classList.add('d-none');
         this.hideVersionWarning();
+        // Show overlay when disconnected
+        if (settingsOverlay) settingsOverlay.classList.remove('d-none');
         break;
 
       case this.ConnectionState.CONNECTING:
@@ -397,6 +449,8 @@ class ESP32SettingsManager {
           connectBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Connecting...';
         }
         this.updateStatusMessage('Opening connection...', 'info');
+        // Keep overlay visible while connecting
+        if (settingsOverlay) settingsOverlay.classList.remove('d-none');
         break;
 
       case this.ConnectionState.CONNECTED:
@@ -409,9 +463,12 @@ class ESP32SettingsManager {
         if (fieldset) fieldset.disabled = false;
         if (syncBtn) syncBtn.disabled = false;
         this.updateStatusMessage('Connected — Device must be DISARMED to change settings.', 'success');
+        // Hide overlay when connected
+        if (settingsOverlay) settingsOverlay.classList.add('d-none');
         break;
 
       case this.ConnectionState.ERROR:
+        this.stopSyncLoading();
         if (connectBtn) {
           connectBtn.disabled = false;
           connectBtn.innerHTML = '<i class="fas fa-plug me-2"></i>Retry';
@@ -420,6 +477,8 @@ class ESP32SettingsManager {
         }
         if (fieldset) fieldset.disabled = true;
         if (syncBtn) syncBtn.disabled = true;
+        // Show overlay on error
+        if (settingsOverlay) settingsOverlay.classList.remove('d-none');
         break;
     }
   }
@@ -459,32 +518,61 @@ class ESP32SettingsManager {
       }
     });
 
-    this.elements.syncBtn?.addEventListener('click', () => this.sendJson({ command: 'sync' }));
+    this.elements.syncBtn?.addEventListener('click', () => this.requestSync());
     this.elements.rebootBtn?.addEventListener('click', () => this.sendJson({ command: 'reboot' }));
 
-    // Form change listeners
-    const addInputListener = (el, callback) => {
-      if (el) el.addEventListener('change', callback);
-    };
+    // Wire up alert reboot button to trigger actual reboot
+    const alertRebootBtn = document.getElementById('alert-reboot-btn');
+    if (alertRebootBtn) {
+      alertRebootBtn.addEventListener('click', () => {
+        if (this.elements.rebootBtn) {
+          this.elements.rebootBtn.click();
+        }
+      });
+    }
 
-    addInputListener(this.elements.rotLh, () => this.updateSetting('screen_rot', 3));
-    addInputListener(this.elements.rotRh, () => this.updateSetting('screen_rot', 1));
+    // Setup radio button group listeners from configuration
+    Object.entries(this.settingsConfig).forEach(([settingKey, config]) => {
+      const radios = this.elements.settings[config.group];
+      if (!radios) return;
 
-    addInputListener(this.elements.themeLight, () => this.updateSetting('theme', 0));
-    addInputListener(this.elements.themeDark, () => this.updateSetting('theme', 1));
+      Array.from(radios).forEach(radio => {
+        radio.addEventListener('change', (e) => {
+          if (e.target.checked) {
+            let value = parseInt(e.target.value);
+            // Apply transformation if defined
+            if (config.toDevice) {
+              value = config.toDevice(value);
+            }
+            this.updateSetting(settingKey, value);
+          }
+        });
+      });
+    });
 
-    addInputListener(this.elements.metricAlt, (e) => this.updateSetting('metric_alt', e.target.checked));
-
-    addInputListener(this.elements.perfChill, () => this.updateSetting('performance_mode', 0));
-    addInputListener(this.elements.perfSport, () => this.updateSetting('performance_mode', 1));
-
+    // Sea pressure with validation
     this.elements.seaPressure?.addEventListener('change', (e) => {
       let val = parseFloat(e.target.value);
       if (!isNaN(val)) {
-        if (val < 300) val = 300;
-        if (val > 1200) val = 1200;
+        val = Math.max(300, Math.min(1200, val));
         this.updateSetting('sea_pressure', val);
       }
+    });
+  }
+
+  /**
+   * Set radio button value for a group
+   * @param {string} groupName - Name attribute of radio group
+   * @param {*} value - Value to set (will be converted to string for comparison)
+   */
+  setRadioValue(groupName, value) {
+    if (value === undefined) return;
+    
+    const radios = this.elements.settings[groupName];
+    if (!radios) return;
+
+    Array.from(radios).forEach(radio => {
+      radio.checked = radio.value === String(value);
     });
   }
 
@@ -513,14 +601,11 @@ class ESP32SettingsManager {
       // Open the port
       await this.port.open({ baudRate: 115200 });
 
-      // Toggle DTR/RTS to reset the device's USB CDC state
-      // First, de-assert signals
+      // NOTE: DTR/RTS toggling can reset ESP32-class devices. We avoid RTS,
+      // but pulse DTR to enable RX on some ESP32-S3 native USB CDC stacks.
       await this.port.setSignals({ dataTerminalReady: false, requestToSend: false });
-      await new Promise(resolve => setTimeout(resolve, 100));
-
-      // Then assert signals (DTR=true is often required for ESP32-S3 Native USB to send data)
-      await this.port.setSignals({ dataTerminalReady: true, requestToSend: true });
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 50));
+      await this.port.setSignals({ dataTerminalReady: true, requestToSend: false });
 
       this.keepReading = true;
       this.readLoop();
@@ -542,7 +627,7 @@ class ESP32SettingsManager {
         }
       }
 
-      await this.sendJson({ command: 'sync' });
+      await this.requestSync();
 
     } catch (error) {
       console.error('Connection failed:', error);
@@ -568,6 +653,7 @@ class ESP32SettingsManager {
 
   async disconnect() {
     this.keepReading = false;
+    this.stopSyncLoading();
 
     if (this.reader) {
       try {
@@ -654,6 +740,42 @@ class ESP32SettingsManager {
     }
   }
 
+  startSyncLoading() {
+    if (this.isSyncing) return;
+    if (!this.elements.syncBtn) return;
+
+    this.isSyncing = true;
+    this.elements.syncBtn.disabled = true;
+    this.elements.syncBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Loading...';
+
+    if (this.syncTimeout) clearTimeout(this.syncTimeout);
+    this.syncTimeout = setTimeout(() => {
+      this.stopSyncLoading();
+    }, 4000);
+  }
+
+  stopSyncLoading() {
+    if (!this.isSyncing && !this.syncTimeout) return;
+
+    this.isSyncing = false;
+    if (this.syncTimeout) {
+      clearTimeout(this.syncTimeout);
+      this.syncTimeout = null;
+    }
+
+    if (this.elements.syncBtn) {
+      const shouldEnable = this.connectionState === this.ConnectionState.CONNECTED;
+      this.elements.syncBtn.disabled = !shouldEnable;
+      this.elements.syncBtn.innerHTML = '<i class="fas fa-sync me-2"></i>Refresh';
+    }
+  }
+
+  async requestSync() {
+    if (this.connectionState !== this.ConnectionState.CONNECTED) return;
+    this.startSyncLoading();
+    await this.sendJson({ command: 'sync' });
+  }
+
   handleMessage(jsonStr) {
     try {
       const data = JSON.parse(jsonStr);
@@ -684,13 +806,34 @@ class ESP32SettingsManager {
     const cmd = { settings: { [key]: value } };
     this.sendJson(cmd);
     this.showSaved();
+
+    // Show reboot alert if this setting requires reboot
+    const config = this.settingsConfig[key];
+    if (config?.requiresReboot) {
+      this.showRebootAlert();
+    }
+  }
+
+  showRebootAlert() {
+    const alert = document.getElementById('reboot-alert');
+    if (alert) {
+      alert.classList.remove('d-none');
+    }
   }
 
   showSaved() {
     if (this.elements.saveStatus) {
-      this.elements.saveStatus.classList.remove('d-none');
-      setTimeout(() => {
-        this.elements.saveStatus.classList.add('d-none');
+      // Remove any existing timer
+      if (this.saveStatusTimer) {
+        clearTimeout(this.saveStatusTimer);
+      }
+      
+      // Show the badge
+      this.elements.saveStatus.classList.add('show');
+      
+      // Hide after 2 seconds
+      this.saveStatusTimer = setTimeout(() => {
+        this.elements.saveStatus.classList.remove('show');
       }, 2000);
     }
   }
@@ -739,12 +882,23 @@ class ESP32SettingsManager {
   }
 
   updateUI(data) {
+    this.stopSyncLoading();
     // Fields: mj_v, mi_v, arch, scr_rt, ar_tme, m_tmp, m_alt, prf, sea_p, thm
 
     // Info
     if (data.mj_v !== undefined && data.mi_v !== undefined) {
       if (this.elements.infoFw) this.elements.infoFw.textContent = `v${data.mj_v}.${data.mi_v}`;
       if (this.elements.infoPanel) this.elements.infoPanel.classList.remove('d-none');
+
+      // Update version comparison
+      const currentVersion = `${data.mj_v}.${data.mi_v}`;
+      const comparisonEl = document.getElementById('version-comparison');
+      const currentFwEl = document.getElementById('current-fw-version');
+
+      if (comparisonEl && currentFwEl) {
+        currentFwEl.textContent = `v${currentVersion}`;
+        comparisonEl.classList.remove('d-none');
+      }
 
       if (this.isSupportedVersion(data)) {
         this.clearVersionWarning();
@@ -759,24 +913,17 @@ class ESP32SettingsManager {
       this.elements.infoArmedTime.textContent = `${hrs}h ${mins}m`;
     }
 
-    // Settings
-    if (data.scr_rt !== undefined) {
-      if (data.scr_rt === 3 && this.elements.rotLh) this.elements.rotLh.checked = true;
-      if (data.scr_rt === 1 && this.elements.rotRh) this.elements.rotRh.checked = true;
-    }
+    // Settings - automatically apply all configured settings
+    Object.entries(this.settingsConfig).forEach(([key, config]) => {
+      const deviceValue = data[config.deviceField];
+      if (deviceValue !== undefined) {
+        const uiValue = config.fromDevice ? config.fromDevice(deviceValue) : deviceValue;
+        this.setRadioValue(config.group, uiValue);
+      }
+    });
 
-    if (data.thm !== undefined) {
-      if (data.thm === 0 && this.elements.themeLight) this.elements.themeLight.checked = true;
-      if (data.thm === 1 && this.elements.themeDark) this.elements.themeDark.checked = true;
-    }
-
-    if (data.m_alt !== undefined && this.elements.metricAlt) this.elements.metricAlt.checked = data.m_alt;
-
-    if (data.sea_p !== undefined && this.elements.seaPressure) this.elements.seaPressure.value = data.sea_p;
-
-    if (data.prf !== undefined) {
-      if (data.prf === 0 && this.elements.perfChill) this.elements.perfChill.checked = true;
-      if (data.prf === 1 && this.elements.perfSport) this.elements.perfSport.checked = true;
+    if (data.sea_p !== undefined && this.elements.seaPressure) {
+      this.elements.seaPressure.value = data.sea_p;
     }
   }
 }

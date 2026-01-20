@@ -25,7 +25,7 @@ draft: false
       </button>
     </div>
 
-    <div id="connection-status" class="small text-muted">
+    <div id="connection-status" class="small text-muted" role="status" aria-live="polite" aria-atomic="true">
       <i class="fas fa-info-circle me-1"></i>
       Connect via USB-C to get started.
     </div>
@@ -35,111 +35,126 @@ draft: false
       Firmware <span id="version-warning-value">-</span> detected. Please upgrade to v7.3 or higher to use this tool.
     </div>
 
-    <div id="device-info" class="mt-auto pt-3 d-none">
-      <dl class="mb-0 small d-grid gap-2">
-        <div class="d-flex justify-content-between align-items-baseline">
-          <dt class="text-muted">Firmware</dt>
-          <dd class="mb-0" id="info-fw-version">-</dd>
+    <div id="device-info" class="device-info-panel mt-auto d-none">
+      <div class="device-info-panel__header">
+        <span class="device-info-panel__status">
+          <span class="status-dot status-dot--connected"></span>
+          Connected
+        </span>
+      </div>
+      <div class="device-info-panel__details">
+        <div class="device-info-item">
+          <span class="device-info-item__label">Firmware</span>
+          <span class="device-info-item__value" id="info-fw-version">-</span>
         </div>
-        <div class="d-flex justify-content-between align-items-baseline">
-          <dt class="text-muted">Architecture</dt>
-          <dd class="mb-0" id="info-arch">-</dd>
+        <div class="device-info-item">
+          <span class="device-info-item__label">Architecture</span>
+          <span class="device-info-item__value" id="info-arch">-</span>
         </div>
-        <div class="d-flex justify-content-between align-items-baseline">
-          <dt class="text-muted">Armed Time</dt>
-          <dd class="mb-0" id="info-armed-time">-</dd>
+        <div class="device-info-item">
+          <span class="device-info-item__label">Flight Time</span>
+          <span class="device-info-item__value" id="info-armed-time">-</span>
         </div>
-      </dl>
+      </div>
     </div>
   </div>
 
-  <div class="card card-body config-card h-100">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <div class="d-flex align-items-center gap-2">
-        <i class="fas fa-sliders-h text-primary"></i>
-        <h5 class="card-title m-0">Settings</h5>
+  <div class="card card-body config-card h-100 position-relative">
+    <div id="settings-overlay" class="settings-overlay">
+      <div class="settings-overlay__content">
+        <i class="fas fa-plug fa-3x text-muted mb-3 opacity-50"></i>
+        <p class="text-muted mb-0">Connect your controller to configure settings</p>
       </div>
-      <span id="save-status" class="badge bg-success-subtle text-success d-none">
+    </div>
+
+    <div class="d-flex align-items-center gap-2 mb-3 position-relative">
+      <i class="fas fa-sliders-h text-primary"></i>
+      <h5 class="card-title m-0">Settings</h5>
+      <span id="save-status" class="badge bg-success-subtle text-success position-absolute top-0 end-0 opacity-0">
         <i class="fas fa-check me-1"></i>Saved
       </span>
+    </div>
+
+    <div id="reboot-alert" class="alert alert-info alert-sm d-none mb-3">
+      <i class="fas fa-info-circle me-2"></i>
+      Settings requiring reboot have been changed.
+      <button type="button" id="alert-reboot-btn" class="btn btn-link btn-sm p-0 ms-1">Reboot now</button>
     </div>
 
     <form id="settings-form">
       <fieldset disabled>
         <!-- Using responsive grid to let items flow better -->
         <div class="settings-grid">
+          <!-- Display Settings Section -->
+          <div class="settings-section">
+            <h6 class="settings-section__title">Display</h6>
+          </div>
+
           <!-- Screen Rotation -->
           <div class="setting-block">
-            <div class="mb-3">
-              <label class="form-label fw-semibold text-muted">Screen orientation
-                <span class="text-muted fw-normal small">(requires device reboot)</span>
-              </label>
-              <div class="d-flex gap-3">
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="screen_rot" id="rot-lh" value="3">
-                  <label class="form-check-label" for="rot-lh">Left Hand</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="screen_rot" id="rot-rh" value="1">
-                  <label class="form-check-label" for="rot-rh">Right Hand</label>
-                </div>
-              </div>
+            <label class="form-label">
+              Screen orientation
+              <span id="screen-rot-reboot-note" class="badge bg-warning-subtle text-warning-emphasis">
+                <i class="fas fa-sync-alt me-1"></i>Reboot required
+              </span>
+            </label>
+            <div class="btn-group btn-group-sm w-100" role="group" aria-label="Screen orientation selection" aria-describedby="screen-rot-reboot-note">
+              <input type="radio" class="btn-check" name="screen_rot" id="rot-lh" value="3">
+              <label class="btn btn-outline-primary" for="rot-lh">Left Hand</label>
+              <input type="radio" class="btn-check" name="screen_rot" id="rot-rh" value="1">
+              <label class="btn btn-outline-primary" for="rot-rh">Right Hand</label>
             </div>
           </div>
 
           <!-- Theme -->
           <div class="setting-block">
-            <div class="mb-3">
-              <label class="form-label fw-semibold small text-muted">Theme
-                <span class="text-muted fw-normal small">(requires device reboot)</span>
-              </label>
-              <div class="d-flex gap-3">
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="theme" id="theme-light" value="0">
-                  <label class="form-check-label" for="theme-light">Light</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="theme" id="theme-dark" value="1">
-                  <label class="form-check-label" for="theme-dark">Dark</label>
-                </div>
-              </div>
+            <label class="form-label">
+              Theme
+              <span id="theme-reboot-note" class="badge bg-warning-subtle text-warning-emphasis">
+                <i class="fas fa-sync-alt me-1"></i>Reboot required
+              </span>
+            </label>
+            <div class="btn-group btn-group-sm w-100" role="group" aria-label="Theme selection" aria-describedby="theme-reboot-note">
+              <input type="radio" class="btn-check" name="theme" id="theme-light" value="0">
+              <label class="btn btn-outline-primary" for="theme-light">Light</label>
+              <input type="radio" class="btn-check" name="theme" id="theme-dark" value="1">
+              <label class="btn btn-outline-primary" for="theme-dark">Dark</label>
             </div>
+          </div>
+
+          <!-- Preferences Section -->
+          <div class="settings-section">
+            <h6 class="settings-section__title">Preferences</h6>
           </div>
 
           <!-- Units -->
           <div class="setting-block">
-            <div class="mb-3">
-              <label class="form-label fw-semibold small text-muted">Units</label>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="metric-alt">
-                <label class="form-check-label" for="metric-alt">Metric Altitude (m)</label>
-              </div>
+            <label class="form-label">Units</label>
+            <div class="btn-group btn-group-sm w-100" role="group" aria-label="Units selection">
+              <input type="radio" class="btn-check" name="units" id="units-imperial" value="0">
+              <label class="btn btn-outline-primary" for="units-imperial">Imperial (ft)</label>
+              <input type="radio" class="btn-check" name="units" id="units-metric" value="1">
+              <label class="btn btn-outline-primary" for="units-metric">Metric (m)</label>
             </div>
           </div>
 
           <!-- Performance Mode -->
           <div class="setting-block">
-            <div class="mb-3">
-              <label class="form-label fw-semibold small  text-muted">Performance Mode</label>
-              <div class="d-flex gap-3">
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="performance_mode" id="perf-chill" value="0">
-                  <label class="form-check-label" for="perf-chill">Chill</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="performance_mode" id="perf-sport" value="1">
-                  <label class="form-check-label" for="perf-sport">Sport</label>
-                </div>
-              </div>
+            <label class="form-label">Performance Mode</label>
+            <div class="btn-group btn-group-sm w-100" role="group" aria-label="Performance mode selection">
+              <input type="radio" class="btn-check" name="performance_mode" id="perf-chill" value="0">
+              <label class="btn btn-outline-primary" for="perf-chill">Chill</label>
+              <input type="radio" class="btn-check" name="performance_mode" id="perf-sport" value="1">
+              <label class="btn btn-outline-primary" for="perf-sport">Sport</label>
             </div>
           </div>
 
-          <!-- Reboot -->
-          <!-- <div class="setting-block d-flex align-items-stretch">
-            <button type="button" id="btn-reboot" class="btn btn-sm btn-contrast-warning w-100 align-self-end">
-              <i class="fas fa-power-off me-1"></i>Reboot Device
+          <!-- Reboot Button -->
+          <div class="setting-block d-flex align-items-stretch">
+            <button type="button" id="btn-reboot" class="btn btn-sm btn-warning w-100 align-self-end">
+              <i class="fas fa-power-off me-2"></i>Reboot Device
             </button>
-          </div> -->
+          </div>
         </div>
       </fieldset>
     </form>
@@ -163,9 +178,20 @@ draft: false
             <li><strong>Use</strong> desktop Chrome or Edge and keep this page open for WebSerial access.</li>
           </ol>
         </div>
-        <div id="firmware-actions" class="mt-auto">
+        <div id="firmware-actions" class="mt-auto pt-3">
+          <div id="version-comparison" class="version-comparison d-none mb-4">
+            <div class="version-comparison__item">
+              <span class="version-comparison__label">Your Version</span>
+              <span class="version-comparison__value" id="current-fw-version">-</span>
+            </div>
+            <i class="fas fa-arrow-right text-muted mx-3"></i>
+            <div class="version-comparison__item">
+              <span class="version-comparison__label">Latest</span>
+              <span class="version-comparison__value text-primary fw-semibold" id="latest-fw-version">-</span>
+            </div>
+          </div>
           <esp-web-install-button>
-            <button slot="activate" class="btn btn-primary btn-lg">Install Latest Firmware</button>
+            <button slot="activate" class="btn btn-primary btn-lg w-100" style="padding: 0.75rem 1.5rem;">Install Latest Firmware</button>
             <span slot="unsupported">Ah snap, your browser doesn't work! Please use Chrome.</span>
             <span slot="not-allowed">Ah snap, you are not allowed to use this on HTTP!</span>
           </esp-web-install-button>
