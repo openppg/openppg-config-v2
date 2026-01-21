@@ -25,8 +25,6 @@ let connectionStatus;
 let deviceInfoDiv;
 let settingsFieldset;
 let settingsOverlay;
-let settingsOverlayIcon;
-let settingsOverlayText;
 
 document.addEventListener('DOMContentLoaded', () => {
   connectionStatus = document.getElementById('connection-status');
