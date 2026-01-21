@@ -109,11 +109,6 @@ async function readAllData() {
         const minor = fwVal.getUint8(1);
         document.getElementById('info-fw-version').textContent = `v${major}.${minor}`;
 
-        // HW Revision
-        const hwChar = await configService.getCharacteristic(CHAR_UUIDS.HW_REVISION);
-        const hwVal = await hwChar.readValue();
-        document.getElementById('info-hw-revision').textContent = `Rev ${hwVal.getUint8(0)}`;
-
         // Armed Time
         const armedChar = await configService.getCharacteristic(CHAR_UUIDS.ARMED_TIME);
         const armedVal = await armedChar.readValue();
