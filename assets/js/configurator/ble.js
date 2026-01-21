@@ -9,6 +9,7 @@ const CHAR_UUIDS = {
   METRIC_ALT: 'df63f19e-7295-4a44-a0dc-184d1afeddf7',
   PERFORMANCE_MODE: 'd76c2e92-3547-4f5f-afb4-515c5c08b06b',
   SCREEN_ROTATION: '9cbab736-3705-4ecf-8086-fb7c5fb86282',
+  THEME: 'ad0e4309-1eb2-461a-b36c-697b2e1604d2',
   FW_VERSION: '00002a26-0000-1000-8000-00805f9b34fb',
   HW_REVISION: '00002a27-0000-1000-8000-00805f9b34fb',
   ARMED_TIME: '58b29259-43ef-4593-b700-250ec839a2b2',
@@ -24,16 +25,12 @@ let connectionStatus;
 let deviceInfoDiv;
 let settingsFieldset;
 let settingsOverlay;
-let settingsOverlayIcon;
-let settingsOverlayText;
 
 document.addEventListener('DOMContentLoaded', () => {
   connectionStatus = document.getElementById('connection-status');
   deviceInfoDiv = document.getElementById('device-info');
   settingsFieldset = document.getElementById('settings-fieldset');
   settingsOverlay = document.getElementById('settings-overlay');
-  settingsOverlayIcon = document.getElementById('settings-overlay-icon');
-  settingsOverlayText = document.getElementById('settings-overlay-text');
 });
 
 async function connect() {
@@ -137,6 +134,19 @@ async function readAllData() {
     if (rot === 1) document.getElementById('rot-rh').checked = true;
     if (rot === 3) document.getElementById('rot-lh').checked = true;
 
+    // Theme (may be unavailable on older firmware)
+    try {
+      const themeChar = await configService.getCharacteristic(CHAR_UUIDS.THEME);
+      const themeVal = await themeChar.readValue();
+      const theme = themeVal.getUint8(0);
+      if (theme === 1) document.getElementById('theme-dark').checked = true;
+      if (theme === 0) document.getElementById('theme-light').checked = true;
+      setThemeEnabled(true);
+    } catch (e) {
+      console.warn('Theme characteristic not available', e);
+      setThemeEnabled(false);
+    }
+
     // Metric Alt
     const altChar = await configService.getCharacteristic(CHAR_UUIDS.METRIC_ALT);
     const altVal = await altChar.readValue();
@@ -159,6 +169,12 @@ async function readAllData() {
   } catch (e) {
     console.error('Error reading data', e);
   }
+}
+
+function setThemeEnabled(enabled) {
+  document.querySelectorAll('input[name="theme"]').forEach(el => {
+    el.disabled = !enabled;
+  });
 }
 
 // Write Handlers
@@ -190,6 +206,12 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('input[name="screen_rot"]').forEach(el => {
     el.addEventListener('change', (e) => {
       writeSetting(CHAR_UUIDS.SCREEN_ROTATION, parseInt(e.target.value), 'u8');
+    });
+  });
+
+  document.querySelectorAll('input[name="theme"]').forEach(el => {
+    el.addEventListener('change', (e) => {
+      writeSetting(CHAR_UUIDS.THEME, parseInt(e.target.value), 'u8');
     });
   });
 
