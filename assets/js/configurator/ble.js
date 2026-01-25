@@ -113,8 +113,10 @@ async function readAllData() {
         const armedChar = await configService.getCharacteristic(CHAR_UUIDS.ARMED_TIME);
         const armedVal = await armedChar.readValue();
         const minutes = armedVal.getUint16(0, true); // Little endian
-        const hours = (minutes / 60).toFixed(1);
-        document.getElementById('info-armed-time').textContent = `${hours} hrs`;
+        const hrs = Math.floor(minutes / 60);
+        const mins = minutes % 60;
+        const paddedMins = String(mins).padStart(2, '0');
+        document.getElementById('info-armed-time').textContent = `${hrs}h ${paddedMins}m`;
       } catch (e) {
         console.warn('Failed to read device info from config service', e);
       }
