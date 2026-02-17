@@ -3,7 +3,7 @@
     {
       "version": "7.4",
       "folder": "v7.4",
-      "release_date": "2026-02-16",
+      "release_date": "2026-02-17",
       "is_latest": true,
       "description": "Reliability, smarter throttle, and BLE refinements",
       "changelog": [
