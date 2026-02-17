@@ -1,10 +1,23 @@
 {
   "versions": [
     {
+      "version": "7.4",
+      "folder": "v7.4",
+      "release_date": "2026-02-16",
+      "is_latest": true,
+      "description": "Reliability, smarter throttle, and BLE refinements",
+      "changelog": [
+        "Improved sensor handling (invalid readings as NaN, fewer false alerts)",
+        "Full-range mode-aware throttle and smoother cruise control",
+        "NimBLE migration for BLE stability; expanded telemetry/config fields",
+        "Cleaner alert flow (warning vs critical); simplified vibration path; temperature and climb/vario display updates"
+      ]
+    },
+    {
       "version": "7.3",
       "folder": "v7.3",
       "release_date": "2025-11-26",
-      "is_latest": true,
+      "is_latest": false,
       "description": "Enhanced monitoring, diagnostics, and system health",
       "changelog": [
         "New system health monitors for early detection of hardware initialization failures",
