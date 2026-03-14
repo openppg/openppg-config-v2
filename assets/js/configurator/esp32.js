@@ -10,6 +10,8 @@ class ESP32FirmwareManager {
     this.releaseElements = {};
     this.currentManifestUrl = null;
     this.advancedManifestUrl = null;
+    this.showPrerelease = false;
+    this.prereleaseToggle = null;
   }
 
   async init() {
@@ -33,12 +35,17 @@ class ESP32FirmwareManager {
     // Cache the advanced installer button
     this.advancedInstallButton = document.getElementById('advanced-install-button');
 
+    // Cache pre-release toggle
+    this.prereleaseToggle = document.getElementById('prerelease-opt-in');
+    this.prereleaseToggleContainer = document.getElementById('prerelease-toggle');
+
     this.releaseElements = {
       badge: document.getElementById('release-badge'),
       description: document.getElementById('release-description'),
       changelog: document.getElementById('release-changelog'),
       link: document.getElementById('release-link'),
       date: document.getElementById('release-date'),
+      comparisonLabel: document.getElementById('comparison-target-label'),
     };
   }
 
@@ -50,11 +57,22 @@ class ESP32FirmwareManager {
       }
       const data = await response.json();
       this.versions = data.versions;
+
+      // Show the pre-release toggle if any pre-release versions exist
+      const hasPrerelease = this.versions.some(v => v.is_prerelease);
+      if (hasPrerelease && this.prereleaseToggleContainer) {
+        this.prereleaseToggleContainer.classList.remove('d-none');
+      }
     } catch (error) {
       console.error('Failed to load firmware versions:', error);
       // Fallback to static manifest if data loading fails
       this.fallbackToStatic();
     }
+  }
+
+  getVisibleVersions() {
+    if (this.showPrerelease) return this.versions;
+    return this.versions.filter(v => !v.is_prerelease);
   }
 
   createVersionSelector() {
@@ -78,13 +96,7 @@ class ESP32FirmwareManager {
     select.className = 'form-select';
     select.id = 'firmware-version-select';
 
-    // Add options
-    this.versions.forEach(version => {
-      const option = document.createElement('option');
-      option.value = version.version;
-      option.textContent = `${version.version}${version.is_latest ? ' (Latest)' : ''}`;
-      select.appendChild(option);
-    });
+    this.populateVersionOptions(select);
 
     selectorContainer.appendChild(label);
     selectorContainer.appendChild(select);
@@ -95,6 +107,25 @@ class ESP32FirmwareManager {
     this.versionSelector = select;
   }
 
+  populateVersionOptions(select) {
+    select.innerHTML = '';
+    this.getVisibleVersions().forEach(version => {
+      const option = document.createElement('option');
+      option.value = version.version;
+      let label = version.version;
+      if (version.is_latest) label += ' (Latest)';
+      if (version.is_prerelease) label += ' (RC)';
+      option.textContent = label;
+      select.appendChild(option);
+    });
+  }
+
+  refreshVersionSelector() {
+    if (this.versionSelector) {
+      this.populateVersionOptions(this.versionSelector);
+    }
+  }
+
   setupEventListeners() {
     if (this.versionSelector) {
       this.versionSelector.addEventListener('change', (e) => {
@@ -102,39 +133,53 @@ class ESP32FirmwareManager {
         this.selectVersionForAdvanced(e.target.value);
       });
     }
+
+    if (this.prereleaseToggle) {
+      this.prereleaseToggle.addEventListener('change', (e) => {
+        this.showPrerelease = e.target.checked;
+        this.refreshVersionSelector();
+        this.selectDefaultVersion();
+      });
+    }
   }
 
   selectDefaultVersion() {
-    // Select the latest version by default
-    const latestVersion = this.versions.find(v => v.is_latest);
-    if (latestVersion) {
-      // Set main button to always use latest
-      this.setMainButtonToLatest(latestVersion);
-      // Set advanced button to latest initially
-      this.selectVersionForAdvanced(latestVersion.version);
+    const visible = this.getVisibleVersions();
+    // If showing pre-release, prefer the pre-release version; otherwise use latest stable
+    const defaultVersion = this.showPrerelease
+      ? visible.find(v => v.is_prerelease) || visible.find(v => v.is_latest)
+      : visible.find(v => v.is_latest);
+
+    if (defaultVersion) {
+      // Set main button to this version
+      this.setMainButtonVersion(defaultVersion);
+      // Set advanced button to match
+      this.selectVersionForAdvanced(defaultVersion.version);
       if (this.versionSelector) {
-        this.versionSelector.value = latestVersion.version;
+        this.versionSelector.value = defaultVersion.version;
       }
     }
   }
 
-  async setMainButtonToLatest(version) {
-    // Main button always installs the latest version
-    this.setInstallButtonDisabled(true);
+  async fetchManifestUrl(version) {
+    const manifestResponse = await fetch(new URL(`firmware/${version.folder}/manifest.json`, window.location.origin).href);
+    const manifest = await manifestResponse.json();
+
+    manifest.builds.forEach(build => {
+      build.parts.forEach(part => {
+        part.path = new URL(`firmware/${version.folder}/${part.path}`, window.location.origin).href;
+      });
+    });
+
+    const blob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+    return URL.createObjectURL(blob);
+  }
+
+  async setMainButtonVersion(version) {
+    this.setButtonDisabled(this.installButton, true);
 
     try {
-      const manifestResponse = await fetch(new URL(`firmware/${version.folder}/manifest.json`, window.location.origin).href);
-      const manifest = await manifestResponse.json();
-
-      manifest.builds.forEach(build => {
-        build.parts.forEach(part => {
-          part.path = new URL(`firmware/${version.folder}/${part.path}`, window.location.origin).href;
-        });
-      });
-
-      const manifestJson = JSON.stringify(manifest);
-      const blob = new Blob([manifestJson], { type: 'application/json' });
-      const manifestUrl = URL.createObjectURL(blob);
+      const manifestUrl = await this.fetchManifestUrl(version);
 
       if (this.installButton) {
         if (this.currentManifestUrl) {
@@ -142,40 +187,36 @@ class ESP32FirmwareManager {
         }
         this.currentManifestUrl = manifestUrl;
         this.installButton.setAttribute('manifest', manifestUrl);
+
+        // Update button label
+        const activateBtn = this.installButton.querySelector('[slot="activate"]');
+        if (activateBtn) {
+          activateBtn.textContent = version.is_prerelease
+            ? `Install Pre-release Firmware (${version.version})`
+            : 'Install Latest Firmware';
+        }
       }
 
-      // Update the UI with latest version info
+      // Update the UI with version info
       this.updateVersionInfo(version);
 
     } catch (error) {
-      console.error('Failed to load manifest for latest version:', error);
+      console.error('Failed to load manifest for version:', error);
       this.fallbackToStatic();
     } finally {
-      this.setInstallButtonDisabled(false);
+      this.setButtonDisabled(this.installButton, false);
     }
   }
 
   async selectVersionForAdvanced(versionString) {
-    // Advanced button installs the selected version
     const version = this.versions.find(v => v.version === versionString);
     if (!version) return;
 
     this.selectedVersion = version;
-    this.setAdvancedInstallButtonDisabled(true);
+    this.setButtonDisabled(this.advancedInstallButton, true);
 
     try {
-      const manifestResponse = await fetch(new URL(`firmware/${version.folder}/manifest.json`, window.location.origin).href);
-      const manifest = await manifestResponse.json();
-
-      manifest.builds.forEach(build => {
-        build.parts.forEach(part => {
-          part.path = new URL(`firmware/${version.folder}/${part.path}`, window.location.origin).href;
-        });
-      });
-
-      const manifestJson = JSON.stringify(manifest);
-      const blob = new Blob([manifestJson], { type: 'application/json' });
-      const manifestUrl = URL.createObjectURL(blob);
+      const manifestUrl = await this.fetchManifestUrl(version);
 
       if (this.advancedInstallButton) {
         if (this.advancedManifestUrl) {
@@ -188,7 +229,7 @@ class ESP32FirmwareManager {
     } catch (error) {
       console.error('Failed to load manifest for version:', versionString, error);
     } finally {
-      this.setAdvancedInstallButtonDisabled(false);
+      this.setButtonDisabled(this.advancedInstallButton, false);
     }
   }
 
@@ -197,8 +238,16 @@ class ESP32FirmwareManager {
     const { badge, description, changelog, link, date } = this.releaseElements;
 
     if (badge) {
-      badge.textContent = version.is_latest ? `Latest • ${version.version}` : version.version;
-      badge.className = `badge ${version.is_latest ? 'bg-primary-subtle text-primary' : 'bg-secondary-subtle text-secondary'} fw-semibold`;
+      if (version.is_prerelease) {
+        badge.textContent = `RC • ${version.version}`;
+        badge.className = 'badge bg-warning-subtle text-warning-emphasis fw-semibold';
+      } else if (version.is_latest) {
+        badge.textContent = `Latest • ${version.version}`;
+        badge.className = 'badge bg-primary-subtle text-primary fw-semibold';
+      } else {
+        badge.textContent = version.version;
+        badge.className = 'badge bg-secondary-subtle text-secondary fw-semibold';
+      }
     }
 
     if (description && version.description) {
@@ -231,11 +280,15 @@ class ESP32FirmwareManager {
       })}`;
     }
 
-    // Update the latest version in the comparison
-    if (version.is_latest) {
+    // Update the version in the comparison display
+    if (version.is_latest || version.is_prerelease) {
       const latestFwEl = document.getElementById('latest-fw-version');
       if (latestFwEl) {
         latestFwEl.textContent = `v${version.version}`;
+      }
+      const { comparisonLabel } = this.releaseElements;
+      if (comparisonLabel) {
+        comparisonLabel.textContent = version.is_prerelease ? 'Pre-release' : 'Latest';
       }
     }
   }
@@ -251,17 +304,9 @@ class ESP32FirmwareManager {
     }
   }
 
-  setInstallButtonDisabled(disabled) {
-    if (!this.installButton) return;
-    const activateButton = this.installButton.querySelector('[slot="activate"]');
-    if (activateButton) {
-      activateButton.disabled = disabled;
-    }
-  }
-
-  setAdvancedInstallButtonDisabled(disabled) {
-    if (!this.advancedInstallButton) return;
-    const activateButton = this.advancedInstallButton.querySelector('[slot="activate"]');
+  setButtonDisabled(button, disabled) {
+    if (!button) return;
+    const activateButton = button.querySelector('[slot="activate"]');
     if (activateButton) {
       activateButton.disabled = disabled;
     }

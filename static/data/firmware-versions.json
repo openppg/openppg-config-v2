@@ -1,6 +1,19 @@
 {
   "versions": [
     {
+      "version": "7.5-rc1",
+      "folder": "v7.5",
+      "release_date": "2026-03-14",
+      "is_latest": false,
+      "is_prerelease": true,
+      "description": "Release candidate — help us test the next version",
+      "changelog": [
+        "Smarter BMS temperature handling with fewer false alarms from bad or missing sensors",
+        "Standardized on packed binary BLE telemetry format, removing legacy path",
+        "Refreshed platform and library dependencies (ESP32, NimBLE, ArduinoJson, and more)"
+      ]
+    },
+    {
       "version": "7.4",
       "folder": "v7.4",
       "release_date": "2026-02-17",
