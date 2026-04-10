@@ -1,12 +1,12 @@
 {
   "versions": [
     {
-      "version": "7.5-rc2",
+      "version": "7.5",
       "folder": "v7.5",
       "release_date": "2026-03-18",
-      "is_latest": false,
-      "is_prerelease": true,
-      "description": "Release candidate — help us test the next version",
+      "is_latest": true,
+      "is_prerelease": false,
+      "description": "Smarter BMS temps, binary BLE telemetry, refreshed dependencies",
       "changelog": [
         "Smarter BMS temperature handling with fewer false alarms from bad or missing sensors",
         "Standardized on packed binary BLE telemetry format, removing legacy path",
@@ -17,7 +17,7 @@
       "version": "7.4",
       "folder": "v7.4",
       "release_date": "2026-02-17",
-      "is_latest": true,
+      "is_latest": false,
       "description": "Reliability, smarter throttle, and BLE refinements",
       "changelog": [
         "Improved sensor handling (invalid readings as NaN, fewer false alerts)",
