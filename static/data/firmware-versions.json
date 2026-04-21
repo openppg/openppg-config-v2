@@ -1,9 +1,9 @@
 {
   "versions": [
     {
-      "version": "7.6-rc1",
+      "version": "7.6-rc3",
       "folder": "v7.6",
-      "release_date": "2026-04-11",
+      "release_date": "2026-04-15",
       "is_latest": false,
       "is_prerelease": true,
       "description": "Add ESC LED and motor beep",
