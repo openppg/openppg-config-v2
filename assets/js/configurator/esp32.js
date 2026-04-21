@@ -59,10 +59,10 @@ class ESP32FirmwareManager {
       this.versions = data.versions;
 
       // Show the pre-release toggle if any pre-release versions exist
-      // const hasPrerelease = this.versions.some(v => v.is_prerelease);
-      // if (hasPrerelease && this.prereleaseToggleContainer) {
-      //   this.prereleaseToggleContainer.classList.remove('d-none');
-      // }
+      const hasPrerelease = this.versions.some(v => v.is_prerelease);
+      if (hasPrerelease && this.prereleaseToggleContainer) {
+        this.prereleaseToggleContainer.classList.remove('d-none');
+      }
     } catch (error) {
       console.error('Failed to load firmware versions:', error);
       // Fallback to static manifest if data loading fails

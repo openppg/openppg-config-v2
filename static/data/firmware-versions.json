@@ -1,6 +1,19 @@
 {
   "versions": [
     {
+      "version": "7.6-rc1",
+      "folder": "v7.6",
+      "release_date": "2026-04-11",
+      "is_latest": false,
+      "is_prerelease": true,
+      "description": "Add ESC LED and motor beep",
+      "changelog": [
+        "Adds ESC status LED modes for supported ESCs in certain flight states",
+        "ESC motor beep tones on arm and disarm events",
+        "Fixes the center climb-rate divider contrast when the display is in dark mode"
+      ]
+    },
+    {
       "version": "7.5",
       "folder": "v7.5",
       "release_date": "2026-03-18",
