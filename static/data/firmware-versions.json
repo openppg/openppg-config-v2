@@ -1,11 +1,11 @@
 {
   "versions": [
     {
-      "version": "7.6-rc3",
+      "version": "7.6",
       "folder": "v7.6",
       "release_date": "2026-04-15",
-      "is_latest": false,
-      "is_prerelease": true,
+      "is_latest": true,
+      "is_prerelease": false,
       "description": "Add ESC LED and motor beep",
       "changelog": [
         "Adds ESC status LED modes for supported ESCs in certain flight states",
@@ -17,7 +17,7 @@
       "version": "7.5",
       "folder": "v7.5",
       "release_date": "2026-03-18",
-      "is_latest": true,
+      "is_latest": false,
       "is_prerelease": false,
       "description": "Smarter BMS temps, binary BLE telemetry, refreshed dependencies",
       "changelog": [
