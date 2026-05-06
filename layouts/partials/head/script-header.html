@@ -26,11 +26,11 @@
   ></script>
   {{ if eq (hugo.Environment) "development" -}}
     {{ $configuratorJs := resources.Get $configPath }}
-    <script src="{{ $configuratorJs.Permalink }}"></script>
+    <script src="{{ $configuratorJs.RelPermalink }}"></script>
   {{ else -}}
     <!-- TODO: build with | resources.Minify | fingerprint -->
     {{ $configuratorJs := resources.Get $configPath }}
-    <script src="{{ $configuratorJs.Permalink }}" integrity="{{ $configuratorJs.Data.Integrity }}"></script>
+    <script src="{{ $configuratorJs.RelPermalink }}" integrity="{{ $configuratorJs.Data.Integrity }}"></script>
   {{ end }}
 
 {{ end }}

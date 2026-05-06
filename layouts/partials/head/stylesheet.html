@@ -1,13 +1,12 @@
 {{ if eq (hugo.Environment) "development" -}}
   {{ $options := (dict "targetPath" "main.css" "enableSourceMap" true "includePaths" (slice "node_modules")) -}}
   {{ $css := resources.Get "scss/app.scss" | toCSS $options -}}
-  <link rel="stylesheet" href="{{ $css.Permalink }}">
+  <link rel="stylesheet" href="{{ $css.RelPermalink }}">
 {{ else -}}
   {{ $options := (dict "targetPath" "main.css" "outputStyle" "compressed" "includePaths" (slice "node_modules")) -}}
   {{ $css := resources.Get "scss/app.scss" | toCSS $options | postCSS (dict "config" "config/postcss.config.js") -}}
   {{ $secureCSS := $css | resources.Fingerprint "sha512" -}}
-  <link rel="stylesheet" href="{{ $secureCSS.Permalink }}" integrity="{{ $secureCSS.Data.Integrity }}" crossorigin="anonymous">
+  <link rel="stylesheet" href="{{ $secureCSS.RelPermalink }}" integrity="{{ $secureCSS.Data.Integrity }}" crossorigin="anonymous">
 {{ end -}}
 <noscript><style>img.lazyload { display: none; }</style></noscript>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
