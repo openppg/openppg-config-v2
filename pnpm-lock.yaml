@@ -19,7 +19,7 @@ importers:
         version: 7.29.0(@babel/core@7.29.0)
       '@fullhuman/postcss-purgecss':
         specifier: ^4.1
-        version: 4.1.3(postcss@8.5.8)
+        version: 4.1.3(postcss@8.5.10)
       '@hyas/images':
         specifier: ^0.2.2
         version: 0.2.3
@@ -28,7 +28,7 @@ importers:
         version: 2.5.0
       autoprefixer:
         specifier: ^10.4
-        version: 10.4.27(postcss@8.5.8)
+        version: 10.4.27(postcss@8.5.10)
       bootstrap:
         specifier: ^5.3.6
         version: 5.3.8(@popperjs/core@2.11.8)
@@ -66,11 +66,11 @@ importers:
         specifier: ^3.2
         version: 3.3.2
       postcss:
-        specifier: ^8.4
-        version: 8.5.8
+        specifier: ^8.5
+        version: 8.5.10
       postcss-cli:
         specifier: ^10.0
-        version: 10.1.0(postcss@8.5.8)
+        version: 10.1.0(postcss@8.5.10)
       purgecss-whitelister:
         specifier: ^2.4
         version: 2.4.0
@@ -82,7 +82,7 @@ importers:
         version: 14.16.1
       stylelint-config-standard-scss:
         specifier: ^4.0
-        version: 4.0.0(postcss@8.5.8)(stylelint@14.16.1)
+        version: 4.0.0(postcss@8.5.10)(stylelint@14.16.1)
 
 packages:
 
@@ -1809,8 +1809,8 @@ packages:
   ms@2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
 
-  nanoid@3.3.11:
-    resolution: {integrity: sha512-N8SpfPUnUp1bK+PMYW8qSWdl9U+wwNWI4QKxOYDy9JAro3WMX7p2OeVRF9v+347pnakNevPmiHhNmZ2HbFA76w==}
+  nanoid@3.3.12:
+    resolution: {integrity: sha512-ZB9RH/39qpq5Vu6Y+NmUaFhQR6pp+M2Xt76XBnEwDaGcVAqhlvxrl3B2bKS5D3NH3QR76v3aSrKaF/Kiy7lEtQ==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
@@ -2021,8 +2021,8 @@ packages:
   postcss-value-parser@4.2.0:
     resolution: {integrity: sha512-1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ==}
 
-  postcss@8.5.8:
-    resolution: {integrity: sha512-OW/rX8O/jXnm82Ey1k44pObPtdblfiuWnrd8X7GJ7emImCOstunGbXUpp7HdBrFQX6rJzn3sPT397Wp5aCwCHg==}
+  postcss@8.5.10:
+    resolution: {integrity: sha512-pMMHxBOZKFU6HgAZ4eyGnwXF/EvPGGqUr0MnZ5+99485wwW41kW91A4LOGxSHhgugZmSChL5AlElNdwlNgcnLQ==}
     engines: {node: ^10 || ^12 || >=14}
 
   prelude-ls@1.2.1:
@@ -3247,9 +3247,9 @@ snapshots:
 
   '@eslint/js@8.57.1': {}
 
-  '@fullhuman/postcss-purgecss@4.1.3(postcss@8.5.8)':
+  '@fullhuman/postcss-purgecss@4.1.3(postcss@8.5.10)':
     dependencies:
-      postcss: 8.5.8
+      postcss: 8.5.10
       purgecss: 4.1.3
 
   '@humanwhocodes/config-array@0.13.0':
@@ -3406,13 +3406,13 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  autoprefixer@10.4.27(postcss@8.5.8):
+  autoprefixer@10.4.27(postcss@8.5.10):
     dependencies:
       browserslist: 4.28.1
       caniuse-lite: 1.0.30001778
       fraction.js: 5.3.4
       picocolors: 1.1.1
-      postcss: 8.5.8
+      postcss: 8.5.10
       postcss-value-parser: 4.2.0
 
   available-typed-arrays@1.0.7:
@@ -4571,7 +4571,7 @@ snapshots:
 
   ms@2.1.3: {}
 
-  nanoid@3.3.11: {}
+  nanoid@3.3.12: {}
 
   natural-compare@1.4.0: {}
 
@@ -4707,7 +4707,7 @@ snapshots:
 
   possible-typed-array-names@1.1.0: {}
 
-  postcss-cli@10.1.0(postcss@8.5.8):
+  postcss-cli@10.1.0(postcss@8.5.10):
     dependencies:
       chokidar: 3.6.0
       dependency-graph: 0.11.0
@@ -4715,9 +4715,9 @@ snapshots:
       get-stdin: 9.0.0
       globby: 13.2.2
       picocolors: 1.1.1
-      postcss: 8.5.8
-      postcss-load-config: 4.0.2(postcss@8.5.8)
-      postcss-reporter: 7.1.0(postcss@8.5.8)
+      postcss: 8.5.10
+      postcss-load-config: 4.0.2(postcss@8.5.10)
+      postcss-reporter: 7.1.0(postcss@8.5.10)
       pretty-hrtime: 1.0.3
       read-cache: 1.0.0
       slash: 5.1.0
@@ -4725,30 +4725,30 @@ snapshots:
     transitivePeerDependencies:
       - ts-node
 
-  postcss-load-config@4.0.2(postcss@8.5.8):
+  postcss-load-config@4.0.2(postcss@8.5.10):
     dependencies:
       lilconfig: 3.1.3
       yaml: 2.8.2
     optionalDependencies:
-      postcss: 8.5.8
+      postcss: 8.5.10
 
   postcss-media-query-parser@0.2.3: {}
 
-  postcss-reporter@7.1.0(postcss@8.5.8):
+  postcss-reporter@7.1.0(postcss@8.5.10):
     dependencies:
       picocolors: 1.1.1
-      postcss: 8.5.8
+      postcss: 8.5.10
       thenby: 1.3.4
 
   postcss-resolve-nested-selector@0.1.6: {}
 
-  postcss-safe-parser@6.0.0(postcss@8.5.8):
+  postcss-safe-parser@6.0.0(postcss@8.5.10):
     dependencies:
-      postcss: 8.5.8
+      postcss: 8.5.10
 
-  postcss-scss@4.0.9(postcss@8.5.8):
+  postcss-scss@4.0.9(postcss@8.5.10):
     dependencies:
-      postcss: 8.5.8
+      postcss: 8.5.10
 
   postcss-selector-parser@6.1.2:
     dependencies:
@@ -4757,9 +4757,9 @@ snapshots:
 
   postcss-value-parser@4.2.0: {}
 
-  postcss@8.5.8:
+  postcss@8.5.10:
     dependencies:
-      nanoid: 3.3.11
+      nanoid: 3.3.12
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
@@ -4788,7 +4788,7 @@ snapshots:
     dependencies:
       commander: 8.3.0
       glob: 7.2.3
-      postcss: 8.5.8
+      postcss: 8.5.10
       postcss-selector-parser: 6.1.2
 
   queue-microtask@1.2.3: {}
@@ -5016,9 +5016,9 @@ snapshots:
 
   style-search@0.1.0: {}
 
-  stylelint-config-recommended-scss@6.0.0(postcss@8.5.8)(stylelint@14.16.1):
+  stylelint-config-recommended-scss@6.0.0(postcss@8.5.10)(stylelint@14.16.1):
     dependencies:
-      postcss-scss: 4.0.9(postcss@8.5.8)
+      postcss-scss: 4.0.9(postcss@8.5.10)
       stylelint: 14.16.1
       stylelint-config-recommended: 7.0.0(stylelint@14.16.1)
       stylelint-scss: 4.7.0(stylelint@14.16.1)
@@ -5029,10 +5029,10 @@ snapshots:
     dependencies:
       stylelint: 14.16.1
 
-  stylelint-config-standard-scss@4.0.0(postcss@8.5.8)(stylelint@14.16.1):
+  stylelint-config-standard-scss@4.0.0(postcss@8.5.10)(stylelint@14.16.1):
     dependencies:
       stylelint: 14.16.1
-      stylelint-config-recommended-scss: 6.0.0(postcss@8.5.8)(stylelint@14.16.1)
+      stylelint-config-recommended-scss: 6.0.0(postcss@8.5.10)(stylelint@14.16.1)
       stylelint-config-standard: 25.0.0(stylelint@14.16.1)
     transitivePeerDependencies:
       - postcss
@@ -5075,10 +5075,10 @@ snapshots:
       micromatch: 4.0.8
       normalize-path: 3.0.0
       picocolors: 1.1.1
-      postcss: 8.5.8
+      postcss: 8.5.10
       postcss-media-query-parser: 0.2.3
       postcss-resolve-nested-selector: 0.1.6
-      postcss-safe-parser: 6.0.0(postcss@8.5.8)
+      postcss-safe-parser: 6.0.0(postcss@8.5.10)
       postcss-selector-parser: 6.1.2
       postcss-value-parser: 4.2.0
       resolve-from: 5.0.0
