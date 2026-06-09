@@ -1,6 +1,21 @@
 {
   "versions": [
     {
+      "version": "8.0",
+      "folder": "v8.0",
+      "release_date": "2026-06-08",
+      "is_latest": false,
+      "is_prerelease": true,
+      "description": "Pre-release 8.0 — over-the-air updates, BLE pairing overhaul, and richer telemetry",
+      "changelog": [
+        "Over-the-air (OTA) firmware updates over BLE from the mobile app, with automatic rollback if a new image fails to boot",
+        "Reworked BLE pairing and bonding: auto-enters pairing on boot, on-screen pairing indicator, secure bonding with stale-bond recovery, and more reliable reconnection",
+        "Expanded FastLink telemetry with richer ESC and BMS data, including a command to read ESC hardware info",
+        "Improved reliability and diagnostics: watchdog (WDT) panic recovery with ELF coredumps, boot-history logging, and USB diagnostic tooling",
+        "Display and throttle refinements (LVGL v9 UI, updated variometer scaling and throttle deadzone) plus refreshed ESP32, NimBLE, and ArduinoJson dependencies"
+      ]
+    },
+    {
       "version": "7.6",
       "folder": "v7.6",
       "release_date": "2026-04-15",
