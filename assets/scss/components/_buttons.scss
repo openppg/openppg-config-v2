@@ -97,22 +97,17 @@ body.dark .toggle-dark {
   display: inline-block;
   vertical-align: middle;
   transform: perspective(1px) translateZ(0);
-  transform: perspective(1px) translateZ(0);
   box-shadow: 0 0 1px rgba(0, 0, 0, 0);
 }
 
 .hvr-icon-spin .hvr-icon {
   transition-duration: 0.5s;
-  transition-duration: 0.5s;
   transition-property: transform;
-  transition-property: transform;
-  transition-timing-function: ease-in-out;
   transition-timing-function: ease-in-out;
 }
 
 .hvr-icon-spin:hover .hvr-icon,
 .hvr-icon-spin:focus .hvr-icon,
 .hvr-icon-spin:active .hvr-icon {
-  transform: rotate(180deg);
   transform: rotate(180deg);
 }

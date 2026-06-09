@@ -768,7 +768,7 @@ class ESP32SettingsManager {
       if (this.port) {
         this.port.close().catch(() => { });
       }
-    } catch (e) {
+    } catch {
       // ignore
     }
   }
@@ -777,7 +777,6 @@ class ESP32SettingsManager {
     while (this.port && this.port.readable && this.keepReading) {
       try {
         this.reader = this.port.readable.getReader();
-        // eslint-disable-next-line no-constant-condition
         while (true) {
           const { value, done } = await this.reader.read();
           if (done) break;
@@ -800,7 +799,7 @@ class ESP32SettingsManager {
         if (this.reader) {
           try {
             this.reader.releaseLock();
-          } catch (e) {
+          } catch {
             // Ignore release errors
           }
           this.reader = null;
@@ -873,7 +872,7 @@ class ESP32SettingsManager {
       const data = JSON.parse(jsonStr);
       console.log('Received:', data);
       this.updateUI(data);
-    } catch (e) {
+    } catch {
       // Ignore non-JSON lines (debug msgs etc)
       // console.log('Ignored serial output:', jsonStr);
     }

@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 const CONFIG_SERVICE_UUID = '1779a55b-deb8-4482-a5d1-a12e62146138';
 const DEVICE_INFO_SERVICE_UUID = '0000180a-0000-1000-8000-00805f9b34fb';
 

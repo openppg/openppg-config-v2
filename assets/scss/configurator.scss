@@ -47,6 +47,7 @@
   background: rgba(59, 130, 246, 0.03);
   border: 1px solid rgba(59, 130, 246, 0.1);
   border-radius: 0.5rem;
+
   @extend %smooth-transition;
 
   &__header {
@@ -151,6 +152,7 @@
 /* Saved Status Animation */
 #save-status {
   @extend %smooth-transition;
+
   pointer-events: none;
 
   &.show {
@@ -163,9 +165,11 @@
   0% {
     transform: scale(0.95);
   }
+
   50% {
     transform: scale(1.05);
   }
+
   100% {
     transform: scale(1);
   }
@@ -201,7 +205,7 @@
   border-bottom-left-radius: 0;
 }
 
-.btn-group > .btn:not(:first-child):not(:last-child) {
+.btn-group > .btn:not(:first-child, :last-child) {
   border-radius: 0;
 }
 
@@ -402,6 +406,7 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
   display: flex;
   flex-direction: column;
+
   @extend %smooth-transition;
 
   &:hover {
@@ -448,6 +453,7 @@
   border: 1px solid rgba(0, 0, 0, 0.08);
   box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
   background: #fff;
+
   @extend %smooth-transition;
 }
 
@@ -575,6 +581,7 @@
 
 .hero-card__steps-label {
   @extend %uppercase-label;
+
   color: #1d4ed8;
 }
 
