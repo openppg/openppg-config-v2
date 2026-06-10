@@ -37,7 +37,6 @@
     "@babel/preset-env": "^7.29",
     "@eslint/js": "^10.0",
     "@fullhuman/postcss-purgecss": "^8.0",
-    "@hyas/images": "^0.2.2",
     "auto-changelog": "^2.6",
     "autoprefixer": "^10.5",
     "bootstrap": "^5.3.6",
@@ -65,5 +64,5 @@
   "overrides": {
     "semver": "^7.5.4"
   },
-  "packageManager": "pnpm@9.15.4+sha512.b2dc20e2fc72b3e18848459b37359a32064663e5627a51e4c74b2c29dd8e8e0491483c3abb40789cfd578bf362fb6ba8261b05f0387d76792ed6e23ea3b1b6a0"
+  "packageManager": "pnpm@11.5.2+sha512.71c631e382066efc25625d5cf029075de07b61b37f6e27350fbd84b1bda5864c8c1967adc280776b45c30a715c0359a3be08fef42d5bb09e2b99029979692916"
 }
