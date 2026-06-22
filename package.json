@@ -41,7 +41,7 @@
     "autoprefixer": "^10.5",
     "bootstrap": "^5.3.6",
     "clipboard": "^2.0",
-    "eslint": "^10.4",
+    "eslint": "^10.5",
     "exec-bin": "^1.0.0",
     "globals": "^17.6",
     "highlight.js": "^11.5",
