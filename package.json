@@ -32,7 +32,7 @@
     "preinstall": "node scripts/enforce-pnpm.mjs"
   },
   "devDependencies": {
-    "@babel/cli": "^7.29",
+    "@babel/cli": "^8.0",
     "@babel/core": "^7.29",
     "@babel/preset-env": "^7.29",
     "@eslint/js": "^10.0",
