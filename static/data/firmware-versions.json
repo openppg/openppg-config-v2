@@ -4,8 +4,6 @@
       "version": "8.0",
       "folder": "v8.0",
       "release_date": "2026-06-22",
-      "is_latest": true,
-      "is_prerelease": false,
       "description": "ESP-IDF platform, BLE OTA, and FastLink telemetry",
       "changelog": [
         "Hybrid ESP-IDF + Arduino build with boot diagnostics, watchdog recovery, and I2C reliability fixes",
@@ -18,8 +16,6 @@
       "version": "7.6",
       "folder": "v7.6",
       "release_date": "2026-04-15",
-      "is_latest": false,
-      "is_prerelease": false,
       "description": "Add ESC LED and motor beep",
       "changelog": [
         "Adds ESC status LED modes for supported ESCs in certain flight states",
@@ -31,8 +27,6 @@
       "version": "7.5",
       "folder": "v7.5",
       "release_date": "2026-03-18",
-      "is_latest": false,
-      "is_prerelease": false,
       "description": "Smarter BMS temps, binary BLE telemetry, refreshed dependencies",
       "changelog": [
         "Smarter BMS temperature handling with fewer false alarms from bad or missing sensors",
@@ -44,7 +38,6 @@
       "version": "7.4",
       "folder": "v7.4",
       "release_date": "2026-02-17",
-      "is_latest": false,
       "description": "Reliability, smarter throttle, and BLE refinements",
       "changelog": [
         "Improved sensor handling (invalid readings as NaN, fewer false alerts)",
@@ -57,7 +50,6 @@
       "version": "7.3",
       "folder": "v7.3",
       "release_date": "2025-11-26",
-      "is_latest": false,
       "description": "Enhanced monitoring, diagnostics, and system health",
       "changelog": [
         "New system health monitors for early detection of hardware initialization failures",
@@ -71,7 +63,6 @@
       "version": "7.2",
       "folder": "v7.2",
       "release_date": "2025-09-16",
-      "is_latest": false,
       "description": "Improved diagnostics and smoother throttle response",
       "changelog": [
         "New variometer display show altitude changes",
@@ -83,7 +74,6 @@
       "version": "7.1",
       "folder": "v7.1",
       "release_date": "2025-06-07",
-      "is_latest": false,
       "description": "Enhanced haptic feedback and system performance",
       "changelog": [
         "Enhanced haptic feedback with precise buzzer control and dedicated vibration motor task",

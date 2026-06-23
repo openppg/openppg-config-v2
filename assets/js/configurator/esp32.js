@@ -56,7 +56,7 @@ class ESP32FirmwareManager {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
       const data = await response.json();
-      this.versions = data.versions;
+      this.versions = this.normalizeVersions(data.versions);
 
       // Show the pre-release toggle if any pre-release versions exist
       const hasPrerelease = this.versions.some(v => v.is_prerelease);
@@ -68,6 +68,15 @@ class ESP32FirmwareManager {
       // Fallback to static manifest if data loading fails
       this.fallbackToStatic();
     }
+  }
+
+  normalizeVersions(versions) {
+    const latestStable = versions.find(v => !v.is_prerelease);
+    return versions.map(v => ({
+      ...v,
+      is_prerelease: !!v.is_prerelease,
+      is_latest: latestStable ? v.version === latestStable.version : false,
+    }));
   }
 
   getVisibleVersions() {
