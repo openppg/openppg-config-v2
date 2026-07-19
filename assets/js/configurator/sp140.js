@@ -142,22 +142,24 @@
 
     // migrate new data to old mappings
     function migrateUsbData(usb_parsed){
-      const key_map = [];
-      key_map['mj_v'] = 'major_v';
-      key_map['mi_v'] = 'minor_v';
-      key_map['arch'] = 'arch';
-      key_map['scr_rt'] = 'screen_rot';
-      key_map['ar_tme'] = 'armed_time';
-      key_map['m_tmp'] = 'metric_temp';
-      key_map['m_alt'] = 'metric_alt';
-      key_map['prf'] = 'performance_mode';
-      key_map['sea_p'] = 'sea_pressure';
-      key_map['id'] = 'device_id';
-      key_map['thm'] = 'theme';
-      key_map['rev'] = 'revision';
-      var migratedUsbData = {};
+      const key_map = {
+        'mj_v': 'major_v',
+        'mi_v': 'minor_v',
+        'arch': 'arch',
+        'scr_rt': 'screen_rot',
+        'ar_tme': 'armed_time',
+        'm_tmp': 'metric_temp',
+        'm_alt': 'metric_alt',
+        'prf': 'performance_mode',
+        'sea_p': 'sea_pressure',
+        'id': 'device_id',
+        'thm': 'theme',
+        'rev': 'revision',
+      };
+      const migratedUsbData = {};
       for (const [key, value] of Object.entries(usb_parsed)) {
-        migratedUsbData[key_map[key]] = value;
+        const newKey = key_map[key] ?? key;
+        migratedUsbData[newKey] = value;
       }
       return migratedUsbData;
     }
