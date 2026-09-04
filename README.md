@@ -3,58 +3,59 @@
 Configure your OpenPPG controller via WebUSB
 
 [![Deploy Hugo site to Pages](https://github.com/openppg/openppg-config-v2/actions/workflows/pages.yml/badge.svg)](https://github.com/openppg/openppg-config-v2/actions/workflows/pages.yml)
-[![Hyas CI](https://github.com/openppg/openppg-config-v2/actions/workflows/node.js-ci.yml/badge.svg)](https://github.com/openppg/openppg-config-v2/actions/workflows/node.js-ci.yml)
+[![CI](https://github.com/openppg/openppg-config-v2/actions/workflows/node.js-ci.yml/badge.svg)](https://github.com/openppg/openppg-config-v2/actions/workflows/node.js-ci.yml)
 
-### Notes:
+## Notes:
 
 - Currently only works in Google Chrome and related chromium variants (like Brave browser and latest Microsoft Edge) https://caniuse.com/webusb
 - Also tested and working in Chrome on Android
 - In Windows you may have to enable the new USB backed by navigating to `chrome://flags/#new-usb-backend`
 
-### Requirements
+## Requirements
 
-OpenPPG config uses [Doks](https://github.com/h-enk/doks) and a number of other npm packages. Installing npm is pretty simple. Download and install [Node.js](https://nodejs.org/) (it includes npm) for your platform. We recommend installing the most recent LTS release.
+OpenPPG config uses [Doks](https://github.com/h-enk/doks) and a number of other npm packages. Use Node.js 22 or 24 and the pnpm version pinned in `package.json`.
 
-### Local development
+## Local development
 
-#### 1. Install npm packages
+### 1. Install dependencies
 
 ```bash
-npm install
+pnpm install
 ```
 
-#### 2. Start local development server
+### 2. Start local development server
 
 To interact with WebUSB devices you must use *https*. Hugo now provides https server out of the box. You can access the site at https://localhost:1313.
 
 ```bash
-npm run start
+pnpm run start
 ```
 
-#### 3. (Not required) Build files
+### 3. Check and build
 
-*Github actions now auto-builds and deploys code when merged/commited into the master branch*
+GitHub Actions builds and deploys changes merged into `master`.
 
-When ready to publish to a static hosting site
+`pnpm test` runs JavaScript, stylesheet, and Markdown linting. The production build writes to `docs/`.
 
 ```bash
-npm run build
+pnpm test
+pnpm run build
 ```
 
-### Staging Deployment
+## Staging Deployment
 
 Staging is hosted on Cloudflare Pages at `config-staging.openppg.com`. To manually deploy:
 
 ```bash
-npm run build -- --baseURL "https://config-staging.openppg.com/"
+pnpm run build --baseURL "https://config-staging.openppg.com/"
 wrangler pages deploy docs --project-name openppg-config-staging
 ```
 
 **Note:** You must be logged into wrangler (`wrangler login`) with access to the OpenPPG Cloudflare account.
 
-### Firmware Development
+## Firmware Development
 
-#### Building ESP32-S3 Firmware
+### Building ESP32-S3 Firmware
 
 Most updates should be firmware-only so user preferences (NVS) and partitions are preserved. For distribution, use the raw app image at `.pio/build/OpenPPG-CESP32S3-CAN-SP140/firmware.bin` (no padding/merge needed).
 

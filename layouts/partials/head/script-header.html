@@ -12,25 +12,17 @@
   // End Rollbar Snippet
 </script>
 
-<script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111553987-3"></script>
-
-{{ if (isset .Params "configurator") }}
-  {{ $configPath := (printf "js/configurator/%s.js" (.Param "configurator") )}}
-  <script src="/js/vendor/serial.js"></script>
-  <script src="/js/vendor/weather.js"></script>
-  {{/* ESP Web Tools now loaded from npm via unpkg CDN */}}
-  <script
-    type="module"
-    src="https://unpkg.com/@zjwhitehead/esp-web-tools@10.2.0-b2/dist/web/install-button.js?module"
-  ></script>
-  {{ if eq (hugo.Environment) "development" -}}
-    {{ $configuratorJs := resources.Get $configPath }}
-    <script src="{{ $configuratorJs.RelPermalink }}"></script>
-  {{ else -}}
-    <!-- TODO: build with | resources.Minify | fingerprint -->
-    {{ $configuratorJs := resources.Get $configPath }}
-    <script src="{{ $configuratorJs.RelPermalink }}" integrity="{{ $configuratorJs.Data.Integrity }}"></script>
+{{ with .Param "configurator" }}
+  {{ if or (eq . "x4") (eq . "sp140") }}
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+    <script src="/js/vendor/serial.js"></script>
+    <script src="/js/vendor/weather.js"></script>
+  {{ else if eq . "esp32" }}
+    <script
+      type="module"
+      src="https://unpkg.com/@zjwhitehead/esp-web-tools@10.2.0-b2/dist/web/install-button.js?module"
+    ></script>
   {{ end }}
-
+  {{ $configuratorJs := resources.Get (printf "js/configurator/%s.js" .) }}
+  <script src="{{ $configuratorJs.RelPermalink }}"></script>
 {{ end }}
