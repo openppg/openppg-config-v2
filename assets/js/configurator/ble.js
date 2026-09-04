@@ -26,7 +26,6 @@ const SETTING_SPECS = {
     type: 'u8',
     group: 'screen_rot',
     read: value => value.getUint8(0),
-    expected: value => [value],
     requiresReboot: true,
   },
   theme: {
@@ -34,7 +33,6 @@ const SETTING_SPECS = {
     type: 'u8',
     group: 'theme',
     read: value => value.getUint8(0),
-    expected: value => [value],
     optional: true,
     requiresReboot: true,
   },
@@ -43,25 +41,18 @@ const SETTING_SPECS = {
     type: 'u8',
     group: 'units',
     read: value => value.getUint8(0),
-    expected: value => [value],
   },
   performance_mode: {
     uuid: CHAR_UUIDS.PERFORMANCE_MODE,
     type: 'u8',
     group: 'performance_mode',
     read: value => value.getUint8(0),
-    expected: value => [value],
   },
   sea_pressure: {
     uuid: CHAR_UUIDS.SEA_PRESSURE,
     type: 'f32',
     inputId: 'sea-pressure',
     read: value => value.getFloat32(0, true),
-    expected: value => {
-      const buffer = new ArrayBuffer(4);
-      new DataView(buffer).setFloat32(0, value, true);
-      return Array.from(new Uint8Array(buffer));
-    },
   },
 };
 
@@ -429,9 +420,8 @@ async function writeSetting(key, value) {
 
     await queueGatt(`write ${key}`, () => writeCharacteristic(characteristic, payload));
     const confirmed = await queueGatt(`confirm ${key}`, () => characteristic.readValue());
-    const expected = spec.expected(value);
 
-    if (!bytesEqual(dataViewToBytes(confirmed), expected)) {
+    if (!bytesEqual(dataViewToBytes(confirmed), payload)) {
       throw new Error('Firmware readback did not match the requested value.');
     }
 

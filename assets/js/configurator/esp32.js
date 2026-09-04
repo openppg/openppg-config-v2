@@ -2,7 +2,6 @@
 class ESP32FirmwareManager {
   constructor() {
     this.versions = [];
-    this.selectedVersion = null;
     this.installButton = null;
     this.advancedInstallButton = null;
     this.versionSelector = null;
@@ -221,7 +220,6 @@ class ESP32FirmwareManager {
     const version = this.versions.find(v => v.version === versionString);
     if (!version) return;
 
-    this.selectedVersion = version;
     this.setButtonDisabled(this.advancedInstallButton, true);
 
     try {

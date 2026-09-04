@@ -4,7 +4,6 @@ const globals = require('globals');
 module.exports = [
   {
     ignores: [
-      'assets/js/index.js',
       'assets/js/vendor/**',
     ],
   },
