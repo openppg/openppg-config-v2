@@ -58,6 +58,47 @@
       disconnect();
     });
 
+    // Backup way into update mode that doesn't need the WebUSB interface. The
+    // controller's USB serial port runs on the OS's built-in driver, and
+    // TinyUSB reboots into the UF2 bootloader when that port is opened at
+    // 1200 baud and DTR is dropped (the same "1200 baud touch" Arduino uses).
+    if ('serial' in navigator) {
+      document.querySelector('button#bl-serial').addEventListener('click', rebootBootloaderSerial);
+    } else {
+      $('#bl-serial-group').hide();
+    }
+
+    async function rebootBootloaderSerial() {
+      let serialStatus = document.querySelector('#bl-serial-status');
+      let serialPort;
+      try {
+        serialPort = await navigator.serial.requestPort({
+          filters: serial.filters.map(filter => ({ usbVendorId: filter.vendorId })),
+        });
+      } catch {
+        return; // port picker was dismissed
+      }
+
+      try {
+        await serialPort.open({ baudRate: 1200 });
+      } catch (error) {
+        Rollbar.warn(error);
+        serialStatus.textContent = error.message;
+        return;
+      }
+
+      try {
+        await serialPort.setSignals({ dataTerminalReady: true });
+        await serialPort.setSignals({ dataTerminalReady: false });
+        await serialPort.close();
+      } catch (error) {
+        // The controller drops off USB as it reboots, which can fail these calls.
+        console.log(error);
+      }
+      serialStatus.textContent = 'Update mode requested. The screen should turn off and a new USB drive should appear. ' +
+        'Drag the .uf2 firmware file onto it.';
+    }
+
     // called when button is clicked
     function connect() {
       port.connect().then(() => {
@@ -94,8 +135,25 @@
         };
       }, error => {
         Rollbar.warn(error);
-        displayError(error);
+        if (/claim interface/i.test(error.message)) {
+          displayClaimError();
+        } else {
+          displayError(error);
+        }
       });
+    }
+
+    // "Unable to claim interface" means the OS refused the WebUSB interface:
+    // another tab or program already has it open, or (on Windows) the WinUSB
+    // driver never got bound to it. Chrome's raw message doesn't say either.
+    function displayClaimError() {
+      let helpLink = document.createElement('a');
+      helpLink.href = '/docs/controllers/sp140-v2/#troubleshooting';
+      helpLink.textContent = 'Troubleshooting';
+      statusDisplay.textContent = 'Your computer found the controller but won\'t let this page talk to it. ' +
+        'Close any other OpenPPG tabs, unplug and replug the controller, and try again. ' +
+        'To update firmware anyway, use "Reboot in update mode (backup)" below. ';
+      statusDisplay.appendChild(helpLink);
     }
 
     // Update the page from received data
