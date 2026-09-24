@@ -75,7 +75,7 @@
         serialPort = await navigator.serial.requestPort({
           filters: serial.filters.map(filter => ({ usbVendorId: filter.vendorId })),
         });
-      } catch (error) {
+      } catch {
         return; // port picker was dismissed
       }
 
