@@ -3,3 +3,128 @@ table {
 
   margin: 2rem 0;
 }
+
+/* Alert reference tables (SP140 controller alerts) */
+
+// The hand controller shows warnings in orange and criticals in red, so the
+// alert reference tables use the same two colours. A pilot who has just read a
+// code off the screen can then match it to the right column by colour alone.
+:root {
+  --alert-warn-bg: #fff1de;
+  --alert-warn-bg-strong: #ffe2bd;
+  --alert-warn-text: #7a4300;
+  --alert-crit-bg: #fdeaea;
+  --alert-crit-bg-strong: #fbd5d5;
+  --alert-crit-text: #96110f;
+}
+
+body.dark {
+  --alert-warn-bg: rgba(255, 152, 0, 0.14);
+  --alert-warn-bg-strong: rgba(255, 152, 0, 0.26);
+  --alert-warn-text: #ffbe6b;
+  --alert-crit-bg: rgba(244, 67, 54, 0.14);
+  --alert-crit-bg-strong: rgba(244, 67, 54, 0.26);
+  --alert-crit-text: #ff9a90;
+}
+
+// Screen codes are read character by character off a small display, so a code
+// must never break across lines. Holding that on the individual code rather
+// than the whole cell lets a cell listing several codes still wrap, which is
+// what keeps the four-sensor BMS cell temperature row from forcing the table
+// wider than the content column.
+.alert-thresholds,
+.alert-critical-codes {
+  td:nth-child(2) code {
+    white-space: nowrap;
+  }
+}
+
+// A code in a threshold table is warning or critical depending on which limit
+// it crossed, so it carries no colour of its own; the shaded columns say which
+// level applies. The theme's inline-code background is dropped so the code
+// reads as plain text next to them.
+.alert-thresholds {
+  td:nth-child(2) code {
+    padding: 0;
+    background-color: transparent;
+  }
+}
+
+// Warning threshold is always column 3 and critical threshold column 4.
+// :not(:empty) leaves the shading off cells with no threshold to show, such as
+// BARO-I, which the firmware only ever raises as a warning.
+// --bs-table-bg is set alongside background-color because these tables extend
+// Bootstrap's .table, which paints cell backgrounds from that variable.
+.alert-thresholds {
+  th:nth-child(3) {
+    --bs-table-bg: var(--alert-warn-bg-strong);
+
+    background-color: var(--alert-warn-bg-strong);
+    color: var(--alert-warn-text);
+  }
+
+  td:nth-child(3):not(:empty) {
+    --bs-table-bg: var(--alert-warn-bg);
+
+    background-color: var(--alert-warn-bg);
+    color: var(--alert-warn-text);
+  }
+
+  th:nth-child(4) {
+    --bs-table-bg: var(--alert-crit-bg-strong);
+
+    background-color: var(--alert-crit-bg-strong);
+    color: var(--alert-crit-text);
+  }
+
+  td:nth-child(4):not(:empty) {
+    --bs-table-bg: var(--alert-crit-bg);
+
+    background-color: var(--alert-crit-bg);
+    color: var(--alert-crit-text);
+  }
+}
+
+// Every row in these tables is critical, so the code itself carries the colour
+// rather than a threshold column. The fill sits on the code and not on the
+// cell: an alert name that wraps makes the row several lines tall, and a
+// full-cell fill then leaves a large block of colour around one short code.
+.alert-critical-codes {
+  td:nth-child(2) code {
+    display: inline-block;
+    padding: 0.1rem 0.45rem;
+    border-radius: 4px;
+    background-color: var(--alert-crit-bg-strong);
+    color: var(--alert-crit-text);
+    font-weight: 600;
+  }
+}
+
+// Legend chips in the Alert Levels list, matching the table shading.
+.alert-chip {
+  display: inline-block;
+  padding: 0.05rem 0.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.alert-chip-warn {
+  background-color: var(--alert-warn-bg-strong);
+  color: var(--alert-warn-text);
+}
+
+.alert-chip-crit {
+  background-color: var(--alert-crit-bg-strong);
+  color: var(--alert-crit-text);
+}
+
+// These reference tables carry three to five columns, which is wider than a
+// phone. Let them scroll on their own rather than spill over the page, so the
+// shaded threshold columns stay reachable instead of being cut off.
+@media (max-width: 767.98px) {
+  .alert-thresholds,
+  .alert-critical-codes {
+    display: block;
+    overflow-x: auto;
+  }
+}
