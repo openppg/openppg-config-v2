@@ -60,6 +60,8 @@ Most updates should be firmware-only so user preferences (NVS) and partitions ar
 
 Note: In web installer manifests, firmware-only updates must use `offset: 65536` (hex `0x10000`). An `offset: 0` manifest flashes a full image and will overwrite bootloader/partitions/NVS.
 
+Every ESP32-S3 manifest also writes `boot_app0.bin` at `offset: 57344` (hex `0xe000`, the `otadata` partition). Copy it from `~/.platformio/packages/framework-arduinoespressif32/tools/partitions/boot_app0.bin` into each new `static/firmware/vX.Y/` folder. It points the bootloader back at `app0`. Without it, a controller whose last Bluetooth (OTA) update landed in `app1` keeps booting `app1`, so the firmware just written to `app0` never runs. It doesn't touch NVS (settings) or the bootloader.
+
 Use a full image only for factory resets or when you need to update the bootloader/partitions. This merges all binaries into a single flashable image:
 
 ```bash
