@@ -1,0 +1,21 @@
+{
+  "name": "OpenPPG Controller Firmware",
+  "version": "8.1-rc2",
+  "new_install_prompt_erase": true,
+  "new_install_prevent_erase": true,
+  "builds": [
+    {
+      "chipFamily": "ESP32-S3",
+      "parts": [
+        {
+          "path": "boot_app0.bin",
+          "offset": 57344
+        },
+        {
+          "path": "firmware.bin",
+          "offset": 65536
+        }
+      ]
+    }
+  ]
+}
