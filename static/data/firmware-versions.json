@@ -1,6 +1,20 @@
 {
   "versions": [
     {
+      "version": "8.1-rc3",
+      "folder": "v8.1-rc3",
+      "release_date": "2026-10-31",
+      "is_prerelease": true,
+      "description": "Release candidate: unified cruise, climb power bar, safer Bluetooth updates",
+      "changelog": [
+        "Chill mode reaches 80% of ESC output; cruise max is 70% in both modes and holds the throttle you set",
+        "New climb power bar under the kW readout shows level-flight and efficient-climb power",
+        "Safer Bluetooth updates: working rollback, encrypted transfers, and no update can start while arming",
+        "Barometer snapshots, faster optimized build, and crisper fonts",
+        "Beta: please test on the ground before flying and report anything unexpected"
+      ]
+    },
+    {
       "version": "8.0",
       "folder": "v8.0",
       "release_date": "2026-06-22",
